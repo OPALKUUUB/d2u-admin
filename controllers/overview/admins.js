@@ -16,6 +16,7 @@ function query(sql, data) {
 }
 
 exports.getAdmins = async (req, res) => {
+  console.log("GET::/api/overview/users");
   const data = [
     "%" + req.query.username.trim() + "%", // username
     isEmpty(req.query.offset) ? 0 : parseInt(req.query.offset), // offset
@@ -45,6 +46,7 @@ exports.getAdmins = async (req, res) => {
 };
 
 exports.countAdmins = (req, res) => {
+  console.log("GET::/api/overview/users/count");
   const sql = "select count(id) as count from user_admins;";
   conn.query(sql, (err, result) => {
     if (err) throw err;

@@ -16,6 +16,7 @@ function query(sql, data) {
 }
 
 exports.getOrders = async (req, res) => {
+  console.log("GET::/api/yahoo/orders");
   const data = [
     "%" + req.query.date.trim() + "%",
     "%" + req.query.username.trim() + "%", // username
