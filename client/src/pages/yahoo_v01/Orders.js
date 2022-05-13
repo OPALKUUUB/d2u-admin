@@ -212,6 +212,7 @@ const RowTable = ({ index, item }) => {
         show={manageModalShow}
         onHide={() => setManageModalShow(false)}
         index={index}
+        item={item}
       />
       <WinModal
         show={winModalShow}
@@ -263,6 +264,10 @@ const TdImg = ({ imgsrc }) => {
 };
 
 function ManageModal(props) {
+  let item = props.item;
+  const [noted, setNoted] = useState(
+    item.noted === null || item.noted === undefined ? "" : item.noted
+  );
   return (
     <Modal
       {...props}
@@ -272,21 +277,68 @@ function ManageModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          แก้ไข ({props.index + 1})
+          แก้ไข (#{props.index + 1})
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <div className="card mb-3">
+          <div className="card-header">ข้อมูล</div>
+          <div className="card-body">
+            <p className="card-text">
+              <ShowDate date={item.created_at} s />
+              <br />
+              Username: {item.username}
+              <br />
+              Link:{" "}
+              <a href={item.link} target="_blank" rel="noopener noreferrer">
+                {item.link}
+              </a>
+              <br />
+              Maxbid: {item.maxbid} ¥ ({item.maxbid_work_by}) | Addbid1:{" "}
+              {item.addbid1} ¥ ({item.addbid1_work_by}) | Addbid2:{" "}
+              {item.addbid2} ¥ ({item.addbid2_work_by})<br />
+              User Noted: {item.remark}
+            </p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="form-group">
+              <label className="form-label">Admin Noted</label>
+              <input
+                type="text"
+                className="form-control"
+                value={noted}
+                onChange={(e) => setNoted(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <button className="btn btn-primary">Save</button>
+        <button className="btn btn-secondary" onClick={props.onHide}>
+          Close
+        </button>
       </Modal.Footer>
     </Modal>
+  );
+}
+
+function ShowDate({ date }) {
+  if (date === undefined) {
+    return <>Date: -</>;
+  }
+  let t = date.split("T");
+  let Date = t[0].split("-");
+  let d = Date[2];
+  let m = Date[1];
+  let y = Date[0];
+  let Time = t[1];
+  return (
+    <>
+      Date: {d}/{m}/{y} ({Time})
+    </>
   );
 }
 function WinModal(props) {
@@ -311,6 +363,7 @@ function WinModal(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
+        <Button>Save</Button>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>

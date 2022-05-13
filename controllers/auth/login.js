@@ -1,9 +1,11 @@
 const conn = require("../connection");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
 function genToken(username, id) {
   console.log(username, id);
-  return jwt.sign({ username: username, id: id }, "fakeauth", {
+  return jwt.sign({ username: username, id: id }, process.env.SECRET_KEY, {
     expiresIn: "7d",
   });
 }

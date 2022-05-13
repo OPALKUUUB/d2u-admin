@@ -10,7 +10,14 @@ export const Users = () => {
   });
 
   const countUsers = async () => {
-    await fetch("/api/overview/users/count")
+    await fetch("/api/overview/users/count", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("token")).token
+        }`,
+      },
+    })
       .then((res) => res.json())
       .then((json) => setCount(json.count));
   };

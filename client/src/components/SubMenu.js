@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const SidebarLink = styled(Link)`
+const Sidebar = styled.div`
   display: flex;
   color: #e1e9fc;
   justify-content: space-between;
@@ -46,7 +46,7 @@ const SubMenu = ({ item }) => {
 
   return (
     <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+      <Sidebar onClick={item.subNav && showSubnav}>
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
@@ -58,7 +58,7 @@ const SubMenu = ({ item }) => {
             ? item.iconClosed
             : null}
         </div>
-      </SidebarLink>
+      </Sidebar>
       {subnav &&
         item.subNav.map((item, index) => {
           return (
