@@ -13,14 +13,17 @@ import Login from "./auth/Login";
 import Sidebar from "./components/Sidebar";
 import { Users } from "./pages/overview/Users";
 import { Admins } from "./pages/overview/Admins";
-import { Orders } from "./pages/yahoo/Orders";
-import { Payments } from "./pages/yahoo/Payments";
-import { Historys } from "./pages/yahoo/Historys";
 import { Add } from "./pages/yahoo/Add";
+
+import { Order } from "./pages/yahoo/order/Order";
+import { Payment } from "./pages/yahoo/payment/Payment";
+import { History } from "./pages/yahoo/history/History";
+import { Tracking } from "./pages/yahoo/tracking/Tracking";
 
 function App() {
   const { token, setToken, logout } = useToken();
   if (!token) {
+    console.log("first");
     return <Login setToken={setToken} />;
   }
   return (
@@ -38,10 +41,13 @@ function App() {
           </Route>
 
           <Route path="/yahoo">
-            <Route path="" element={<Orders />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="payments" element={<Payments />} />
-            <Route path="Historys" element={<Historys />} />
+            {/* <Route path="" element={<Orders />} />
+            <Route path="orders" element={<Orders />} /> */}
+            <Route path="" element={<Order />} />
+            <Route path="orders" element={<Order />} />
+            <Route path="payments" element={<Payment />} />
+            <Route path="trackings" element={<Tracking />} />
+            <Route path="historys" element={<History />} />
             <Route path="add" element={<Add />} />
           </Route>
 

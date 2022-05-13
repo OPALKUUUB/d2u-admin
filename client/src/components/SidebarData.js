@@ -27,7 +27,7 @@ export const SidebarData = [
   },
   {
     title: "Yahoo",
-    path: "/Yahoo",
+    path: "/yahoo",
     icon: <RiIcons.RiAuctionFill />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -42,6 +42,12 @@ export const SidebarData = [
       {
         title: "Payments",
         path: "/yahoo/payments",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Trackings",
+        path: "/yahoo/trackings",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
