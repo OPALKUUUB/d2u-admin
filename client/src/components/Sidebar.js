@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -48,7 +48,17 @@ const SidebarWrap = styled.div`
 
 const Sidebar = ({ sidebar, setSidebar }) => {
   const showSidebar = () => setSidebar(!sidebar);
-
+  useEffect(() => {
+    const keydownHandler = (e) => {
+      if (e.keyCode === 66 && e.ctrlKey) {
+        showSidebar();
+      }
+    };
+    document.addEventListener("keydown", keydownHandler);
+    return () => {
+      document.removeEventListener("keydown", keydownHandler);
+    };
+  });
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
