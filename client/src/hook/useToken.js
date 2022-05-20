@@ -1,6 +1,10 @@
 import { useState } from "react";
 
 export default function useToken() {
+  if (localStorage.getItem("token") === "undefined") {
+    localStorage.removeItem("token");
+    window.location.reload(false);
+  }
   const getToken = () => {
     const tokenString = localStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
@@ -11,13 +15,8 @@ export default function useToken() {
     localStorage.setItem("token", JSON.stringify(userToken));
     setToken(userToken.token);
   };
-  const removeToken = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-  };
   return {
     setToken: saveToken,
     token,
-    logout: removeToken,
   };
 }

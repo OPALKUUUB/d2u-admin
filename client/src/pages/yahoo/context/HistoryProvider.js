@@ -32,6 +32,10 @@ export const HistoryProvider = ({ children }) => {
           setData(json.data);
         } else {
           alert(json.message);
+          if (json.error === "jwt") {
+            localStorage.removeItem("token");
+          }
+          window.location.reload(false);
         }
       })
       .catch((err) => console.log(err))

@@ -19,7 +19,15 @@ export const Admins = () => {
       },
     })
       .then((res) => res.json())
-      .then((json) => setCount(json.count));
+      .then((json) => {
+        if (json.status) {
+          setCount(json.count);
+        } else {
+          if (json.error === "jwt") {
+            console.log("in");
+          }
+        }
+      });
   };
 
   useEffect(() => {

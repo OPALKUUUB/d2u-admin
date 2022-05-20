@@ -43,7 +43,21 @@ const DropdownLink = styled(Link)`
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
-
+  if (item.path === "/logout") {
+    return (
+      <Sidebar
+        onClick={() => {
+          localStorage.removeItem("token");
+          window.location.reload(false);
+        }}
+      >
+        <div>
+          {item.icon}
+          <SidebarLabel>{item.title}</SidebarLabel>
+        </div>
+      </Sidebar>
+    );
+  }
   return (
     <>
       <Sidebar onClick={item.subNav && showSubnav}>

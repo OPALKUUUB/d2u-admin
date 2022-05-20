@@ -1,12 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import useToken from "./hook/useToken";
 import Login from "./auth/Login";
@@ -19,9 +14,11 @@ import { Order } from "./pages/yahoo/order/Order";
 import { Payment } from "./pages/yahoo/payment/Payment";
 import { History } from "./pages/yahoo/history/History";
 import { Tracking } from "./pages/yahoo/tracking/Tracking";
+import { ContentLayout } from "./pages/yahoo/order/components/ContentLayout";
 
 function App() {
-  const { token, setToken, logout } = useToken();
+  const { token, setToken } = useToken();
+  const [sidebar, setSidebar] = useState(false);
   if (!token) {
     console.log("first");
     return <Login setToken={setToken} />;
@@ -29,30 +26,30 @@ function App() {
   return (
     <>
       <Router>
-        <Sidebar />
-        <Routes>
-          <Route index path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+        <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
+        <ContentLayout sidebar={sidebar}>
+          <Routes>
+            <Route index path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route path="/overview">
-            <Route path="" element={<Users />} />
-            <Route path="users" element={<Users />} />
-            <Route path="admins" element={<Admins />} />
-          </Route>
+            <Route path="/overview">
+              <Route path="" element={<Users />} />
+              <Route path="users" element={<Users />} />
+              <Route path="admins" element={<Admins />} />
+            </Route>
 
-          <Route path="/yahoo">
-            {/* <Route path="" element={<Orders />} />
+            <Route path="/yahoo">
+              {/* <Route path="" element={<Orders />} />
             <Route path="orders" element={<Orders />} /> */}
-            <Route path="" element={<Order />} />
-            <Route path="orders" element={<Order />} />
-            <Route path="payments" element={<Payment />} />
-            <Route path="trackings" element={<Tracking />} />
-            <Route path="historys" element={<History />} />
-            <Route path="add" element={<Add />} />
-          </Route>
-
-          <Route path="/logout" element={<Logout logout={logout} />} />
-        </Routes>
+              <Route path="" element={<Order />} />
+              <Route path="orders" element={<Order />} />
+              <Route path="payments" element={<Payment />} />
+              <Route path="trackings" element={<Tracking />} />
+              <Route path="historys" element={<History />} />
+              <Route path="add" element={<Add />} />
+            </Route>
+          </Routes>
+        </ContentLayout>
       </Router>
     </>
   );
@@ -66,11 +63,4 @@ const Dashboard = () => {
   );
 };
 
-const Logout = ({ logout }) => {
-  let navigate = useNavigate();
-  useEffect(() => {
-    navigate("/");
-    logout();
-  });
-};
 export default App;

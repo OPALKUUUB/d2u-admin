@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
@@ -46,9 +46,7 @@ const SidebarWrap = styled.div`
   width: 100%;
 `;
 
-const Sidebar = () => {
-  const [sidebar, setSidebar] = useState(false);
-
+const Sidebar = ({ sidebar, setSidebar }) => {
   const showSidebar = () => setSidebar(!sidebar);
 
   return (
@@ -64,6 +62,7 @@ const Sidebar = () => {
             })}
           </SidebarWrap>
         </SidebarNav>
+
         <Nav>
           <NavIcon to="/dashboard">
             <h3>Admin</h3>
