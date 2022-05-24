@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TrackingContext } from "../../context/TrackingProvider";
+import { TrackingContext } from "../../../../context/TrackingProvider";
 import { TableData } from "./TableData";
 
 export const Table = () => {

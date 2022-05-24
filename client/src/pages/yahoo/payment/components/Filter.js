@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PaymentContext } from "../../context/PaymentProvider";
+import { PaymentContext } from "../../../../context/PaymentProvider";
 
 export const Filter = () => {
   const { filter, setFilter, handleSearch } = useContext(PaymentContext);

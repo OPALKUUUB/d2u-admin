@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PaymentContext } from "../../context/PaymentProvider";
+import { PaymentContext } from "../../../../context/PaymentProvider";
 import { TableData } from "./TableData";
 
 export const Table = () => {

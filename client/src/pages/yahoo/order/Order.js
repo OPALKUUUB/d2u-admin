@@ -1,5 +1,5 @@
 import React from "react";
-import { OrderProvider } from "../context/OrderProvider";
+import { OrderProvider } from "../../../context/OrderProvider";
 import { Filter } from "./components/Filter";
 import { Table } from "./components/Table";
 

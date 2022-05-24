@@ -1,5 +1,5 @@
 import React from "react";
-import { PaymentProvider } from "../context/PaymentProvider";
+import { PaymentProvider } from "../../../context/PaymentProvider";
 import { Filter } from "./components/Filter";
 import { Table } from "./components/Table";
 

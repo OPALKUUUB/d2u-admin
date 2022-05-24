@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { OrderContext } from "../../context/OrderProvider";
+import { OrderContext } from "../../../../context/OrderProvider";
 import { TableData } from "./TableData";
 
 export const Table = () => {

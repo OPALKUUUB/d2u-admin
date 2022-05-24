@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Load } from "../../../components/Load";
+import { Load } from "../components/Load";
 
-export const PaymentContext = createContext();
-export const PaymentProvider = ({ children }) => {
+export const HistoryContext = createContext();
+export const HistoryProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState({
@@ -10,12 +10,13 @@ export const PaymentProvider = ({ children }) => {
     username: "",
     offset: 0,
     item: 10,
+    status: "",
   });
 
-  const FetchPayment = async () => {
+  const FetchHistory = async () => {
     setLoading(true);
     await fetch(
-      `/api/yahoo/payments?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}`,
+      `/api/yahoo/historys?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}&status=${filter.status}`,
       {
         method: "GET",
         headers: {
@@ -31,7 +32,7 @@ export const PaymentProvider = ({ children }) => {
           setData(json.data);
         } else {
           alert(json.message);
-          if (json.error === 'jwt') {
+          if (json.error === "jwt") {
             localStorage.removeItem("token");
           }
           window.location.reload(false);
@@ -42,28 +43,28 @@ export const PaymentProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    FetchPayment();
+    FetchHistory();
     //eslint-disable-next-line
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    FetchPayment();
+    FetchHistory();
   };
 
   return (
-    <PaymentContext.Provider
+    <HistoryContext.Provider
       value={{
         data: data,
         filter: filter,
         setFilter: setFilter,
         handleSearch: handleSearch,
-        search: FetchPayment,
+        search: FetchHistory,
         setLoading: setLoading,
       }}
     >
       {loading && <Load />}
       {children}
-    </PaymentContext.Provider>
+    </HistoryContext.Provider>
   );
 };

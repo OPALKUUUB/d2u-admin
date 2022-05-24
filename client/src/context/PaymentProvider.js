@@ -1,8 +1,8 @@
-import React, { useEffect, useState, createContext } from "react";
-import { Load } from "../../../components/Load";
+import React, { createContext, useEffect, useState } from "react";
+import { Load } from "../components/Load";
 
-export const OrderContext = createContext();
-export const OrderProvider = ({ children }) => {
+export const PaymentContext = createContext();
+export const PaymentProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState({
@@ -12,10 +12,10 @@ export const OrderProvider = ({ children }) => {
     item: 10,
   });
 
-  const FetchOrders = async () => {
+  const FetchPayment = async () => {
     setLoading(true);
     await fetch(
-      `/api/yahoo/orders?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}`,
+      `/api/yahoo/payments?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}`,
       {
         method: "GET",
         headers: {
@@ -42,27 +42,28 @@ export const OrderProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    FetchOrders();
+    FetchPayment();
     //eslint-disable-next-line
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    FetchOrders();
+    FetchPayment();
   };
+
   return (
-    <OrderContext.Provider
+    <PaymentContext.Provider
       value={{
         data: data,
         filter: filter,
         setFilter: setFilter,
         handleSearch: handleSearch,
-        search: FetchOrders,
+        search: FetchPayment,
         setLoading: setLoading,
       }}
     >
       {loading && <Load />}
       {children}
-    </OrderContext.Provider>
+    </PaymentContext.Provider>
   );
 };

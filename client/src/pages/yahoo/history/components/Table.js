@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { HistoryContext } from "../../context/HistoryProvider";
+import { HistoryContext } from "../../../../context/HistoryProvider";
 import { TableData } from "./TableData";
 
 export const Table = () => {
