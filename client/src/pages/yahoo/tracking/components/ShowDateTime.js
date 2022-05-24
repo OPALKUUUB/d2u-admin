@@ -15,7 +15,7 @@ var months_th = [
   "ธ.ค.",
 ];
 export const ShowDateTime = ({ date, option }) => {
-  if (date === undefined) {
+  if (date === undefined || date === null || date === "") {
     return <>Date: -</>;
   }
   let t = date.split("T");

@@ -37,7 +37,7 @@ export const TableData = ({ index, item }) => {
         <TdLink link={item.link} />
         <td>{item.track_id}</td>
         <td>{item.box_id}</td>
-        <td>{item.weight} (kg.)</td>
+        <TdWeight weight={item.weight} />
         <td>
           <ShowDateTime date={item.round_boat} option="d" />
         </td>
@@ -90,11 +90,18 @@ export const TableData = ({ index, item }) => {
   );
 };
 
+const TdWeight = ({ weight }) => {
+  return <td>{weight === "" || weight === null ? "-" : `${weight} (kg.)`}</td>;
+};
+
 const TdLink = ({ link }) => {
+  let temp_split = link.split("/");
+  let temp_last = temp_split[temp_split.length - 1];
+  let temp_clear = temp_last.split("?")[0];
   return (
     <td>
       <a href={link} target="_blank" rel="noopener noreferrer">
-        link
+        {temp_clear}
       </a>
     </td>
   );

@@ -32,4 +32,4 @@ export const Table = () => {
   );
 };
 
-const THEAD = ["#", "Date", "Order", "Username", "Link", "Noted", ""];
+const THEAD = ["#", "Date", "Order", "Username", "Link", "Point", "Noted", ""];

@@ -15,6 +15,7 @@ function ManageModal(props) {
     weight: checkObj(item.weight),
     round_boat: checkObj(item.round_boat),
     noted: checkObj(item.noted),
+    done: item.done,
   });
 
   const handleSave = (id) => {
@@ -121,6 +122,20 @@ function ManageModal(props) {
                 value={tracking.round_boat}
                 onChange={handleChange}
               />
+            </div>
+          </div>
+          <div className="col-12 col-md-4 mb-2">
+            <div className="form-group">
+              <label className="form-label">Done</label>
+              <select
+                className="form-select"
+                name="done"
+                defaultValue={item.done}
+                onChange={handleChange}
+              >
+                <option value={0}>undone</option>
+                <option value={1}>done</option>
+              </select>
             </div>
           </div>
         </div>

@@ -28,13 +28,14 @@ exports.getHistory = async (req, res) => {
     select *
     from orders
     where
+    done = 1 and
     status ${req.query.status === "" ? "!=" : "="} ? and
-    ${req.query.status !== "lose" ? "payment_status like 'paid' and" : ""}
     created_at like ? and
     username like ?
     order by created_at desc
     limit ?, ?;
     `;
+  // console.log(sql);
   let rows;
   try {
     rows = await query(sql, data).then((res) => res);
@@ -54,27 +55,44 @@ exports.getHistory = async (req, res) => {
   }
 };
 
-// exports.patchPayment = async (req, res) => {
-//   let data = [req.body, req.query.id];
-//   const sql = `
-//   update orders
-//   set ?
-//   where id = ?;
-//   `;
-//   let result;
-//   try {
-//     result = await query(sql, data).then((res) => res);
-//     res.status(200).json({
-//       status: true,
-//       message: "PATCH /api/yahoo/payments success👍",
-//     });
-//     console.log(result);
-//   } catch (error) {
-//     res.status(400).json({
-//       status: false,
-//       error: error,
-//       message: "PATCH /api/yahoo/payments fail👎",
-//     });
-//     console.log(error);
-//   }
-// };
+exports.getHistoryItem = async (req, res) => {
+  const id = req.params.id;
+  // console.log(id);
+  const status = req.params.status;
+  let sql;
+  if (status === "win") {
+    sql = `
+    select
+    orders.*,
+    payments.slip_image_filename as slip,
+    payments.price
+    from orders
+    join payments on orders.payment_id = payments.id
+    where orders.id = ?;
+    `;
+  } else {
+    sql = `
+    select *
+    from orders
+    where orders.id = ?;
+    `;
+  }
+  let data = [id];
+  let rows;
+  try {
+    rows = await query(sql, data).then((res) => res);
+    res.status(200).json({
+      status: true,
+      data: rows[0],
+      message: "GET /api/yahoo/historys/:id success👍",
+    });
+    // console.log(rows);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "GET /api/yahoo/historys/:id fail👎",
+    });
+  }
+};

@@ -14,6 +14,7 @@ router.get("/api/yahoo/payments", paymentsController.getPayment);
 router.patch("/api/yahoo/payments", paymentsController.patchPayment);
 
 router.get("/api/yahoo/historys", historysController.getHistory);
+router.get("/api/yahoo/historys/:id", historysController.getHistoryItem);
 
 router.get("/api/yahoo/trackings", trackingsController.getTracking);
 

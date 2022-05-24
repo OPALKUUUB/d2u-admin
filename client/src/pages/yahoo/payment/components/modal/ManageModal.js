@@ -115,8 +115,8 @@ function ManageModal(props) {
               <select
                 className="form-select"
                 aria-label="inform bill"
-                value={informBill}
                 onChange={(e) => setInformBill(e.target.value)}
+                defaultValue={item.inform_bill}
               >
                 <option value="0">ยังไม่แจ้ง</option>
                 <option value="1">แจ้งแล้ว</option>

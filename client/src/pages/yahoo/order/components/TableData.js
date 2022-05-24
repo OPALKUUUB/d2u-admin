@@ -124,10 +124,13 @@ export const TableData = ({ index, item }) => {
 };
 
 const TdLink = ({ link }) => {
+  let temp_split = link.split("/");
+  let temp_last = temp_split[temp_split.length - 1];
+  let temp_clear = temp_last.split("?")[0];
   return (
     <td>
       <a href={link} target="_blank" rel="noopener noreferrer">
-        link
+        {temp_clear}
       </a>
     </td>
   );

@@ -31,10 +31,11 @@ exports.getTracking = async (req, res) => {
   where
   status like 'win' and
   payment_status = 'paid' and
+  done = 0 and
   created_at like ? and
   username like ? and
-  track_id like ? and
-  round_boat like ?
+  (track_id like ? ${req.query.track_id === "" && "or track_id is null"}) and
+  (round_boat like ? ${req.query.round_boat === "" && "or round_boat is null"})
   order by created_at desc
   limit ?, ?;
   `;
