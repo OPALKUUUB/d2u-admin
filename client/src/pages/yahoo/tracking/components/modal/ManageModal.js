@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { TrackingContext } from "../../../context/TrackingProvider";
 import { ShowDateTime } from "../ShowDateTime";
@@ -6,19 +6,25 @@ import { ShowDateTime } from "../ShowDateTime";
 function checkObj(obj) {
   return obj === null || obj === undefined ? "" : obj;
 }
+
 function ManageModal(props) {
   const { search } = useContext(TrackingContext);
   let item = props.item;
-  const [tracking, setTracking] = useState({
-    track_id: checkObj(item.track_id),
-    box_id: checkObj(item.box_id),
-    weight: checkObj(item.weight),
-    round_boat: checkObj(item.round_boat),
-    noted: checkObj(item.noted),
-    done: item.done,
-  });
-
+  const [trackId, setTrackId] = useState(checkObj(item.track_id));
+  const [boxId, setBoxId] = useState(checkObj(item.box_id));
+  const [weight, setWeight] = useState(checkObj(item.weight));
+  const [roundBoat, setRoundBoat] = useState(checkObj(item.round_boat));
+  const [done, setDone] = useState(item.done);
+  const [noted, setNoted] = useState(item.noted);
   const handleSave = (id) => {
+    const obj = {
+      track_id: trackId,
+      box_id: boxId,
+      weight: weight,
+      round_boat: roundBoat,
+      done: done,
+      noted: noted,
+    };
     fetch("/api/yahoo/payments?id=" + id, {
       method: "PATCH",
       headers: {
@@ -27,7 +33,7 @@ function ManageModal(props) {
           JSON.parse(localStorage.getItem("token")).token
         }`,
       },
-      body: JSON.stringify(tracking),
+      body: JSON.stringify(obj),
     })
       .then((res) => res.json())
       .then((json) => console.log(json))
@@ -36,12 +42,6 @@ function ManageModal(props) {
         props.onHide();
         search();
       });
-  };
-
-  const handleChange = (e) => {
-    setTracking((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
   };
   return (
     <Modal
@@ -82,8 +82,8 @@ function ManageModal(props) {
                 className="form-control"
                 type="text"
                 name="track_id"
-                value={tracking.track_id}
-                onChange={handleChange}
+                value={trackId}
+                onChange={(e) => setTrackId(e.target.value)}
                 autoFocus
               />
             </div>
@@ -95,8 +95,8 @@ function ManageModal(props) {
                 className="form-control"
                 type="text"
                 name="box_id"
-                value={tracking.box_id}
-                onChange={handleChange}
+                value={boxId}
+                onChange={(e) => setBoxId(e.target.value)}
               />
             </div>
           </div>
@@ -107,8 +107,8 @@ function ManageModal(props) {
                 className="form-control"
                 type="number"
                 name="weight"
-                value={tracking.weight}
-                onChange={handleChange}
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
               />
             </div>
           </div>
@@ -119,8 +119,8 @@ function ManageModal(props) {
                 className="form-control"
                 type="date"
                 name="round_boat"
-                value={tracking.round_boat}
-                onChange={handleChange}
+                value={roundBoat}
+                onChange={(e) => setRoundBoat(e.target.value)}
               />
             </div>
           </div>
@@ -131,11 +131,23 @@ function ManageModal(props) {
                 className="form-select"
                 name="done"
                 defaultValue={item.done}
-                onChange={handleChange}
+                onChange={(e) => setDone(e.target.value)}
               >
                 <option value={0}>undone</option>
                 <option value={1}>done</option>
               </select>
+            </div>
+          </div>
+          <div className="col-12 col-md-4 mb-2">
+            <div className="form-group">
+              <label className="form-label">Note</label>
+              <input
+                className="form-control"
+                type="text"
+                name="noted"
+                value={noted}
+                onChange={(e) => setNoted(e.target.value)}
+              />
             </div>
           </div>
         </div>
