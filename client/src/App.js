@@ -10,12 +10,12 @@ import { Users } from "./pages/overview/Users";
 import { Admins } from "./pages/overview/Admins";
 import { Add } from "./pages/yahoo/Add";
 
-import { Order } from "./pages/yahoo/order/Order";
-import { Payment } from "./pages/yahoo/payment/Payment";
-import { History } from "./pages/yahoo/history/History";
-import { Tracking } from "./pages/yahoo/tracking/Tracking";
-import { ContentLayout } from "./pages/yahoo/order/components/ContentLayout";
-import { ShowItem } from "./pages/yahoo/history/components/ShowItem/index";
+import { Order } from "./pages/yahoo/Order/Order";
+import { Payment } from "./pages/yahoo/Payment/Payment";
+import { History } from "./pages/yahoo/History/History";
+import { Tracking } from "./pages/yahoo/Tracking/Tracking";
+import { ContentLayout } from "./pages/yahoo/Order/components/ContentLayout";
+import { ShowItem } from "./pages/yahoo/History/components/ShowItem/index";
 
 function App() {
   const { token, setToken } = useToken();
