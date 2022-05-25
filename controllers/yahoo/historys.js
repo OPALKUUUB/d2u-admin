@@ -16,7 +16,6 @@ function query(sql, data) {
 }
 
 exports.getHistory = async (req, res) => {
-  console.log(req.query.status);
   const data = [
     isEmpty(req.query.status) ? "Auction" : req.query.status.trim(), // status
     "%" + req.query.date.trim() + "%",
@@ -32,10 +31,10 @@ exports.getHistory = async (req, res) => {
     status ${req.query.status === "" ? "!=" : "="} ? and
     created_at like ? and
     username like ?
-    order by created_at desc
+    order by
+    created_at desc
     limit ?, ?;
     `;
-  // console.log(sql);
   let rows;
   try {
     rows = await query(sql, data).then((res) => res);
@@ -57,8 +56,7 @@ exports.getHistory = async (req, res) => {
 
 exports.getHistoryItem = async (req, res) => {
   const id = req.params.id;
-  // console.log(id);
-  const status = req.params.status;
+  const status = req.query.status;
   let sql;
   if (status === "win") {
     sql = `
@@ -81,6 +79,7 @@ exports.getHistoryItem = async (req, res) => {
   let rows;
   try {
     rows = await query(sql, data).then((res) => res);
+    console.log(rows);
     res.status(200).json({
       status: true,
       data: rows[0],
