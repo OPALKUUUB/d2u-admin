@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { PaymentContext } from "../../../../../context/PaymentProvider";
 import { ShowDateTime } from "../ShowDateTime";
@@ -15,6 +15,15 @@ function ManageModal(props) {
   const [noted, setNoted] = useState(
     item.noted === null || item.noted === undefined ? "" : item.noted
   );
+  useEffect(() => {
+    setBid(item.bid);
+    setTranferFee(item.tranfer_fee_injapan);
+    setDeliveryFee(item.delivery_in_thai);
+    setInformBill(item.inform_bill);
+    setStatus(item.stats);
+    setPaymentStatus(item.payment_status);
+    setNoted(item.noted === null || item.noted === undefined ? "" : item.noted);
+  }, [props.item]);
   const handleSave = (id) => {
     let obj = {
       bid: bid,

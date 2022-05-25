@@ -34,8 +34,12 @@ exports.getTracking = async (req, res) => {
   done = 0 and
   created_at like ? and
   username like ? and
-  (track_id like ? ${req.query.track_id === "" && "or track_id is null"}) and
-  (round_boat like ? ${req.query.round_boat === "" && "or round_boat is null"})
+  (track_id like ? ${
+    req.query.track_id === "" ? "or track_id is null" : ""
+  }) and
+  (round_boat like ? ${
+    req.query.round_boat === "" ? "or round_boat is null" : ""
+  })
   order by created_at desc
   limit ?, ?;
   `;
@@ -54,5 +58,54 @@ exports.getTracking = async (req, res) => {
       error: error,
       message: "GET /api/yahoo/trackings fail👎",
     });
+  }
+};
+
+exports.patchTracking = async (req, res) => {
+  let data = [req.body, req.query.id];
+  const sql = `
+  update orders
+  set ?
+  where id = ?;
+  `;
+  let result;
+  console.log("first");
+  try {
+    result = await query(sql, data).then((res) => res);
+    res.status(200).json({
+      status: true,
+      message: "PATCH /api/yahoo/trackings success👍",
+    });
+    if (req.body.done) {
+      const sql_item = `
+      select id, bid, weight
+      from orders
+      where id = ?;
+     `;
+      let result_item = await query(sql_item, [req.query.id]).then(
+        (res) => res
+      );
+      let row = result_item[0];
+      let weight = parseFloat(row.weight);
+      let bid = parseFloat(row.bid);
+      let point = Math.round((bid / 2000 + weight) * 100) / 100;
+      const sql_update_point = `
+      update orders
+      set point = ?, addPoint = 1
+      where id = ?;
+      `;
+      let result_update_point = await query(sql_update_point, [
+        point,
+        req.query.id,
+      ]).then((res) => res);
+      console.log("add point: ", point);
+    }
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "PATCH /api/yahoo/trackings fail👎",
+    });
+    console.log(error);
   }
 };

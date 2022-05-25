@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { TrackingContext } from "../../../../../context/TrackingProvider";
 import { ShowDateTime } from "../ShowDateTime";
@@ -16,6 +16,14 @@ function ManageModal(props) {
   const [roundBoat, setRoundBoat] = useState(checkObj(item.round_boat));
   const [done, setDone] = useState(item.done);
   const [noted, setNoted] = useState(item.noted);
+  useEffect(() => {
+    setTrackId(checkObj(item.track_id));
+    setBoxId(checkObj(item.box_id));
+    setWeight(checkObj(item.weight));
+    setRoundBoat(checkObj(item.round_boat));
+    setDone(item.done);
+    setNoted(item.noted);
+  }, [props.item]);
   const handleSave = (id) => {
     const obj = {
       track_id: trackId,
@@ -25,7 +33,7 @@ function ManageModal(props) {
       done: done,
       noted: noted,
     };
-    fetch("/api/yahoo/payments?id=" + id, {
+    fetch("/api/yahoo/trackings?id=" + id, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

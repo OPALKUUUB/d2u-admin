@@ -3,6 +3,7 @@ import React from "react";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
+import * as BiIcons from "react-icons/bi";
 
 export const SidebarData = [
   {
@@ -63,37 +64,46 @@ export const SidebarData = [
       },
     ],
   },
-  //   {
-  //     title: "Products",
-  //     path: "/products",
-  //     icon: <FaIcons.FaCartPlus />,
-  //   },
-  //   {
-  //     title: "Team",
-  //     path: "/team",
-  //     icon: <IoIcons.IoMdPeople />,
-  //   },
-  //   {
-  //     title: "Messages",
-  //     path: "/messages",
-  //     icon: <FaIcons.FaEnvelopeOpenText />,
+  {
+    title: "Tracking",
+    path: "/tracking",
+    icon: <BiIcons.BiCurrentLocation />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
 
-  //     iconClosed: <RiIcons.RiArrowDownSFill />,
-  //     iconOpened: <RiIcons.RiArrowUpSFill />,
-
-  //     subNav: [
-  //       {
-  //         title: "Message 1",
-  //         path: "/messages/message1",
-  //         icon: <IoIcons.IoIosPaper />,
-  //       },
-  //       {
-  //         title: "Message 2",
-  //         path: "/messages/message2",
-  //         icon: <IoIcons.IoIosPaper />,
-  //       },
-  //     ],
-  //   },
+    subNav: [
+      {
+        title: "Shimizu",
+        path: "/tracking/shimizu",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Mercari",
+        path: "/tracking/mercari",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Fril",
+        path: "/tracking/fril",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "Web123",
+        path: "/tracking/web123",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+      {
+        title: "All",
+        path: "/tracking/all",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
+    ],
+  },
   {
     title: "Logout",
     path: "/logout",

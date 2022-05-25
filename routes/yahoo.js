@@ -17,5 +17,6 @@ router.get("/api/yahoo/historys", historysController.getHistory);
 router.get("/api/yahoo/historys/:id", historysController.getHistoryItem);
 
 router.get("/api/yahoo/trackings", trackingsController.getTracking);
+router.patch("/api/yahoo/trackings", trackingsController.patchTracking);
 
 module.exports = router;

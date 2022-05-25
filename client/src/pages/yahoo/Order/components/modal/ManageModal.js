@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { OrderContext } from "../../../../../context/OrderProvider";
 import { ShowDateTime } from "../ShowDateTime";
@@ -9,6 +9,9 @@ function ManageModal(props) {
   const [noted, setNoted] = useState(
     item.noted === null || item.noted === undefined ? "" : item.noted
   );
+  useEffect(() => {
+    setNoted(item.noted === null || item.noted === undefined ? "" : item.noted);
+  }, [props.item]);
   const handleSave = (id) => {
     // console.log(id, noted);
     fetch("/api/yahoo/orders?id=" + id, {

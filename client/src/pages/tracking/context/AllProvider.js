@@ -1,58 +1,32 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Load } from "../components/Load";
+import { Load } from "../../../components/Load";
 
-export const HistoryContext = createContext();
-export const HistoryProvider = ({ children }) => {
+export const AllContext = createContext();
+export const AllProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(getFilter(searchParams));
 
-  const FetchHistory = async () => {
+  const FetchTracking = async () => {
     setLoading(true);
     setSearchParams(filter);
-    await fetch(genApi(filter), init())
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.status) {
-          setData(json.data);
-        } else {
-          alert(json.message);
-          if (json.error === "jwt") {
-            localStorage.removeItem("token");
-          }
-          window.location.reload(false);
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+    //   await fetch()
   };
-
   useEffect(() => {
-    FetchHistory();
+    FetchTracking();
     //eslint-disable-next-line
   }, []);
-
   const handleSearch = (e) => {
     e.preventDefault();
-    FetchHistory();
+    FetchTracking();
   };
-
   return (
-    <HistoryContext.Provider
-      value={{
-        data: data,
-        filter: filter,
-        setFilter: setFilter,
-        handleSearch: handleSearch,
-        search: FetchHistory,
-        setLoading: setLoading,
-      }}
-    >
+    <AllContext.Provider value={"test"}>
       {loading && <Load />}
       {children}
-    </HistoryContext.Provider>
+    </AllContext.Provider>
   );
 };
 

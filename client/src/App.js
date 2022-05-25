@@ -15,6 +15,7 @@ import { History } from "./pages/yahoo/History/History";
 import { ShowHistoryItem } from "./pages/yahoo/History/ShowHistoryItem/ShowHistoryItem";
 import { Tracking } from "./pages/yahoo/Tracking/Tracking";
 import { ContentLayout } from "./pages/yahoo/Order/components/ContentLayout";
+import { All } from "./pages/tracking/All/All";
 
 function App() {
   const { token, setToken } = useToken();
@@ -46,6 +47,10 @@ function App() {
               <Route path="historys" element={<History />} />
               <Route path="historys/:id" element={<ShowHistoryItem />} />
               <Route path="add" element={<Add />} />
+            </Route>
+            <Route path="/tracking">
+              <Route path="" element={<All />} />
+              <Route path="all" element={<All />} />
             </Route>
           </Routes>
         </ContentLayout>

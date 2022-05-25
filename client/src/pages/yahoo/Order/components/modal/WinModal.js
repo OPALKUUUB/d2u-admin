@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { OrderContext } from "../../../../../context/OrderProvider";
 import { ShowDateTime } from "../ShowDateTime";
@@ -12,6 +12,13 @@ function WinModal(props) {
   const [noted, setNoted] = useState(
     item.noted === null || item.noted === undefined ? "" : item.noted
   );
+  useEffect(() => {
+    setBid(0);
+    setTranferFee(0);
+    setDeliveryFee(0);
+    setPaymentStatus("pending1");
+    setNoted(item.noted === null || item.noted === undefined ? "" : item.noted);
+  });
   const handleSave = (id) => {
     if (bid === 0) {
       alert("กรุณาใส่ราคาที่ประมูลได้!");
