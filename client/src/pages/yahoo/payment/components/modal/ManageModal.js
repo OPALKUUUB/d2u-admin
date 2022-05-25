@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { PaymentContext } from "../../../context/PaymentProvider";
+import { PaymentContext } from "../../../../../context/PaymentProvider";
 import { ShowDateTime } from "../ShowDateTime";
 
 function ManageModal(props) {

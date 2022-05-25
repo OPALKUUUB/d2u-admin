@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
-import { HistoryContext } from "../../context/HistoryProvider";
 import { useNavigate } from "react-router-dom";
-import { ShowDateTime } from "./ShowDateTime";
+import { HistoryContext } from "../../../../context/HistoryProvider";
+import { ShowDateTime } from "../../../../components/ShowDateTime";
 
 export const TableData = ({ index, item }) => {
   let navigate = useNavigate();
   const { search } = useContext(HistoryContext);
   const handleDelete = (id) => {
-    console.log(id);
     if (window.confirm("คุณแน่ใจที่จะลบ?")) {
       fetch("/api/yahoo/orders?id=" + id, {
         method: "DELETE",
@@ -58,16 +57,19 @@ export const TableData = ({ index, item }) => {
               className="dropdown-menu"
               aria-labelledby={`dropdownMenuButton-${index}`}
             >
-              <li>
-                <button
-                  type="button"
-                  className="dropdown-item"
-                  variant="primary"
-                  onClick={handleManage}
-                >
-                  แก้ไข
-                </button>
-              </li>
+              {item.status === "win" && (
+                <li>
+                  <button
+                    type="button"
+                    className="dropdown-item"
+                    variant="primary"
+                    onClick={handleManage}
+                  >
+                    แก้ไข
+                  </button>
+                </li>
+              )}
+
               <li>
                 <button
                   type="button"

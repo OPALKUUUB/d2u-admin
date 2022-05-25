@@ -1,15 +1,15 @@
 import React from "react";
-import { HistoryProvider } from "../context/HistoryProvider";
+import { HistoryProvider } from "../../../context/HistoryProvider";
 import { Filter } from "./components/Filter";
 import { Table } from "./components/Table";
 
 export const History = () => {
   return (
-    <div className="container-fluid mt-3">
-      <HistoryProvider>
+    <HistoryProvider>
+      <div className="container-fluid mt-3">
         <Filter />
         <Table />
-      </HistoryProvider>
-    </div>
+      </div>
+    </HistoryProvider>
   );
 };
