@@ -1,31 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Load } from "../components/Load";
 
 export const HistoryContext = createContext();
 export const HistoryProvider = ({ children }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState({
-    date: "",
-    username: "",
-    offset: 0,
-    item: 10,
-    status: "",
-  });
+  const [filter, setFilter] = useState(getFilter(searchParams));
 
   const FetchHistory = async () => {
     setLoading(true);
-    await fetch(
-      `/api/yahoo/historys?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}&status=${filter.status}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("token")).token
-          }`,
-        },
-      }
-    )
+    setSearchParams(filter);
+    await fetch(genApi(filter), init())
       .then((res) => res.json())
       .then((json) => {
         if (json.status) {
@@ -68,3 +55,38 @@ export const HistoryProvider = ({ children }) => {
     </HistoryContext.Provider>
   );
 };
+
+function getFilter(searchParams) {
+  let date = searchParams.get("date");
+  let username = searchParams.get("username");
+  let offset = searchParams.get("offset");
+  let item = searchParams.get("item");
+  let status = searchParams.get("status");
+  date = date === undefined || date === null ? "" : date;
+  username = username === undefined || username === null ? "" : username;
+  offset = offset === undefined || offset === null ? 0 : offset;
+  item = item === undefined || item === null ? 10 : item;
+  status = status === undefined || status === null ? "" : status;
+  return {
+    date: date,
+    username: username,
+    offset: offset,
+    item: item,
+    status: status,
+  };
+}
+
+function genApi(filter) {
+  return `/api/yahoo/historys?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}&status=${filter.status}`;
+}
+
+function init() {
+  return {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("token")).token
+      }`,
+    },
+  };
+}
