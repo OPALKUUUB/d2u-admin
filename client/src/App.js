@@ -16,6 +16,11 @@ import { ShowHistoryItem } from "./pages/yahoo/History/ShowHistoryItem/ShowHisto
 import { Tracking } from "./pages/yahoo/Tracking/Tracking";
 import { ContentLayout } from "./pages/yahoo/Order/components/ContentLayout";
 import { All } from "./pages/tracking/All/All";
+import { Shimizu } from "./pages/tracking/Shimizu/Shimizu";
+import { Mercari } from "./pages/tracking/Mercari/Mercari";
+import { Fril } from "./pages/tracking/Fril/Fril";
+import { Web123 } from "./pages/tracking/Web123/Web123";
+import { AllItem } from "./pages/tracking/All/AllItem/AllItem";
 
 function App() {
   const { token, setToken } = useToken();
@@ -51,6 +56,11 @@ function App() {
             <Route path="/tracking">
               <Route path="" element={<All />} />
               <Route path="all" element={<All />} />
+              <Route path="all/:id" element={<AllItem />} />
+              <Route path="shimizu" element={<Shimizu />} />
+              <Route path="mercari" element={<Mercari />} />
+              <Route path="fril" element={<Fril />} />
+              <Route path="web123" element={<Web123 />} />
             </Route>
           </Routes>
         </ContentLayout>

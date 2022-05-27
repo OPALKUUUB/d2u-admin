@@ -9,6 +9,7 @@ dotenv.config();
 const authRoutes = require("./routes/auth");
 const overviewRoutes = require("./routes/overview");
 const yahooRoutes = require("./routes/yahoo");
+const trackingRoutes = require("./routes/tracking");
 
 app.use(cors());
 app.use(express.json());
@@ -44,6 +45,7 @@ app.use("/api", async (req, res, next) => {
 
 app.use(overviewRoutes);
 app.use(yahooRoutes);
+app.use(trackingRoutes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
