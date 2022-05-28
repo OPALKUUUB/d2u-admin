@@ -74,25 +74,25 @@ export const SidebarData = [
     subNav: [
       {
         title: "Shimizu",
-        path: "/tracking/shimizu",
+        path: "/tracking/shimizu?channel=shimizu",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
         title: "Mercari",
-        path: "/tracking/mercari",
+        path: "/tracking/mercari?channel=mercari",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
         title: "Fril",
-        path: "/tracking/fril",
+        path: "/tracking/fril?channel=fril",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
       {
         title: "Web123",
-        path: "/tracking/web123",
+        path: "/tracking/web123?channel=123",
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
