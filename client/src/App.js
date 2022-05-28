@@ -61,6 +61,7 @@ function App() {
               <Route path="mercari" element={<Mercari />} />
               <Route path="fril" element={<Fril />} />
               <Route path="web123" element={<Web123 />} />
+              <Route path="add" element={<Add />} />
             </Route>
           </Routes>
         </ContentLayout>

@@ -102,6 +102,11 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
+      {
+        title: "Add",
+        path: "/tracking/add",
+        icon: <IoIcons.IoIosAdd />,
+      },
     ],
   },
   {
