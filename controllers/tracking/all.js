@@ -39,6 +39,7 @@ exports.getTracking = async (req, res) => {
       `%${isEmpty(req.query.date) ? "" : req.query.date.trim()}%`,
       `%${isEmpty(req.query.username) ? "" : req.query.username.trim()}%`,
       `%${isEmpty(req.query.trackId) ? "" : req.query.trackId.trim()}%`,
+      `%${isEmpty(req.query.roundBoat) ? "" : req.query.roundBoat.trim()}%`,
       req.query.channel.trim(),
       isEmpty(req.query.offset) ? 0 : parseInt(req.query.offset),
       isEmpty(req.query.item) ? 10 : parseInt(req.query.item),
@@ -50,6 +51,7 @@ exports.getTracking = async (req, res) => {
       created_at like ? and
       username like ? and
       track_id like ? and
+      round_boat like ? and
       channel like ?
       order by created_at desc
       limit ?,?;

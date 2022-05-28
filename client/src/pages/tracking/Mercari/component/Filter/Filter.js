@@ -41,16 +41,16 @@ export const Filter = () => {
           />
         </div>
         <div className="col-12 col-md-2 mb-2">
-          <label className="form-label">item</label>
+          <label className="form-label">roundBoat</label>
           <input
             className="form-control"
-            type="number"
-            name="item"
-            value={filter.item}
+            type="date"
+            name="roundBoat"
+            value={filter.roundBoat}
             onChange={handleFilter}
           />
         </div>
-        <div className="col-2">
+        <div className="d-none">
           <label className="form-label">channel</label>
           <select
             className="form-select"
@@ -64,6 +64,16 @@ export const Filter = () => {
             <option value={"fril"}>fril</option>
             <option value={"123"}>web123</option>
           </select>
+        </div>
+        <div className="col-12 col-md-2 mb-2">
+          <label className="form-label">item</label>
+          <input
+            className="form-control"
+            type="number"
+            name="item"
+            value={filter.item}
+            onChange={handleFilter}
+          />
         </div>
         <div className="col-12 col-md-1 mt-4">
           <button className="btn btn-primary w-100" type="submit">

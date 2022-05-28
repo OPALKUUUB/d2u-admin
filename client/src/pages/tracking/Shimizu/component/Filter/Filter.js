@@ -41,6 +41,31 @@ export const Filter = () => {
           />
         </div>
         <div className="col-12 col-md-2 mb-2">
+          <label className="form-label">roundBoat</label>
+          <input
+            className="form-control"
+            type="date"
+            name="roundBoat"
+            value={filter.roundBoat}
+            onChange={handleFilter}
+          />
+        </div>
+        <div className="d-none">
+          <label className="form-label">channel</label>
+          <select
+            className="form-select"
+            name="channel"
+            onChange={handleFilter}
+            defaultValue={filter.channel}
+          >
+            <option value="">all</option>
+            <option value={"shimizu"}>shimizu</option>
+            <option value={"mercari"}>mercari</option>
+            <option value={"fril"}>fril</option>
+            <option value={"123"}>web123</option>
+          </select>
+        </div>
+        <div className="col-12 col-md-2 mb-2">
           <label className="form-label">item</label>
           <input
             className="form-control"

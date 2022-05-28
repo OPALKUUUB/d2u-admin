@@ -59,6 +59,7 @@ function getFilter(searchParams) {
   let item = searchParams.get("item");
   let status = searchParams.get("status");
   let channel = searchParams.get("channel");
+  let roundBoat = searchParams.get("roundBoat");
   date = date === undefined || date === null ? "" : date;
   username = username === undefined || username === null ? "" : username;
   trackId = trackId === undefined || trackId === null ? "" : trackId;
@@ -66,6 +67,7 @@ function getFilter(searchParams) {
   item = item === undefined || item === null ? 10 : item;
   status = status === undefined || status === null ? "" : status;
   channel = channel === undefined || channel === null ? "" : channel;
+  roundBoat = roundBoat === undefined || roundBoat === null ? "" : roundBoat;
   return {
     date: date,
     username: username,
@@ -74,11 +76,12 @@ function getFilter(searchParams) {
     item: item,
     status: status,
     channel: channel,
+    roundBoat: roundBoat,
   };
 }
 
 function genApi(filter) {
-  return `/api/tracking/all?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}&trackId=${filter.trackId}&channel=${filter.channel}`;
+  return `/api/tracking/all?date=${filter.date}&username=${filter.username}&item=${filter.item}&offset=${filter.offset}&trackId=${filter.trackId}&channel=${filter.channel}&roundBoat=${filter.roundBoat}`;
 }
 
 function init() {
