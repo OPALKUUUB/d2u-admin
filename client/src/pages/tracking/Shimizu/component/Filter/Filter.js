@@ -50,21 +50,6 @@ export const Filter = () => {
             onChange={handleFilter}
           />
         </div>
-        <div className="col-2">
-          <label className="form-label">channel</label>
-          <select
-            className="form-select"
-            name="channel"
-            onChange={handleFilter}
-            defaultValue={filter.channel}
-          >
-            <option value="">all</option>
-            <option value={"shimizu"}>shimizu</option>
-            <option value={"mercari"}>mercari</option>
-            <option value={"fril"}>fril</option>
-            <option value={"123"}>web123</option>
-          </select>
-        </div>
         <div className="col-12 col-md-1 mt-4">
           <button className="btn btn-primary w-100" type="submit">
             Search

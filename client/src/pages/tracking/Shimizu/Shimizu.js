@@ -9,7 +9,7 @@ export const Shimizu = () => {
   return (
     <div className="container-fluid mt-3">
       <AllProvider>
-        <CardFilter>
+        <CardFilter mode="Shimizu">
           <Filter />
         </CardFilter>
         <Card>

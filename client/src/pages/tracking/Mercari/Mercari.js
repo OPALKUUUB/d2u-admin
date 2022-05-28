@@ -9,7 +9,7 @@ export const Mercari = () => {
   return (
     <div className="container-fluid mt-3">
       <AllProvider>
-        <CardFilter>
+        <CardFilter mode="Mercari">
           <Filter />
         </CardFilter>
         <Card>

@@ -1,9 +1,9 @@
 import React from "react";
 
-export const CardFilter = ({ children }) => {
+export const CardFilter = ({ children, mode = "All" }) => {
   return (
     <div className="card mb-3">
-      <h5 className="card-header">Tracking / All</h5>
+      <h5 className="card-header">Tracking / {mode}</h5>
       <div className="card-body">{children}</div>
     </div>
   );

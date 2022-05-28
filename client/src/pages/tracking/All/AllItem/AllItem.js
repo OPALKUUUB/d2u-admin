@@ -36,7 +36,11 @@ export const AllItem = () => {
           </p>
           <p>username: {value(data.username)}</p>
           <p>channel: {value(data.channel)}</p>
-          {!isEmpty(data.url) && <p>url: {value(data.url)}</p>}
+          {!isEmpty(data.url) && (
+            <p>
+              url: <a href={data.url}>{value(data.url)}</a>
+            </p>
+          )}
           {!isEmpty(data.price) && <p>price: {value(data.price)}</p>}
           {!isEmpty(data.q) && <p>q: {value(data.q)}</p>}
           {!isEmpty(data.pic1_filename) && (

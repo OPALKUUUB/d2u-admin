@@ -9,7 +9,7 @@ export const Fril = () => {
   return (
     <div className="container-fluid mt-3">
       <AllProvider>
-        <CardFilter>
+        <CardFilter mode="Fril">
           <Filter />
         </CardFilter>
         <Card>

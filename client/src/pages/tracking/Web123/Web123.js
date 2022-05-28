@@ -9,7 +9,7 @@ export const Web123 = () => {
   return (
     <div className="container-fluid mt-3">
       <AllProvider>
-        <CardFilter>
+        <CardFilter mode="Web123">
           <Filter />
         </CardFilter>
         <Card>
