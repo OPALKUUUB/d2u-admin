@@ -9,6 +9,7 @@ import Sidebar from "./components/Sidebar";
 import { Users } from "./pages/overview/Users/Users";
 import { Admins } from "./pages/overview/Admins/Admins";
 import { Add } from "./pages/yahoo/Add/Add";
+import { Add as AddTracking } from "./pages/tracking/Add/Add";
 import { Order } from "./pages/yahoo/Order/Order";
 import { Payment } from "./pages/yahoo/Payment/Payment";
 import { History } from "./pages/yahoo/History/History";
@@ -21,6 +22,7 @@ import { Mercari } from "./pages/tracking/Mercari/Mercari";
 import { Fril } from "./pages/tracking/Fril/Fril";
 import { Web123 } from "./pages/tracking/Web123/Web123";
 import { AllItem } from "./pages/tracking/All/AllItem/AllItem";
+import { Edit } from "./pages/tracking/Edit/Edit";
 
 function App() {
   const { token, setToken } = useToken();
@@ -61,7 +63,8 @@ function App() {
               <Route path="mercari" element={<Mercari />} />
               <Route path="fril" element={<Fril />} />
               <Route path="web123" element={<Web123 />} />
-              <Route path="add" element={<Add />} />
+              <Route path="add" element={<AddTracking />} />
+              <Route path="edit/:id" element={<Edit />} />
             </Route>
           </Routes>
         </ContentLayout>

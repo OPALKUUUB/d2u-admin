@@ -1,6 +1,6 @@
 export const trackingModel = {
   id: "",
-  useranme: "",
+  username: "",
   track_id: "",
   weight: "",
   round_boat: "",

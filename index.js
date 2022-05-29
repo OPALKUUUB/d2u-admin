@@ -27,6 +27,7 @@ app.use("/api", async (req, res, next) => {
       error: "jwt",
     });
   } else {
+    // console.log(req.headers.authorization);
     let token = req.headers.authorization.split(" ")[1];
     jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
       if (error) {
