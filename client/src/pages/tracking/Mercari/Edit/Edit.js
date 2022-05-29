@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { ShowDateTime } from "../../../components/ShowDateTime";
-import { isEmpty } from "../All/AllItem/Test";
-import { trackingModel } from "../Shimizu/component/Table/trackingModel";
+import { useNavigate, useParams } from "react-router-dom";
+import { Load } from "../../../../components/Load";
+import { ShowDateTime } from "../../../../components/ShowDateTime";
+import { isEmpty } from "../../All/AllItem/Test";
+import { trackingModel } from "../component/Table/trackingModel";
 
 export const Edit = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(trackingModel);
   const params = useParams();
   useEffect(() => {
@@ -20,7 +22,6 @@ export const Edit = () => {
       .then((json) => {
         if (json.status) {
           setData(json.data);
-          // console.table(json.data);
         } else {
           alert(json.message);
         }
@@ -34,16 +35,32 @@ export const Edit = () => {
           <ShowDateTime option="d" date={data.created_at} />
         </div>
         <div className="card-body">
-          <Form data={data} setData={setData} />
+          <Form data={data} setData={setData} setLoading={setLoading} />
         </div>
       </div>
+      {loading && <Load />}
     </div>
   );
 };
-const Form = ({ data, setData }) => {
+const Form = ({ data, setData, setLoading }) => {
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
+    setLoading(true);
+    fetch(genApi(data.id), init(data))
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status) {
+          alert(json.message);
+        } else {
+          alert(json.message);
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+        navigate(-1);
+      });
   };
   const handleChange = (e) => {
     setData((prev) => {
@@ -101,3 +118,20 @@ const formData = [
   { id: 9, name: "round_boat", tag: "RoundBoat", type: "date" },
   { id: 12, name: "remark", tag: "remark" },
 ];
+
+function genApi(id) {
+  return `/api/tracking/mer123fril?id=${id}`;
+}
+
+function init(body) {
+  return {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("token")).token
+      }`,
+    },
+    body: JSON.stringify(body),
+  };
+}

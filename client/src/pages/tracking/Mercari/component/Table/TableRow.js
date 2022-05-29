@@ -32,6 +32,13 @@ export const TableRow = ({ index, item }) => {
         <td>
           <button
             type="button"
+            className="btn-sm btn-success me-3"
+            onClick={() => navigate(`/tracking/mer123fril/edit/${data.id}`)}
+          >
+            edit
+          </button>
+          <button
+            type="button"
             className="btn-sm btn-success"
             onClick={() => navigate(`/tracking/all/${data.id}`)}
           >

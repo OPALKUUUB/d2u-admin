@@ -18,7 +18,7 @@ function WinModal(props) {
     setDeliveryFee(0);
     setPaymentStatus("pending1");
     setNoted(item.noted === null || item.noted === undefined ? "" : item.noted);
-  });
+  }, []);
   const handleSave = (id) => {
     if (bid === 0) {
       alert("กรุณาใส่ราคาที่ประมูลได้!");

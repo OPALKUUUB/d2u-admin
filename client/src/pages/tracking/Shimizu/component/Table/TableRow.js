@@ -33,7 +33,7 @@ export const TableRow = ({ index, item }) => {
           <button
             type="button"
             className="btn-sm btn-success me-3"
-            onClick={() => navigate(`/tracking/edit/${data.id}`)}
+            onClick={() => navigate(`/tracking/shimizu/edit/${data.id}`)}
           >
             edit
           </button>

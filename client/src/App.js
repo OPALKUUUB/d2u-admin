@@ -22,7 +22,8 @@ import { Mercari } from "./pages/tracking/Mercari/Mercari";
 import { Fril } from "./pages/tracking/Fril/Fril";
 import { Web123 } from "./pages/tracking/Web123/Web123";
 import { AllItem } from "./pages/tracking/All/AllItem/AllItem";
-import { Edit } from "./pages/tracking/Edit/Edit";
+import { Edit as ShimizuEdit } from "./pages/tracking/Shimizu/Edit/Edit";
+import { Edit as MercariEdit } from "./pages/tracking/Mercari/Edit/Edit";
 
 function App() {
   const { token, setToken } = useToken();
@@ -64,7 +65,9 @@ function App() {
               <Route path="fril" element={<Fril />} />
               <Route path="web123" element={<Web123 />} />
               <Route path="add" element={<AddTracking />} />
-              <Route path="edit/:id" element={<Edit />} />
+
+              <Route path="shimizu/edit/:id" element={<ShimizuEdit />} />
+              <Route path="mer123fril/edit/:id" element={<MercariEdit />} />
             </Route>
           </Routes>
         </ContentLayout>
