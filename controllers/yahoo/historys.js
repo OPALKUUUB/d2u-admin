@@ -56,25 +56,15 @@ exports.getHistory = async (req, res) => {
 
 exports.getHistoryItem = async (req, res) => {
   const id = req.params.id;
-  const status = req.query.status;
-  let sql;
-  if (status === "win") {
-    sql = `
+  const sql = `
     select
     orders.*,
     payments.slip_image_filename as slip,
     payments.price
     from orders
-    join payments on orders.payment_id = payments.id
+    inner join payments on orders.payment_id = payments.id
     where orders.id = ?;
     `;
-  } else {
-    sql = `
-    select *
-    from orders
-    where orders.id = ?;
-    `;
-  }
   let data = [id];
   let rows;
   try {

@@ -102,7 +102,6 @@ const formData = [
     tag: "BoxId",
   },
   { id: 4, name: "url", tag: "URL" },
-  { id: 5, name: "price", tag: "price" },
   {
     id: 6,
     name: "track_id",

@@ -12,23 +12,19 @@ const Container = styled.div`
 `;
 export const ShowHistoryItem = () => {
   const params = useParams();
-  const [searchParams] = useSearchParams();
   const [data, setData] = useState(ORDER_MODEL);
   useEffect(() => {
-    fetch(
-      `/api/yahoo/historys/${params.id}?status=${searchParams.get("status")}`,
-      init()
-    )
+    fetch(`/api/yahoo/historys/${params.id}`, init())
       .then((res) => res.json())
       .then((json) => {
         if (json.status) {
-          console.table(json.data);
           setData(json.data);
+          // console.log(json.data);
         } else {
-          console.log(json);
+          alert(json.message);
         }
       });
-  }, []);
+  }, [params.id]);
   return (
     <Container>
       <Form data={data} />
