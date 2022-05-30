@@ -2,8 +2,10 @@ import React from "react";
 import MagicBell, {
   FloatingNotificationInbox,
 } from "@magicbell/magicbell-react";
+import { useNavigate } from "react-router-dom";
 
 export const Bell = () => {
+  let navigate = useNavigate();
   return (
     <MagicBell
       apiKey="c2cb12a6926a8cf70819eaf74181d85c779d2ab0"
@@ -12,7 +14,12 @@ export const Bell = () => {
       locale="en"
     >
       {(props) => (
-        <FloatingNotificationInbox width={400} height={500} {...props} />
+        <FloatingNotificationInbox
+          width={400}
+          height={500}
+          {...props}
+          onNotificationClick={() => navigate("/yahoo/orders")}
+        />
       )}
     </MagicBell>
   );
