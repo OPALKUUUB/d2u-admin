@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
+import * as IoIcons from "react-icons/io";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
+import { Bell } from "./Bell";
 
 const Nav = styled.div`
   background: #15171c;
@@ -17,6 +19,18 @@ const Nav = styled.div`
 `;
 
 const NavIcon = styled(Link)`
+  font-size: 2rem;
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  &:hover {
+    color: white;
+  }
+`;
+const NavIconNoLink = styled.div`
   font-size: 2rem;
   height: 80px;
   display: flex;
@@ -77,9 +91,14 @@ const Sidebar = ({ sidebar, setSidebar }) => {
           <NavIcon to="/dashboard">
             <h3>Admin</h3>
           </NavIcon>
-          <NavIcon to="#">
-            <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon>
+          <div style={{ width: "100px", display: "flex", columnGap: "2rem" }}>
+            <NavIconNoLink>
+              <Bell />
+            </NavIconNoLink>
+            <NavIcon to="#">
+              <FaIcons.FaBars onClick={showSidebar} />
+            </NavIcon>
+          </div>
         </Nav>
       </IconContext.Provider>
     </>
