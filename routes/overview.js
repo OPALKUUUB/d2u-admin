@@ -6,6 +6,7 @@ const usersController = require("../controllers/overview/users");
 
 // users
 router.get("/api/overview/users", usersController.getUsers);
+router.patch("/api/overview/users/:id", usersController.patchUser);
 router.get("/api/overview/users/count", usersController.countUsers);
 
 // admins

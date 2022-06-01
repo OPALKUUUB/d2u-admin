@@ -25,6 +25,7 @@ exports.getUsers = async (req, res) => {
   select *
   from user_customers
   where username like ?
+  order by created_at ${req.query.sort}
   limit ?, ?;
   `;
   let rows;
@@ -50,4 +51,32 @@ exports.countUsers = (req, res) => {
     if (err) throw err;
     res.send(result[0]);
   });
+};
+
+exports.patchUser = async (req, res) => {
+  req.body.point_old = req.body.point_old === "" ? 0 : req.body.point_old;
+  req.body.point_new = req.body.point_new === "" ? 0 : req.body.point_new;
+  let data = [req.body, req.params.id];
+  const sql = `
+    update user_customers
+    set ?
+    where
+    id = ?;
+    `;
+  let result;
+  try {
+    result = await query(sql, data).then((res) => res);
+    console.log(result);
+    res.status(200).json({
+      status: true,
+      message: "PATCH /api/overview/users success👍",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "PATCH /api/overview/users fail👎",
+    });
+    console.log(error);
+  }
 };
