@@ -1,4 +1,4 @@
-export const trackingModel = {
+export let trackingModel = {
   id: "",
   username: "",
   track_id: "",
@@ -8,7 +8,7 @@ export const trackingModel = {
   pic2_filename: "",
   created_at: "",
   updated_at: "",
-  date: "",
+  date: new Date().toISOString().split("T")[0],
   channel: "",
   box_id: "",
   url: "",

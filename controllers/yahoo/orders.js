@@ -18,7 +18,6 @@ function query(sql, data) {
 exports.getOrders = async (req, res) => {
   console.log(res.locals);
   const data = [
-    "%" + req.query.date.trim() + "%",
     "%" + req.query.username.trim() + "%", // username
     isEmpty(req.query.offset) ? 0 : parseInt(req.query.offset), // offset
     isEmpty(req.query.item) ? 10 : parseInt(req.query.item), // item
@@ -28,7 +27,6 @@ exports.getOrders = async (req, res) => {
   from orders
   where
   status like 'auction' and
-  created_at like ? and
   username like ?
   order by created_at desc
   limit ?, ?;
@@ -52,6 +50,17 @@ exports.getOrders = async (req, res) => {
 };
 
 exports.patchOrder = async (req, res) => {
+  console.log(req.body);
+  if (
+    req.body.payment_status === "pending1" ||
+    req.body.payment_status === "pending2"
+  ) {
+    req.body.bid = req.body.bid === null ? 0 : req.body.bid;
+    req.body.tranfer_fee_injapan =
+      req.body.tranfer_fee_injapan === null ? 0 : req.body.tranfer_fee_injapan;
+    req.body.delivery_in_thai =
+      req.body.delivery_in_thai === null ? 0 : req.body.delivery_in_thai;
+  }
   if (req.query.ck === "true") {
     if (req.query.option === "0") {
       req.body.maxbid_work_by = res.locals.username;
@@ -70,6 +79,7 @@ exports.patchOrder = async (req, res) => {
     }
   }
   if (req.query.win === "win") {
+    req.body.status = "win";
     req.body.bid_by = res.locals.username;
   }
   let data = [req.body, req.query.id];

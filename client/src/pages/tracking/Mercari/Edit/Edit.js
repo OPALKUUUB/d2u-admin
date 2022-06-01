@@ -43,11 +43,44 @@ export const Edit = () => {
   );
 };
 const Form = ({ data, setData, setLoading }) => {
+  const [pic1File, setPic1File] = useState(null);
+  const [pic2File, setPic2File] = useState(null);
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(genApi(data.id), init(data))
+    let t = data;
+    if (pic1File !== "" && pic1File !== null) {
+      const d = new FormData();
+      d.append("file", pic1File);
+      d.append("upload_preset", "d2u-service");
+      d.append("cloud_name", "d2u-service");
+      await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+        method: "POST",
+        body: d,
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          t.pic1_filename = data.url;
+        })
+        .catch((err) => console.log(err));
+    }
+    if (pic2File !== "" && pic2File !== null) {
+      const d = new FormData();
+      d.append("file", pic2File);
+      d.append("upload_preset", "d2u-service");
+      d.append("cloud_name", "d2u-service");
+      await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+        method: "POST",
+        body: d,
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          t.pic2_filename = data.url;
+        })
+        .catch((err) => console.log(err));
+    }
+    await fetch(genApi(data.id), init(t))
       .then((res) => res.json())
       .then((json) => {
         if (json.status) {
@@ -72,20 +105,75 @@ const Form = ({ data, setData, setLoading }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      {formData.map((item) => {
-        return (
-          <div className="form-group mb-3" key={item.id}>
-            <label className="form-label">{item.tag}</label>
-            <input
-              className="form-control"
-              type={item.type}
-              name={item.name}
-              value={isEmpty(data[item.name]) ? "" : data[item.name]}
-              onChange={handleChange}
+      <div className="row">
+        {formData.map((item) => {
+          return (
+            <div className={item.col + " mb-3"} key={item.id}>
+              <label className="form-label">{item.label}</label>
+              <input
+                className="form-control"
+                type={item.type}
+                name={item.name}
+                value={isEmpty(data[item.name]) ? "" : data[item.name]}
+                onChange={handleChange}
+              />
+            </div>
+          );
+        })}
+        {data.pic1_filename !== "" ? (
+          <>
+            <div className="col mb-3">
+              <img
+                src={data.pic1_filename}
+                alt={data.pic1_filename}
+                width={200}
+              />
+            </div>
+            <div className="col mb-3">
+              <FormImage
+                name="pic1"
+                picFile={pic1File}
+                setPicFile={setPic1File}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="col-12 mb-3">
+            <FormImage
+              name="pic1"
+              picFile={pic1File}
+              setPicFile={setPic1File}
             />
           </div>
-        );
-      })}
+        )}
+        {data.pic2_filename !== "" ? (
+          <>
+            <div className="col mb-3">
+              <img
+                src={data.pic2_filename}
+                alt={data.pic2_filename}
+                width={200}
+              />
+            </div>
+            <div className="col mb-3">
+              <FormImage
+                name="pic2"
+                picFile={pic2File}
+                setPicFile={setPic2File}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="col-12 mb-3">
+            <FormImage
+              name="pic2"
+              picFile={pic2File}
+              setPicFile={setPic2File}
+            />
+          </div>
+        )}
+      </div>
+
       <div className="col">
         <button type="submit" className="btn btn-success w-100">
           save
@@ -99,24 +187,33 @@ const formData = [
   {
     id: 3,
     name: "box_id",
-    tag: "BoxId",
+    label: "BoxId",
+    col: "col-4",
   },
-  { id: 4, name: "url", tag: "URL" },
-  { id: 5, name: "price", tag: "price" },
+  { id: 4, name: "url", label: "URL", col: "col-4" },
   {
     id: 6,
     name: "track_id",
-    tag: "TrackId",
+    label: "TrackId",
+    col: "col-4",
   },
   {
     id: 7,
     name: "weight",
-    tag: "Weight(kg.)",
+    label: "Weight(kg.)",
     type: "number",
+    col: "col-3",
   },
-  { id: 8, name: "q", tag: "Q", type: "number" },
-  { id: 9, name: "round_boat", tag: "RoundBoat", type: "date" },
-  { id: 12, name: "remark", tag: "remark" },
+  {
+    id: 13,
+    name: "price",
+    label: "Price",
+    type: "number",
+    col: "col-3",
+  },
+  { id: 8, name: "q", label: "Q", type: "number", col: "col-3" },
+  { id: 9, name: "round_boat", label: "Voyage", type: "date", col: "col-3" },
+  { id: 12, name: "remark", label: "remark", col: "col-12" },
 ];
 
 function genApi(id) {
@@ -135,3 +232,56 @@ function init(body) {
     body: JSON.stringify(body),
   };
 }
+
+const FormImage = ({ name, picFile, setPicFile }) => {
+  const [image, setImage] = useState(null);
+  const handleSelectPicFile = (e) => {
+    setPicFile(e.target.files[0]);
+    const objectUrl = URL.createObjectURL(e.target.files[0]);
+    setImage(objectUrl);
+  };
+  const handlePaste = (e) => {
+    if (e.clipboardData.files.length) {
+      setPicFile(e.clipboardData.files[0]);
+      const objectUrl = URL.createObjectURL(e.clipboardData.files[0]);
+      setImage(objectUrl);
+    }
+  };
+  return (
+    <>
+      <label htmlFor={name} className="form-label">
+        {name}
+      </label>
+      <input
+        className="form-control"
+        type="file"
+        name="pic_filename"
+        onChange={handleSelectPicFile}
+      />
+      <div
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        {image === null ? (
+          <div
+            style={{
+              background: "gray",
+              width: "100%",
+              height: "150px",
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPaste={handlePaste}
+          >
+            paste image hear
+          </div>
+        ) : (
+          <img src={image} alt={image} width="100%" />
+        )}
+      </div>
+    </>
+  );
+};

@@ -20,7 +20,9 @@ export const TableRow = ({ index, item }) => {
         <td>{data.username}</td>
         <td>{data.track_id}</td>
         <td>{data.box_id}</td>
-        <td>{data.round_boat}</td>
+        <td>
+          <ShowDateTime date={data.round_boat} option="d" />
+        </td>
         <td>
           <img src={data.pic1_filename} alt={data.pic1_filename} width={100} />
         </td>

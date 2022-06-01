@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { trackingModel } from "../Shimizu/component/Table/trackingModel";
 import { Load } from "../../../components/Load";
+import addTrackingModel from "./AddModel";
 
 export const Add = () => {
-  const [tracking, setTracking] = useState(trackingModel);
+  const [tracking, setTracking] = useState(addTrackingModel);
   const [pic1File, setPic1File] = useState(null);
   const [pic2File, setPic2File] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -71,7 +71,7 @@ export const Add = () => {
         .then((res) => res.json())
         .then((json) => {
           if (json.status) {
-            setTracking(trackingModel);
+            setTracking(addTrackingModel);
             alert(json.message);
           } else {
             alert(json.message);
@@ -88,141 +88,154 @@ export const Add = () => {
         <div className="card-header">Add Tracking</div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="channel" className="form-label">
-                channel
-              </label>
-              <select
-                className="form-select"
-                name="channel"
-                onChange={handleChange}
-                value={tracking.channel}
-              >
-                <option value={""}>select</option>
-                <option value={"shimizu"}>shimizu</option>
-                <option value={"mercari"}>mercari</option>
-                <option value={"fril"}>fril</option>
-                <option value={"123"}>web123</option>
-              </select>
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="date" className="form-label">
-                Date
-              </label>
-              <input
-                type="date"
-                name="date"
-                className="form-control"
-                onChange={handleChange}
-                value={tracking.date}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="username" className="form-label">
-                Username
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="username"
-                placeholder="Enter Username"
-                onChange={handleChange}
-                value={tracking.username}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="boxId" className="form-label">
-                BoxId
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="box_id"
-                placeholder="Enter BoxId"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="url" className="form-label">
-                URL
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="url"
-                placeholder="Enter Url"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="trackId" className="form-label">
-                TrackId
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="track_id"
-                placeholder="Enter TrackId"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="weight" className="form-label">
-                Weight
-              </label>
-              <input
-                className="form-control"
-                type="number"
-                name="weight"
-                placeholder="Enter TrackId"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="roundBoat" className="form-label">
-                RoundBoat
-              </label>
-              <input
-                className="form-control"
-                type="date"
-                name="round_boat"
-                placeholder="Enter RoundBoat"
-                onChange={handleChange}
-              />
-            </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-3">
+                <label htmlFor="channel" className="form-label">
+                  channel
+                </label>
+                <select
+                  className="form-select"
+                  name="channel"
+                  onChange={handleChange}
+                  value={tracking.channel}
+                >
+                  <option value={""}>select</option>
+                  <option value={"shimizu"}>shimizu</option>
+                  <option value={"mercari"}>mercari</option>
+                  <option value={"fril"}>fril</option>
+                  <option value={"123"}>web123</option>
+                </select>
+              </div>
+              <div className="col-3 mb-3">
+                <label htmlFor="date" className="form-label">
+                  Date
+                </label>
+                <input
+                  type="date"
+                  name="date"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={tracking.date}
+                />
+              </div>
+              <div className="col-3 mb-3">
+                <label htmlFor="username" className="form-label">
+                  Username
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="username"
+                  placeholder="Enter Username"
+                  onChange={handleChange}
+                  value={tracking.username}
+                />
+              </div>
+              <div className="col-3 mb-3">
+                <label htmlFor="boxId" className="form-label">
+                  BoxId
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="box_id"
+                  placeholder="Enter BoxId"
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="col-2 mb-3">
+                <label htmlFor="trackId" className="form-label">
+                  TrackId
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="track_id"
+                  placeholder="Enter TrackId"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col-2 mb-3">
+                <label htmlFor="weight" className="form-label">
+                  Weight
+                </label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="weight"
+                  placeholder="Enter TrackId"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col-2 mb-3">
+                <label htmlFor="price" className="form-label">
+                  Price
+                </label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="price"
+                  placeholder="Enter Price"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col-3 mb-3">
+                <label htmlFor="roundBoat" className="form-label">
+                  RoundBoat
+                </label>
+                <input
+                  className="form-control"
+                  type="date"
+                  name="round_boat"
+                  placeholder="Enter RoundBoat"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col-3 mb-3">
+                <label htmlFor="url" className="form-label">
+                  URL
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="url"
+                  placeholder="Enter Url"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col-6 mb-3">
                 <FormImage
                   name="pic1"
                   picFile={pic1File}
                   setPicFile={setPic1File}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-6 mb-3">
                 <FormImage
                   name="pic2"
                   picFile={pic2File}
                   setPicFile={setPic2File}
                 />
               </div>
-            </div>
 
-            <div className="form-group mb-3">
-              <label htmlFor="remark" className="form-label">
-                Remark
-              </label>
-              <input
-                className="form-control"
-                type="text"
-                name="remark"
-                placeholder="Enter Remark"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="col">
-              <button type="submit" className="btn btn-success w-100">
-                Add
-              </button>
+              <div className="col-12 mb-3">
+                <label htmlFor="remark" className="form-label">
+                  Remark
+                </label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="remark"
+                  placeholder="Enter Remark"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="col">
+                <button type="submit" className="btn btn-success w-100">
+                  Add
+                </button>
+              </div>
             </div>
           </form>
         </div>
@@ -238,7 +251,7 @@ const FormImage = ({ name, picFile, setPicFile }) => {
     const objectUrl = URL.createObjectURL(e.target.files[0]);
     setImage(objectUrl);
   };
-  const handlePaste1 = (e) => {
+  const handlePaste = (e) => {
     if (e.clipboardData.files.length) {
       setPicFile(e.clipboardData.files[0]);
       const objectUrl = URL.createObjectURL(e.clipboardData.files[0]);
@@ -246,14 +259,14 @@ const FormImage = ({ name, picFile, setPicFile }) => {
     }
   };
   return (
-    <div className="form-group mb-3">
-      <label htmlFor="pic1" className="form-label">
+    <>
+      <label htmlFor={name} className="form-label">
         {name}
       </label>
       <input
         className="form-control"
         type="file"
-        name="pic1_filename"
+        name="pic_filename"
         onChange={handleSelectPicFile}
       />
       <div
@@ -272,7 +285,7 @@ const FormImage = ({ name, picFile, setPicFile }) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            onPaste={handlePaste1}
+            onPaste={handlePaste}
           >
             paste image hear
           </div>
@@ -280,6 +293,6 @@ const FormImage = ({ name, picFile, setPicFile }) => {
           <img src={image} alt={image} width="100%" />
         )}
       </div>
-    </div>
+    </>
   );
 };

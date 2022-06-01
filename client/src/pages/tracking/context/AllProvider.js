@@ -42,6 +42,7 @@ export const AllProvider = ({ children }) => {
         data: data,
         search: handleSearch,
         filter: filter,
+        setFilter: setFilter,
         handleFilter: handleFilter,
       }}
     >

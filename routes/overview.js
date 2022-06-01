@@ -11,6 +11,8 @@ router.get("/api/overview/users/count", usersController.countUsers);
 
 // admins
 router.get("/api/overview/admins", adminsController.getAdmins);
+router.post("/api/overview/admins", adminsController.postAdmin);
+router.patch("/api/overview/admins/:id", adminsController.patchAdmin);
 router.get("/api/overview/admins/count", adminsController.countAdmins);
 
 module.exports = router;

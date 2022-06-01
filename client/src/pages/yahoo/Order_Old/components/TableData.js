@@ -5,7 +5,7 @@ import WinModal from "./modal/WinModal";
 import { ShowDateTime } from "./ShowDateTime";
 
 export const TableData = ({ index, item }) => {
-  const { search } = useContext(OrderContext);
+  const { search, filter } = useContext(OrderContext);
   const [manageModalShow, setManageModalShow] = React.useState(false);
   const [winModalShow, setWinModalShow] = React.useState(false);
   const handleLose = (id) => {
@@ -33,7 +33,7 @@ export const TableData = ({ index, item }) => {
   return (
     <>
       <tr key={index}>
-        <th scope="row">{index + 1}</th>
+        <th scope="row">{filter.offset + index + 1}</th>
         <td>
           <ShowDateTime date={item.created_at} option="d" />
         </td>

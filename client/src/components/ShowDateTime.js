@@ -15,13 +15,13 @@ var months_th = [
   "ธ.ค.",
 ];
 export const ShowDateTime = ({ date, option }) => {
-  if (date === undefined) {
+  if (date === undefined || date === null || date === "") {
     return <>Date: -</>;
   }
   let t = date.split("T");
   let Date = t[0].split("-");
   let d = parseInt(Date[2]);
-  let m = parseInt(Date[1]);
+  let m = parseInt(Date[1]) - 1;
   let y = parseInt(Date[0]);
   let Time = t[1];
   if (option === "d") {

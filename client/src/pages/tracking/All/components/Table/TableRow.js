@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShowDateTime } from "../../../../../components/ShowDateTime";
 export const TableRow = ({ index, item }) => {
-  // const [data, setData] = useState(item);
   const data = item;
   const navigate = useNavigate();
-  // const handleChange = (e) => {
-  //   setData((prev) => {
-  //     return { ...prev, [e.target.name]: e.target.value };
-  //   });
-  // };
   return (
     <>
       <tr>
@@ -20,7 +14,9 @@ export const TableRow = ({ index, item }) => {
         <td>{data.username}</td>
         <td>{data.track_id}</td>
         <td>{data.box_id}</td>
-        <td>{data.round_boat}</td>
+        <td>
+          <ShowDateTime date={data.round_boat} option="d" />
+        </td>
         <td>
           <img src={data.pic1_filename} alt={data.pic1_filename} width={100} />
         </td>

@@ -41,6 +41,16 @@ export const Filter = () => {
           />
         </div>
         <div className="col-12 col-md-2 mb-2">
+          <label className="form-label">roundBoat</label>
+          <input
+            className="form-control"
+            type="date"
+            name="roundBoat"
+            value={filter.roundBoat}
+            onChange={handleFilter}
+          />
+        </div>
+        <div className="col-12 col-md-2 mb-2">
           <label className="form-label">item</label>
           <input
             className="form-control"
@@ -50,7 +60,7 @@ export const Filter = () => {
             onChange={handleFilter}
           />
         </div>
-        <div className="col-2">
+        <div className="col-2 d-none">
           <label className="form-label">channel</label>
           <select
             className="form-select"
