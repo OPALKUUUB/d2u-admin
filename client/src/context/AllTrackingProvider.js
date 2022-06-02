@@ -49,6 +49,49 @@ export const AllTrackingProvider = ({ children }) => {
         window.location.reload(false);
       });
   };
+
+  const PatchTracking = async (id, item) => {
+    setLoading(true);
+    await fetch(genApiPatch(id), initPatch(item))
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status) {
+          setData(json.data);
+        } else {
+          alert(json.message);
+          if (json.error === "jwt") {
+            localStorage.removeItem("token");
+          }
+          window.location.reload(false);
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+        window.location.reload(false);
+      });
+  };
+  const PostTracking = async (item) => {
+    setLoading(true);
+    await fetch(genApiPost(), initPost(item))
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status) {
+          setData(json.data);
+        } else {
+          alert(json.message);
+          if (json.error === "jwt") {
+            localStorage.removeItem("token");
+          }
+          window.location.reload(false);
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+        window.location.reload(false);
+      });
+  };
   const DeleteTracking = async (id) => {
     if (window.confirm("คุณแน่ใจที่จะลบ?")) {
       setLoading(true);
@@ -109,6 +152,7 @@ export const AllTrackingProvider = ({ children }) => {
         handlePrevious: handlePrevious,
         PatchShimizuTracking: PatchShimizuTracking,
         DeleteTracking: DeleteTracking,
+        PatchTracking: PatchTracking,
       }}
     >
       {loading && <Load />}
@@ -169,10 +213,28 @@ function init() {
 function genApiPatchShimizu(id) {
   return `/api/tracking/shimizu?id=${id}`;
 }
+function genApiPatch(id) {
+  return `/api/tracking/mer123fril?id=${id}`;
+}
+function genApiPost(id) {
+  return `/api/tracking`;
+}
 
 function initPatch(item) {
   return {
     method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem("token")).token
+      }`,
+    },
+    body: JSON.stringify(item),
+  };
+}
+function initPost(item) {
+  return {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${

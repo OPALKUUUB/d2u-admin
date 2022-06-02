@@ -160,6 +160,7 @@ exports.postTracking = async (req, res) => {
 
 exports.patchMer123Fril = async (req, res) => {
   let data = [req.body, req.query.id];
+  console.log("first");
   console.log(data);
   const sql = `
     update trackings

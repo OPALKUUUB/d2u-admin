@@ -16,6 +16,7 @@ export function Tr({ item, index }) {
     <>
       <tr key={item.id}>
         {Thead_Data.map((thead) => {
+          // let key = [thead.name, item.id].join("_");
           let key = uuidv4();
           if (thead.name !== undefined) {
             if (thead.type === "date") {
@@ -45,6 +46,16 @@ export function Tr({ item, index }) {
                     {temp_clear}
                   </a>
                 </td>
+              );
+            } else if (thead.type === "checkbox") {
+              return (
+                <TdCheckBox
+                  key={key}
+                  name={thead.name}
+                  value={item[thead.name]}
+                  index={item.id}
+                  item={item}
+                />
               );
             }
             return <td key={key}>{item[thead.name]}</td>;
@@ -132,3 +143,25 @@ export function Tr({ item, index }) {
     </>
   );
 }
+
+const TdCheckBox = ({ value, index, option, name, item }) => {
+  const { PatchTracking } = useContext(AllTrackingContext);
+  const handleCheck = (ck) => {
+    let t = item;
+    t[name] = ck ? 1 : 0;
+    PatchTracking(index, t);
+  };
+  return (
+    <td>
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          defaultChecked={value === null || value === 0 ? false : true}
+          id={`TdCheckbox-${index}`}
+          onChange={(e) => handleCheck(e.target.checked)}
+        />
+      </div>
+    </td>
+  );
+};

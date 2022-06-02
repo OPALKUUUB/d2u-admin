@@ -7,7 +7,9 @@ const Thead_Data = [
   { id: 6, title: "Voyage", name: "round_boat", type: "date" },
   { id: 7, title: "pic1", name: "pic1_filename", type: "image" },
   { id: 8, title: "pic2", name: "pic2_filename", type: "image" },
-  { id: 9, title: "Note", name: "remark" },
+  { id: 9, title: "รับของ", name: "check1", type: "checkbox" },
+  { id: 10, title: "Done", name: "check2", type: "checkbox" },
+  { id: 11, title: "Note", name: "remark" },
   { id: 99, title: "Manage" },
 ];
 

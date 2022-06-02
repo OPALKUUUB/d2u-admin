@@ -62,7 +62,7 @@ export function Tr({ item, index }) {
               <td key={key}>
                 <div className="dropdown">
                   <button
-                    className="btn btn-secondary dropdown-toggle"
+                    className="btn-sm btn-secondary dropdown-toggle"
                     type="button"
                     id={`dropdownMenuButton-${index}`}
                     data-bs-toggle="dropdown"
