@@ -57,7 +57,12 @@ const SidebarNav = styled.nav`
 `;
 
 const SidebarWrap = styled.div`
+  height: 100vh;
+  overflow-y: scroll;
   width: 100%;
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
 `;
 
 const Sidebar = ({ sidebar, setSidebar }) => {
