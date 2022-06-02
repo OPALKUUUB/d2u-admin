@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { AdminContext } from "../../../../../context/AdminProvider";
 import Add_Data from "./Add_Data";
+import { v4 as uuidv4 } from "uuid";
 const adminModel = {
   username: "",
   name: "",
@@ -36,10 +37,11 @@ export const AddModal = (props) => {
         <Modal.Body scrollable="true">
           <div className="row">
             {Add_Data.map((form) => {
+              let key = uuidv4()
               if (form.type === "text") {
                 return (
-                  <div key={form.id} className={form.col}>
-                    <div className="form-group" key={form.id}>
+                  <div key={key} className={form.col}>
+                    <div className="form-group">
                       <label className="form-label">{form.label}</label>
                       <input
                         className="form-control"
@@ -59,7 +61,7 @@ export const AddModal = (props) => {
                 );
               } else if (form.type === "select") {
                 return (
-                  <div key={form.id} className={form.col}>
+                  <div key={key} className={form.col}>
                     <div className="form-group">
                       <label className="form-label">{form.label}</label>
                       <select
@@ -84,8 +86,8 @@ export const AddModal = (props) => {
                 );
               } else if (form.type === "number") {
                 return (
-                  <div key={form.id} className={form.col}>
-                    <div className="form-group" key={form.id}>
+                  <div key={key} className={form.col}>
+                    <div className="form-group">
                       <label className="form-label">{form.label}</label>
                       <input
                         className="form-control"

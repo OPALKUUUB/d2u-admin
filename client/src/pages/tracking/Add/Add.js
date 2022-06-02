@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Load } from "../../../components/Load";
 import addTrackingModel from "./AddModel";
+import { AutoComplete } from "./component/AutoComplete/AutoComplete";
 
 export const Add = () => {
   const [tracking, setTracking] = useState(addTrackingModel);
   const [pic1File, setPic1File] = useState(null);
   const [pic2File, setPic2File] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    fetch(`/api/overview/users/autocomplete`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("token")).token
+        }`,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status) {
+          setUser(json.data);
+        } else {
+          alert(json.message);
+        }
+      });
+  }, []);
   const handleChange = (e) => {
     setTracking((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -122,15 +142,25 @@ export const Add = () => {
                 <label htmlFor="username" className="form-label">
                   Username
                 </label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="username"
-                  placeholder="Enter Username"
-                  onChange={handleChange}
-                  value={tracking.username}
-                />
+                <AutoComplete
+                  datas={user}
+                  state={tracking.username}
+                  setState={(username) =>
+                    setTracking({ ...tracking, username: username })
+                  }
+                  filter="username"
+                >
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="username"
+                    placeholder="Enter Username"
+                    onChange={handleChange}
+                    value={tracking.username}
+                  />
+                </AutoComplete>
               </div>
+
               <div className="col-3 mb-3">
                 <label htmlFor="boxId" className="form-label">
                   BoxId

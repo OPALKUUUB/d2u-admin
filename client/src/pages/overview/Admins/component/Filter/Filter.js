@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AdminContext } from "../../../../../context/AdminProvider";
 import Form_Data from "./formData";
+import { v4 as uuidv4 } from "uuid";
 
 export const Filter = () => {
   const { filter, handleChangeFilter, handleSearch } = useContext(AdminContext);
@@ -8,10 +9,11 @@ export const Filter = () => {
     <form onSubmit={(e) => handleSearch(e)}>
       <div className="row">
         {Form_Data.map((form) => {
+          let key = uuidv4()
           if (form.type === "text") {
             return (
-              <div key={form.id} className="col-2">
-                <div className="form-group" key={form.id}>
+              <div key={key} className="col-2">
+                <div className="form-group">
                   <label className="form-label">{form.label}</label>
                   <input
                     className="form-control"
@@ -26,7 +28,7 @@ export const Filter = () => {
             );
           } else if (form.type === "select") {
             return (
-              <div key={form.id} className="col-2">
+              <div key={key} className="col-2">
                 <div className="form-group">
                   <label className="form-label">{form.label}</label>
                   <select
@@ -46,8 +48,8 @@ export const Filter = () => {
             );
           } else if (form.type === "number") {
             return (
-              <div key={form.id} className="col-2">
-                <div className="form-group" key={form.id}>
+              <div key={key} className="col-2">
+                <div className="form-group">
                   <label className="form-label">{form.label}</label>
                   <input
                     className="form-control"

@@ -6,6 +6,10 @@ const usersController = require("../controllers/overview/users");
 
 // users
 router.get("/api/overview/users", usersController.getUsers);
+router.get(
+  "/api/overview/users/autocomplete",
+  usersController.getUsers_autocomplete
+);
 router.patch("/api/overview/users/:id", usersController.patchUser);
 router.get("/api/overview/users/count", usersController.countUsers);
 

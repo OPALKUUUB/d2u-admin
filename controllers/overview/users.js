@@ -80,3 +80,29 @@ exports.patchUser = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.getUsers_autocomplete = async (req, res) => {
+  const data = [
+    // "%" + req.query.username.trim() + "%",
+    // isEmpty(req.query.item) ? 10 : parseInt(req.query.item),
+  ];
+  const sql = `
+  select id, username
+  from user_customers
+  `;
+  let rows;
+  try {
+    rows = await query(sql, data).then((res) => res);
+    res.status(200).json({
+      status: true,
+      data: rows,
+      message: "GET /api/overview/users success👍",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "GET /api/overview/users fail👎",
+    });
+  }
+};
