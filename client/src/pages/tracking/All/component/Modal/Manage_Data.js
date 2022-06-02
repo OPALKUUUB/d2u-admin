@@ -28,8 +28,16 @@ const Manage_Data = [
     label: "Weight (Kg.)",
     name: "weight",
     type: "number",
-    col: "col-sm-12 col-md-4 mb-3",
+    col: "col-sm-12 col-md-2 mb-3",
     placeholder: "Enter Weight",
+  },
+  {
+    id: 10,
+    label: "Price",
+    name: "price",
+    type: "number",
+    col: "col-sm-12 col-md-2 mb-3",
+    placeholder: "Enter Price",
   },
   {
     id: 5,
