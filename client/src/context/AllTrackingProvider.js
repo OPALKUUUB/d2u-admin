@@ -77,7 +77,7 @@ export const AllTrackingProvider = ({ children }) => {
       .then((res) => res.json())
       .then((json) => {
         if (json.status) {
-          setData(json.data);
+          alert(json.message);
         } else {
           alert(json.message);
           if (json.error === "jwt") {
@@ -89,7 +89,7 @@ export const AllTrackingProvider = ({ children }) => {
       .catch((err) => console.log(err))
       .finally(() => {
         setLoading(false);
-        window.location.reload(false);
+        // window.location.reload(false);
       });
   };
   const DeleteTracking = async (id) => {
@@ -151,6 +151,7 @@ export const AllTrackingProvider = ({ children }) => {
         handleNext: handleNext,
         handlePrevious: handlePrevious,
         PatchShimizuTracking: PatchShimizuTracking,
+        PostTracking: PostTracking,
         DeleteTracking: DeleteTracking,
         PatchTracking: PatchTracking,
       }}
