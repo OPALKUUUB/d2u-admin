@@ -61,6 +61,20 @@ export const UserProvider = ({ children }) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+  const handlePrevious = () => {
+    setSearchParams({
+      ...filter,
+      offset: parseInt(filter.offset) - parseInt(filter.item),
+    });
+    window.location.reload(false);
+  };
+  const handleNext = () => {
+    setSearchParams({
+      ...filter,
+      offset: parseInt(filter.offset) + parseInt(filter.item),
+    });
+    window.location.reload(false);
+  };
   return (
     <UserContext.Provider
       value={{
@@ -70,6 +84,8 @@ export const UserProvider = ({ children }) => {
         handleChangeFilter: handleChangeFilter,
         handleSearch: handleSearch,
         PatchUsers: PatchUsers,
+        handleNext: handleNext,
+        handlePrevious: handlePrevious,
       }}
     >
       {loading && <Load />}

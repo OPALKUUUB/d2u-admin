@@ -36,6 +36,20 @@ export const AllProvider = ({ children }) => {
       return { ...filter, [e.target.name]: e.target.value };
     });
   };
+  const handlePrevious = () => {
+    setSearchParams({
+      ...filter,
+      offset: parseInt(filter.offset) - parseInt(filter.item),
+    });
+    window.location.reload(false);
+  };
+  const handleNext = () => {
+    setSearchParams({
+      ...filter,
+      offset: parseInt(filter.offset) + parseInt(filter.item),
+    });
+    window.location.reload(false);
+  };
   return (
     <AllContext.Provider
       value={{
@@ -44,6 +58,8 @@ export const AllProvider = ({ children }) => {
         filter: filter,
         setFilter: setFilter,
         handleFilter: handleFilter,
+        handleNext: handleNext,
+        handlePrevious: handlePrevious,
       }}
     >
       {loading && <Load />}

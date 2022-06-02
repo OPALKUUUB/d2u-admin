@@ -27,22 +27,8 @@ const BtnPagination = styled.div`
   background-color: #ffffff;
   cursor: pointer;
 `;
-function Pagination() {
-  const { filter, setFilter, search } = useContext(AllContext);
-  const handlePrevious = (e) => {
-    setFilter((prev) => {
-      let t = parseInt(prev.offset) - parseInt(filter.item);
-      return { ...prev, offset: t };
-    });
-    search();
-  };
-  const handleNext = (e) => {
-    setFilter((prev) => {
-      let t = parseInt(prev.offset) + parseInt(filter.item);
-      return { ...prev, offset: t };
-    });
-    search();
-  };
+export function Pagination() {
+  const { filter, handleNext, handlePrevious } = useContext(AllContext);
   return (
     <div className="d-flex justify-content-between">
       {filter.offset > 0 && (

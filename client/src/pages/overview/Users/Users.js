@@ -27,19 +27,8 @@ const BtnPagination = styled.div`
   cursor: pointer;
 `;
 function Pagination() {
-  const { filter, setFilter, handleSearch } = useContext(UserContext);
-  const handlePrevious = (e) => {
-    setFilter((prev) => {
-      return { ...prev, offset: parseInt(prev.offset) - parseInt(filter.item) };
-    });
-    handleSearch(e);
-  };
-  const handleNext = (e) => {
-    setFilter((prev) => {
-      return { ...prev, offset: parseInt(prev.offset) + parseInt(filter.item) };
-    });
-    handleSearch(e);
-  };
+  const { filter, handleSearch, handleNext, handlePrevious } =
+    useContext(UserContext);
   return (
     <div className="d-flex justify-content-between">
       {filter.offset > 0 && (

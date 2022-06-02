@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Filter } from "./component/Filter/Filter";
-import { AllContext, AllProvider } from "../context/AllProvider";
+import { AllProvider } from "../context/AllProvider";
 import { CardFilter } from "../All/components/Filter/CardFilter";
 import { Card } from "../All/components/Table/Card";
 import { Table } from "./component/Table/Table";
-import styled from "styled-components";
+import { Pagination } from "../All/All";
 
 export const Web123 = () => {
   return (
@@ -22,33 +22,3 @@ export const Web123 = () => {
     </div>
   );
 };
-
-const BtnPagination = styled.div`
-  background-color: #ffffff;
-  cursor: pointer;
-`;
-function Pagination() {
-  const { filter, setFilter, search } = useContext(AllContext);
-  const handlePrevious = (e) => {
-    setFilter((prev) => {
-      let t = parseInt(filter.offset) - parseInt(filter.item);
-      return { ...prev, offset: t };
-    });
-    search();
-  };
-  const handleNext = (e) => {
-    setFilter((prev) => {
-      let t = parseInt(filter.offset) + parseInt(filter.item);
-      return { ...prev, offset: t };
-    });
-    search();
-  };
-  return (
-    <div className="d-flex justify-content-between">
-      {filter.offset > 0 && (
-        <BtnPagination onClick={handlePrevious}>{"<<"}</BtnPagination>
-      )}
-      <BtnPagination onClick={handleNext}>{">>"}</BtnPagination>
-    </div>
-  );
-}
