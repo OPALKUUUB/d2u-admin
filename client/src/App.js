@@ -16,6 +16,10 @@ import { ShowHistoryItem } from "./pages/yahoo/History/ShowHistoryItem/ShowHisto
 import { Tracking } from "./pages/yahoo/Tracking/Tracking";
 import styled from "styled-components";
 import { Shimizu } from "./pages/tracking/Shimizu/Shimizu";
+import { Mercari } from "./pages/tracking/Mercari/Mercari";
+import { Fril } from "./pages/tracking/Fril/Fril";
+import { Web123 } from "./pages/tracking/Web123/Web123";
+import { All } from "./pages/tracking/All/All";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -54,6 +58,10 @@ function App() {
             </Route>
             <Route path="/tracking">
               <Route path="shimizu" element={<Shimizu />} />
+              <Route path="mercari" element={<Mercari />} />
+              <Route path="fril" element={<Fril />} />
+              <Route path="web123" element={<Web123 />} />
+              <Route path="all" element={<All />} />
             </Route>
           </Routes>
         </ContentLayout>

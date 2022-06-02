@@ -50,25 +50,27 @@ export const AllTrackingProvider = ({ children }) => {
       });
   };
   const DeleteTracking = async (id) => {
-    setLoading(true);
-    await fetch(genApiDelete(id), initDelete())
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.status) {
-          setData(json.data);
-        } else {
-          alert(json.message);
-          if (json.error === "jwt") {
-            localStorage.removeItem("token");
+    if (window.confirm("คุณแน่ใจที่จะลบ?")) {
+      setLoading(true);
+      await fetch(genApiDelete(id), initDelete())
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.status) {
+            setData(json.data);
+          } else {
+            alert(json.message);
+            if (json.error === "jwt") {
+              localStorage.removeItem("token");
+            }
+            window.location.reload(false);
           }
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          setLoading(false);
           window.location.reload(false);
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        setLoading(false);
-        window.location.reload(false);
-      });
+        });
+    }
   };
   useEffect(() => {
     FetchTracking();

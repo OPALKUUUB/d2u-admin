@@ -225,7 +225,7 @@ exports.patchMer123Fril = async (req, res) => {
 };
 
 exports.deleteTracking = async (req, res) => {
-  const data = [req.query.id];
+  const data = [req.params.id];
   const sql = `
   delete from trackings
   where id = ?;

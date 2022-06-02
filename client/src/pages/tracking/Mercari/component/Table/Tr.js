@@ -11,6 +11,7 @@ export function Tr({ item, index }) {
   const { filter, DeleteTracking } = useContext(AllTrackingContext);
   const [manageModal, setManageModal] = useState(false);
   const [managePic1Modal, setManagePic1Modal] = useState(false);
+  const [managePic2Modal, setManagePic2Modal] = useState(false);
   return (
     <>
       <tr key={item.id}>
@@ -94,6 +95,21 @@ export function Tr({ item, index }) {
                         show={managePic1Modal}
                         onHide={() => setManagePic1Modal(false)}
                         name="pic1_filename"
+                        item={item}
+                      />
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="dropdown-item"
+                        onClick={() => setManagePic2Modal(true)}
+                      >
+                        pic2
+                      </button>
+                      <ManagePic
+                        show={managePic2Modal}
+                        onHide={() => setManagePic2Modal(false)}
+                        name="pic2_filename"
                         item={item}
                       />
                     </li>

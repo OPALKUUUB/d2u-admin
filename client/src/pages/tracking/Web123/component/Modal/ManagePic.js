@@ -34,17 +34,13 @@ export const ManagePic = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Manage Pic1
+          Manage {props.name}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body scrollable="true">
         <div className="row">
           <div className="col-sm-12 col-md-6 mb-3">
-            <img
-              src={item.pic1_filename}
-              alt={item.pic1_filename}
-              width={300}
-            />
+            <img src={item[props.name]} alt={item[props.name]} width={300} />
           </div>
           <div className="col-sm-12 col-md-6">
             <FormImage

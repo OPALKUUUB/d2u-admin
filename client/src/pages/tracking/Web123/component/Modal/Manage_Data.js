@@ -1,0 +1,58 @@
+const Manage_Data = [
+  {
+    id: 1,
+    label: "Box No.",
+    name: "box_id",
+    type: "text",
+    col: "col-sm-12 col-md-4 mb-3",
+    placeholder: "Enter Box No.",
+  },
+  {
+    id: 2,
+    label: "Url",
+    name: "url",
+    type: "text",
+    col: "col-sm-12 col-md-4 mb-3",
+    placeholder: "Enter Url",
+  },
+  {
+    id: 3,
+    label: "Track Id",
+    name: "track_id",
+    type: "text",
+    col: "col-sm-12 col-md-4 mb-3",
+    placeholder: "Enter Track Id",
+  },
+  {
+    id: 4,
+    label: "Weight (Kg.)",
+    name: "weight",
+    type: "number",
+    col: "col-sm-12 col-md-4 mb-3",
+    placeholder: "Enter Weight",
+  },
+  {
+    id: 5,
+    label: "Q",
+    name: "q",
+    type: "number",
+    col: "col-sm-12 col-md-4 mb-3",
+    placeholder: "Enter Q",
+  },
+  {
+    id: 6,
+    label: "Voyage",
+    name: "round_boat",
+    type: "date",
+    col: "col-sm-12 col-md-4 mb-3",
+  },
+  {
+    id: 7,
+    label: "Note",
+    name: "noted",
+    type: "text",
+    col: "col-12 mb-3",
+    placeholder: "Enter Note",
+  },
+];
+export default Manage_Data;
