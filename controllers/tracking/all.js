@@ -26,7 +26,6 @@ function genDate() {
 exports.getTracking = async (req, res) => {
   let data;
   let sql;
-  console.log(req.query);
   if (isEmpty(req.query.channel)) {
     data = [
       `%${isEmpty(req.query.date) ? "" : req.query.date.trim()}%`,
@@ -73,7 +72,6 @@ exports.getTracking = async (req, res) => {
   let rows;
   try {
     rows = await query(sql, data).then((res) => res);
-    console.log(rows);
     result_count = await query(
       `select count(*) as count from trackings`,
       []
@@ -221,6 +219,30 @@ exports.patchMer123Fril = async (req, res) => {
       status: false,
       error: error,
       message: "PATCH /api/tracking/shimizu fail👎",
+    });
+    console.log(error);
+  }
+};
+
+exports.deleteTracking = async (req, res) => {
+  const data = [req.query.id];
+  const sql = `
+  delete from trackings
+  where id = ?;
+  `;
+  let result;
+  try {
+    result = await query(sql, data).then((res) => res);
+    res.status(200).json({
+      status: true,
+      message: "DELETE /api/trackings success👍",
+    });
+    console.log(result);
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "DELETE /api/trackings fail👎",
     });
     console.log(error);
   }

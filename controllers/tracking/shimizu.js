@@ -25,7 +25,7 @@ function genDate() {
 
 exports.patchShimizu = async (req, res) => {
   let data = [req.body, req.query.id];
-  //   console.log(data);
+  console.log(data);
   const sql = `
     update trackings
     set ?
