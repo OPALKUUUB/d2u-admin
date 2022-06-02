@@ -42,6 +42,7 @@ export const TableData = ({ index, item }) => {
           <ShowDateTime date={item.round_boat} option="d" />
         </td>
         <td>{item.noted}</td>
+        <td>{item.point}</td>
         <td>
           <div className="dropdown">
             <button

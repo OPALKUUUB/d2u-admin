@@ -44,5 +44,6 @@ const THEAD = [
   "Weight",
   "Round Boat",
   "Noted",
+  "Point",
   "Manage",
 ];

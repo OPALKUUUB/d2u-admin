@@ -26,6 +26,10 @@ function ManageModal(props) {
   }, [props.item]);
   const handleSave = (id) => {
     const obj = {
+      addPoint: item.addPoint,
+      point: item.point,
+      username: item.username,
+      bid: item.bid,
       track_id: trackId,
       box_id: boxId,
       weight: weight,

@@ -1,15 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ShowDateTime } from "../../../../../components/ShowDateTime";
 export const TableRow = ({ index, item }) => {
-  // const [data, setData] = useState(item);
   const data = item;
   const navigate = useNavigate();
-  // const handleChange = (e) => {
-  //   setData((prev) => {
-  //     return { ...prev, [e.target.name]: e.target.value };
-  //   });
-  // };
   return (
     <>
       <tr>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { ShowDateTime } from "../../../../../components/ShowDateTime";
 import { PaymentContext } from "../../../../../context/PaymentProvider";
-import { ShowDateTime } from "../ShowDateTime";
 
 function ManageModal(props) {
   const { search } = useContext(PaymentContext);

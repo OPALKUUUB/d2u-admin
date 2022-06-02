@@ -69,36 +69,39 @@ exports.patchTracking = async (req, res) => {
   where id = ?;
   `;
   let result;
-  console.log("first");
   try {
     result = await query(sql, data).then((res) => res);
-    res.status(200).json({
-      status: true,
-      message: "PATCH /api/yahoo/trackings success👍",
-    });
-    if (req.body.done) {
-      const sql_item = `
-      select id, bid, weight
-      from orders
-      where id = ?;
-     `;
-      let result_item = await query(sql_item, [req.query.id]).then(
-        (res) => res
-      );
-      let row = result_item[0];
-      let weight = parseFloat(row.weight);
-      let bid = parseFloat(row.bid);
-      let point = Math.round((bid / 2000 + weight) * 100) / 100;
+    let oldPoint = req.body.point;
+    let newPoint = 0;
+    if (!isEmpty(req.body.weight) && !isEmpty(req.body.bid)) {
+      let weight = parseFloat(req.body.weight);
+      let bid = parseFloat(req.body.bid);
+      newPoint = Math.round((bid / 2000 + weight) * 100) / 100;
       const sql_update_point = `
       update orders
       set point = ?, addPoint = 1
       where id = ?;
       `;
       let result_update_point = await query(sql_update_point, [
-        point,
+        newPoint,
         req.query.id,
       ]).then((res) => res);
-      console.log("add point: ", point);
+      let sql_user = `select point_new, id, username from user_customers where username like ?;`;
+      let rows = await query(sql_user, [req.body.username]).then((res) => res);
+      let user = rows[0];
+      let point = 0;
+      if (req.body.addPoint === 1) {
+        point = user.point_new - oldPoint + newPoint;
+      } else {
+        point = user.point_new + newPoint;
+      }
+      console.log(`${user.username} have point: ${point}`);
+      let sql_update_user_point = `update user_customers set point_new = ? where id = ?`;
+      await query(sql_update_user_point, [point, user.id]);
+      res.status(200).json({
+        status: true,
+        message: "PATCH /api/yahoo/trackings success👍",
+      });
     }
   } catch (error) {
     res.status(400).json({

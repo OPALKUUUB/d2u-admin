@@ -14,7 +14,6 @@ import { Payment } from "./pages/yahoo/Payment/Payment";
 import { History } from "./pages/yahoo/History/History";
 import { ShowHistoryItem } from "./pages/yahoo/History/ShowHistoryItem/ShowHistoryItem";
 import { Tracking } from "./pages/yahoo/Tracking/Tracking";
-import { ContentLayout } from "./pages/yahoo/Order_Old/components/ContentLayout";
 import { Add as AddTracking } from "./pages/tracking/Add/Add";
 import { Shimizu } from "./pages/tracking/Shimizu/Shimizu";
 import { All } from "./pages/tracking/All/All";
@@ -24,7 +23,12 @@ import { Web123 } from "./pages/tracking/Web123/Web123";
 import { AllItem } from "./pages/tracking/All/AllItem/AllItem";
 import { Edit as ShimizuEdit } from "./pages/tracking/Shimizu/Edit/Edit";
 import { Edit as MercariEdit } from "./pages/tracking/Mercari/Edit/Edit";
+import styled from "styled-components";
 
+const ContentLayout = styled.div`
+  margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
+  transition: all 0.2s ease-in-out;
+`;
 function App() {
   const { token, setToken } = useToken();
   const [sidebar, setSidebar] = useState(false);
