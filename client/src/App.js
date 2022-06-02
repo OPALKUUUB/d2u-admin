@@ -20,6 +20,7 @@ import { Mercari } from "./pages/tracking/Mercari/Mercari";
 import { Fril } from "./pages/tracking/Fril/Fril";
 import { Web123 } from "./pages/tracking/Web123/Web123";
 import { All } from "./pages/tracking/All/All";
+import { Add as AddTracking } from "./pages/tracking/Add/Add";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -62,6 +63,7 @@ function App() {
               <Route path="fril" element={<Fril />} />
               <Route path="web123" element={<Web123 />} />
               <Route path="all" element={<All />} />
+              <Route path="add" element={<AddTracking />} />
             </Route>
           </Routes>
         </ContentLayout>
