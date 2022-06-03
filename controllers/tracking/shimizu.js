@@ -1,5 +1,7 @@
 const conn = require("../connection");
-
+const fs = require("fs");
+const csv = require("fast-csv");
+const multer = require("multer");
 function isEmpty(value) {
   return value === "" || value === undefined || value === null;
 }
@@ -75,4 +77,71 @@ exports.patchShimizu = async (req, res) => {
     });
     console.log(error);
   }
+};
+
+exports.uploadCsv = (req, res) => {
+  let date = genDate();
+  let rows = [];
+  let check = true;
+  csv
+    .parseFile(req.file.path)
+    .on("data", function (data) {
+      if (data[0] === "") {
+        return;
+      }
+      if (check) {
+        check = false;
+        data.push("created_at");
+        data.push("updated_at");
+      } else {
+        if (data[5].split("/").length === 3) {
+          t = data[5].split("/");
+          m = "0" + t[1];
+          d = "0" + t[0];
+          data[5] = `${t[2]}-${m.slice(-2)}-${d.slice(-2)}`;
+        }
+        if (data[0].split("/").length === 3) {
+          t = data[0].split("/");
+          m = "0" + t[1];
+          d = "0" + t[0];
+          data[0] = `${t[2]}-${m.slice(-2)}-${d.slice(-2)}`;
+        }
+        if (data[4] === "") {
+          data[4] = 0;
+        }
+        data.push("shimizu");
+        data.push(date);
+        data.push(date);
+        rows.push(data);
+      }
+    })
+    .on("end", async function () {
+      // console.log(rows);
+      // this line for delete file
+      fs.unlinkSync(req.file.path);
+      // res.json({
+      //   status: true,
+      //   message: "test",
+      // });
+      const sql = `
+      insert into
+      trackings
+      (date, username, track_id, box_id, weight, round_boat, remark, channel, created_at, updated_at)
+      values ?;
+      `;
+      try {
+        result = await query(sql, [rows]).then((res) => res);
+        res.status(200).json({
+          status: true,
+          message: "POST /api/tracking/shimizu/upload-csv success👍",
+        });
+      } catch (error) {
+        res.status(400).json({
+          status: false,
+          error: error,
+          message: "POST /api/tracking/shimizu/upload-csv fail👎",
+        });
+        console.log(error);
+      }
+    });
 };
