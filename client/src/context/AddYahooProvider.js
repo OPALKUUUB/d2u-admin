@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { Load } from "../components/Load";
 const add_order_model = {
   link: "",
   imgsrc: "",
@@ -20,8 +21,9 @@ export const AddYahooContext = createContext();
 export const AddYahooProvider = ({ children }) => {
   const [post, setPost] = useState(add_order_model);
   const [data, setData] = useState(data_link_model);
+  const [loading, setLoading] = useState(false);
   const FetchImage = async (link) => {
-    // setLoading(true);
+    setLoading(true);
     await fetch("/api/yahoo/image", {
       method: "POST",
       headers: {
@@ -36,7 +38,7 @@ export const AddYahooProvider = ({ children }) => {
       .then((json) => {
         if (json.status) {
           console.log(json);
-          alert(json.message);
+          // alert(json.message);
           setPost({ ...post, imgsrc: json.imgsrc });
           setData(json.data);
         } else {
@@ -47,11 +49,11 @@ export const AddYahooProvider = ({ children }) => {
           window.location.reload(false);
         }
       })
-      .catch((err) => console.log(err));
-    //   .finally(() => setLoading(false));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
   const PostOrder = async (order) => {
-    // setLoading(true);
+    setLoading(true);
     if (order.username === "") {
       return alert("Enter Username");
     } else if (order.maxbid === 0 || order.maxbid === "") {
@@ -80,8 +82,8 @@ export const AddYahooProvider = ({ children }) => {
           window.location.reload(false);
         }
       })
-      .catch((err) => console.log(err));
-    //   .finally(() => setLoading(false));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
   return (
     <AddYahooContext.Provider
@@ -93,6 +95,7 @@ export const AddYahooProvider = ({ children }) => {
         data: data,
       }}
     >
+      {loading && <Load />}
       {children}
     </AddYahooContext.Provider>
   );
