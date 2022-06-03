@@ -94,6 +94,7 @@ exports.uploadCsv = (req, res) => {
         data.push("created_at");
         data.push("updated_at");
       } else {
+        let t, m, d;
         if (data[5].split("/").length === 3) {
           t = data[5].split("/");
           m = "0" + t[1];
