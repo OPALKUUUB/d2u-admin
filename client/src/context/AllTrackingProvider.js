@@ -170,10 +170,14 @@ function getFilter(searchParams) {
   let offset = searchParams.get("offset");
   let item = searchParams.get("item");
   let channel = searchParams.get("channel");
+  let check1 = searchParams.get("check1");
+  let check2 = searchParams.get("check2");
   date = date === undefined || date === null ? "" : date;
   username = username === undefined || username === null ? "" : username;
   trackId = trackId === undefined || trackId === null ? "" : trackId;
   roundBoat = roundBoat === undefined || roundBoat === null ? "" : roundBoat;
+  check1 = check1 === undefined || check1 === null ? "all" : check1;
+  check2 = check2 === undefined || check2 === null ? "all" : check2;
   offset = offset === undefined || offset === null ? 0 : offset;
   item = item === undefined || item === null ? 10 : item;
   channel = channel === undefined || channel === null ? "" : channel;
@@ -184,20 +188,14 @@ function getFilter(searchParams) {
     round_boat: roundBoat,
     offset: offset,
     item: item,
+    check1: check1,
+    check2: check2,
     channel: channel,
   };
 }
 
 function genApi(filter) {
-  return `/api/tracking?
-  date=${filter.date}
-  &username=${filter.username}
-  &trackId=${filter.track_id}
-  &roundBoat=${filter.round_boat}
-  &offset=${filter.offset}
-  &item=${filter.item}
-  &channel=${filter.channel}
-  `;
+  return `/api/tracking?check1=${filter.check1}&check2=${filter.check2}&date=${filter.date}&username=${filter.username}&trackId=${filter.track_id}&roundBoat=${filter.round_boat}&offset=${filter.offset}&item=${filter.item}&channel=${filter.channel}`;
 }
 
 function init() {

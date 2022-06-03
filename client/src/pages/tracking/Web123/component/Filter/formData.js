@@ -30,11 +30,23 @@ const Form_Data = [
     col: "col-sm-12 col-md-2",
   },
   {
+    id: 6,
+    label: "Done",
+    name: "check2",
+    type: "select",
+    col: "col-sm-12 col-md-1 mb-3",
+    option: [
+      { id: 3, value: "all", label: "all" },
+      { id: 1, value: "1", label: "done" },
+      { id: 2, value: "0", label: "not done" },
+    ],
+  },
+  {
     id: 8,
     label: "Show",
     name: "item",
     type: "number",
-    col: "col-sm-12 col-md-2",
+    col: "col-sm-12 col-md-1",
   },
 ];
 

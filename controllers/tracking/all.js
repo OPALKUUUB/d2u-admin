@@ -25,7 +25,6 @@ function genDate() {
 
 exports.getTracking = async (req, res) => {
   let data;
-  console.log(req.query);
   let sql;
   if (isEmpty(req.query.channel)) {
     data = [
@@ -57,6 +56,8 @@ exports.getTracking = async (req, res) => {
       isEmpty(req.query.offset) ? 0 : parseInt(req.query.offset),
       isEmpty(req.query.item) ? 10 : parseInt(req.query.item),
     ];
+    let check1 = req.query.check1.trim();
+    let check2 = req.query.check2.trim();
     sql = `
       select *
       from trackings
@@ -66,6 +67,20 @@ exports.getTracking = async (req, res) => {
       track_id like ? and
       round_boat like ? and
       channel like ?
+      ${
+        check1 === "all"
+          ? ""
+          : check1 === "1"
+          ? " and check1 = 1 "
+          : " and (check1 is null or check1 = 0) "
+      }
+      ${
+        check2 === "all"
+          ? ""
+          : check2 === "1"
+          ? " and check2 = 1 "
+          : " and (check2 is null or check2 = 0) "
+      }
       order by created_at desc
       limit ?,?;
     `;

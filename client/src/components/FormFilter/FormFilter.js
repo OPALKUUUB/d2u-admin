@@ -68,7 +68,7 @@ export const FormFilter = ({
             </div>
           );
         })}
-        <div className="col-2">
+        <div className="col-sm-12 col-md-1">
           <button
             type="submit"
             className="btn btn-primary"
