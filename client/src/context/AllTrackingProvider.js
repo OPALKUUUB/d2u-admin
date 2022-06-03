@@ -165,8 +165,8 @@ export const AllTrackingProvider = ({ children }) => {
 function getFilter(searchParams) {
   let date = searchParams.get("date");
   let username = searchParams.get("username");
-  let trackId = searchParams.get("trackId");
-  let roundBoat = searchParams.get("roundBoat");
+  let trackId = searchParams.get("track_id");
+  let roundBoat = searchParams.get("round_boat");
   let offset = searchParams.get("offset");
   let item = searchParams.get("item");
   let channel = searchParams.get("channel");
@@ -180,8 +180,8 @@ function getFilter(searchParams) {
   return {
     date: date,
     username: username,
-    trackId: trackId,
-    roundBoat: roundBoat,
+    track_id: trackId,
+    round_boat: roundBoat,
     offset: offset,
     item: item,
     channel: channel,
@@ -192,8 +192,8 @@ function genApi(filter) {
   return `/api/tracking?
   date=${filter.date}
   &username=${filter.username}
-  &trackId=${filter.trackId}
-  &roundBoat=${filter.roundBoat}
+  &trackId=${filter.track_id}
+  &roundBoat=${filter.round_boat}
   &offset=${filter.offset}
   &item=${filter.item}
   &channel=${filter.channel}

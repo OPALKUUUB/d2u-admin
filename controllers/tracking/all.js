@@ -25,6 +25,7 @@ function genDate() {
 
 exports.getTracking = async (req, res) => {
   let data;
+  console.log(req.query);
   let sql;
   if (isEmpty(req.query.channel)) {
     data = [
