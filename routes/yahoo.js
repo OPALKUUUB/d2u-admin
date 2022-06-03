@@ -5,6 +5,7 @@ const ordersController = require("../controllers/yahoo/orders");
 const paymentsController = require("../controllers/yahoo/payments");
 const historysController = require("../controllers/yahoo/historys");
 const trackingsController = require("../controllers/yahoo/trackings");
+const addController = require("../controllers/yahoo/add");
 
 router.get("/api/yahoo/orders", ordersController.getOrders);
 router.patch("/api/yahoo/orders", ordersController.patchOrder);
@@ -18,5 +19,8 @@ router.get("/api/yahoo/historys/:id", historysController.getHistoryItem);
 
 router.get("/api/yahoo/trackings", trackingsController.getTracking);
 router.patch("/api/yahoo/trackings", trackingsController.patchTracking);
+
+router.post("/api/yahoo/image", addController.getAuctionImage);
+router.post("/api/yahoo/add", addController.postOrder);
 
 module.exports = router;
