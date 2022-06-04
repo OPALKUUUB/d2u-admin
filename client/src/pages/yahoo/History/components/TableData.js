@@ -65,7 +65,7 @@ export const TableData = ({ index, item }) => {
                     variant="primary"
                     onClick={handleManage}
                   >
-                    แก้ไข
+                    แสดง
                   </button>
                 </li>
               )}

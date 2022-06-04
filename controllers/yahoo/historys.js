@@ -27,7 +27,6 @@ exports.getHistory = async (req, res) => {
     select *
     from orders
     where
-    done = 1 and
     status ${req.query.status === "" ? "!=" : "="} ? and
     created_at like ? and
     username like ?
