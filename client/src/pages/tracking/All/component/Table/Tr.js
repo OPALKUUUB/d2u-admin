@@ -28,11 +28,11 @@ export function Tr({ item, index }) {
               return (
                 <td key={key}>
                   <ShowImage src={item[thead.name]} />
-                  <img
+                  {/* <img
                     src={item[thead.name]}
                     width={70}
                     alt={item[thead.name]}
-                  />
+                  /> */}
                 </td>
               );
             } else if (thead.type === "link") {

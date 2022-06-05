@@ -6,6 +6,7 @@ import { ShowDateTime } from "../../../../../components/ShowDateTime";
 import { AllTrackingContext } from "../../../../../context/AllTrackingProvider";
 import { ManageModal } from "../Modal/ManageModal";
 import { ManagePic } from "../Modal/ManagePic";
+import { ShowImage } from "../../../../../components/ShowImage/ShowImage";
 
 export function Tr({ item, index }) {
   const { filter, DeleteTracking } = useContext(AllTrackingContext);
@@ -26,11 +27,12 @@ export function Tr({ item, index }) {
             } else if (thead.type === "image") {
               return (
                 <td key={key}>
-                  <img
+                  <ShowImage src={item[thead.name]} />
+                  {/* <img
                     src={item[thead.name]}
                     width={70}
                     alt={item[thead.name]}
-                  />
+                  /> */}
                 </td>
               );
             } else if (thead.type === "link") {
