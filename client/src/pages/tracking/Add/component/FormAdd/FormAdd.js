@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AllTrackingContext } from "../../../../../context/AllTrackingProvider";
 import styled from "styled-components";
+import FormImage from "../../../../../components/FormImage/FormImage";
 
 let tracking_model = {
   date: new Date().toISOString().split("T")[0],
@@ -64,13 +65,12 @@ export const FormAdd = () => {
         })
         .catch((err) => console.log(err));
     }
-    setPost(tracking_model);
     await PostTracking(t);
   };
   return (
     <form onSubmit={handleSubmit}>
       <div className="row">
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Date</label>
           <input
             className="form-control"
@@ -80,7 +80,7 @@ export const FormAdd = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Username</label>
           <AutoComplete
             state={post.username}
@@ -95,7 +95,7 @@ export const FormAdd = () => {
             />
           </AutoComplete>
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Channel</label>
           <select
             className="form-select"
@@ -110,7 +110,7 @@ export const FormAdd = () => {
             <option value="123">web123</option>
           </select>
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Url</label>
           <input
             className="form-control"
@@ -120,7 +120,7 @@ export const FormAdd = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Box No.</label>
           <input
             className="form-control"
@@ -130,7 +130,7 @@ export const FormAdd = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Weight (kg.)</label>
           <input
             className="form-control"
@@ -140,7 +140,7 @@ export const FormAdd = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Price</label>
           <input
             className="form-control"
@@ -150,7 +150,7 @@ export const FormAdd = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-4 mb-3">
+        <div className="col-3 mb-3">
           <label className="form-label">Voyage</label>
           <input
             className="form-control"
@@ -160,24 +160,18 @@ export const FormAdd = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="col-4 mb-3">
-          <label className="form-label">pic1</label>
-          <input
-            className="form-control"
+        <div className="col-6 mb-3">
+          <FormImage
             name="pic1_filename"
-            type="file"
-            value={pic1File}
-            onChange={(e) => setPic1File(e.target.files[0])}
+            picFile={pic1File}
+            setPicFile={setPic1File}
           />
         </div>
-        <div className="col-4 mb-3">
-          <label className="form-label">pic2</label>
-          <input
-            className="form-control"
+        <div className="col-6 mb-3">
+          <FormImage
             name="pic2_filename"
-            type="file"
-            value={pic2File}
-            onChange={(e) => setPic2File(e.target.files[0])}
+            picFile={pic2File}
+            setPicFile={setPic2File}
           />
         </div>
         <div className="col-12 mb-3">

@@ -89,7 +89,7 @@ export const AllTrackingProvider = ({ children }) => {
       .catch((err) => console.log(err))
       .finally(() => {
         setLoading(false);
-        // window.location.reload(false);
+        window.location.reload(false);
       });
   };
   const DeleteTracking = async (id) => {

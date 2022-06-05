@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import FormImage from "../../../../../components/FormImage/FormImage";
 import { AllTrackingContext } from "../../../../../context/AllTrackingProvider";
 
 export const ManagePic = (props) => {
@@ -64,56 +65,5 @@ export const ManagePic = (props) => {
         </button>
       </Modal.Footer>
     </Modal>
-  );
-};
-
-const FormImage = ({ name, picFile, setPicFile }) => {
-  const [image, setImage] = useState(null);
-  const handleSelectPicFile = (e) => {
-    setPicFile(e.target.files[0]);
-    const objectUrl = URL.createObjectURL(e.target.files[0]);
-    setImage(objectUrl);
-  };
-
-  const handlePaste = (e) => {
-    if (e.clipboardData.files.length) {
-      setPicFile(e.clipboardData.files[0]);
-      const objectUrl = URL.createObjectURL(e.clipboardData.files[0]);
-      setImage(objectUrl);
-    }
-  };
-  return (
-    <>
-      <input
-        className="form-control"
-        type="file"
-        name="pic_filename"
-        onChange={handleSelectPicFile}
-      />
-      <div
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        {image === null ? (
-          <div
-            style={{
-              background: "gray",
-              width: "100%",
-              height: "150px",
-              color: "white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPaste={handlePaste}
-          >
-            paste image hear
-          </div>
-        ) : (
-          <img src={image} alt={image} width="100%" />
-        )}
-      </div>
-    </>
   );
 };
