@@ -27,7 +27,7 @@ export const ShowDateTime = ({ date, option }) => {
   if (option === "d") {
     return (
       <>
-        {d} {months_th[m + 1]} {y + 543}
+        {d} {months_th[m]} {y + 543}
       </>
     );
   }

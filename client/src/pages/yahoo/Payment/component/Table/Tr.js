@@ -4,10 +4,12 @@ import Thead_Data from "./Thead_Data";
 import { v4 as uuidv4 } from "uuid";
 import { ShowDateTime } from "../../../../../components/ShowDateTime";
 import ManageModal from "../Modal/ManageModal";
+import { ManagePic } from "../Modal/ManagePic";
 
 export function Tr({ item, index }) {
   const { filter, search } = useContext(PaymentContext);
   const [manageModalShow, setManageModalShow] = useState(false);
+  const [managePic, setManagePic] = useState(false);
   const handleDelete = (id) => {
     console.log(id);
     if (window.confirm("คุณแน่ใจที่จะลบ?")) {
@@ -117,6 +119,22 @@ export function Tr({ item, index }) {
                       <ManageModal
                         show={manageModalShow}
                         onHide={() => setManageModalShow(false)}
+                        index={index}
+                        item={item}
+                      />
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        className="dropdown-item"
+                        variant="primary"
+                        onClick={() => setManagePic(true)}
+                      >
+                        slip
+                      </button>
+                      <ManagePic
+                        show={managePic}
+                        onHide={() => setManagePic(false)}
                         index={index}
                         item={item}
                       />
