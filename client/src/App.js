@@ -30,7 +30,6 @@ function App() {
   const { token, setToken } = useToken();
   const [sidebar, setSidebar] = useState(false);
   if (!token) {
-    console.log("first");
     return <Login setToken={setToken} />;
   }
   return (

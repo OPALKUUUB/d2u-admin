@@ -95,7 +95,7 @@ export const FormAdd = () => {
             />
           </AutoComplete>
         </div>
-        <div className="col-3 mb-3">
+        <div className="col-2 mb-3">
           <label className="form-label">Channel</label>
           <select
             className="form-select"
@@ -110,13 +110,34 @@ export const FormAdd = () => {
             <option value="123">web123</option>
           </select>
         </div>
-        <div className="col-3 mb-3">
-          <label className="form-label">Url</label>
+
+        <div className="col-2 mb-3">
+          <label className="form-label">Weight (kg.)</label>
           <input
             className="form-control"
-            name="url"
+            name="weight"
+            type="number"
+            value={post.weight}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-2 mb-3">
+          <label className="form-label">Price</label>
+          <input
+            className="form-control"
+            name="price"
+            type="number"
+            value={post.price}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="col-3 mb-3">
+          <label className="form-label">Track Id</label>
+          <input
+            className="form-control"
+            name="track_id"
             type="text"
-            value={post.url}
+            value={post.track_id}
             onChange={handleChange}
           />
         </div>
@@ -131,22 +152,12 @@ export const FormAdd = () => {
           />
         </div>
         <div className="col-3 mb-3">
-          <label className="form-label">Weight (kg.)</label>
+          <label className="form-label">Url</label>
           <input
             className="form-control"
-            name="weight"
-            type="number"
-            value={post.weight}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="col-3 mb-3">
-          <label className="form-label">Price</label>
-          <input
-            className="form-control"
-            name="price"
-            type="number"
-            value={post.price}
+            name="url"
+            type="text"
+            value={post.url}
             onChange={handleChange}
           />
         </div>

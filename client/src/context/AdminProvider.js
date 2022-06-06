@@ -131,6 +131,7 @@ function init() {
     },
   };
 }
+
 function genApiPatch(id) {
   return `/api/overview/admins/${id}`;
 }
