@@ -18,6 +18,7 @@ export const ShowDateTime = ({ date, option }) => {
   if (date === undefined || date === null || date === "") {
     return <>Date: -</>;
   }
+  // console.log(date);
   let t = date.split("T");
   let Date = t[0].split("-");
   let d = parseInt(Date[2]);
