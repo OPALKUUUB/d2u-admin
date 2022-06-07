@@ -123,22 +123,24 @@ export function Tr({ item, index }) {
                         item={item}
                       />
                     </li>
-                    <li>
-                      <button
-                        type="button"
-                        className="dropdown-item"
-                        variant="primary"
-                        onClick={() => setManagePic(true)}
-                      >
-                        slip
-                      </button>
-                      <ManagePic
-                        show={managePic}
-                        onHide={() => setManagePic(false)}
-                        index={index}
-                        item={item}
-                      />
-                    </li>
+                    {item.payment_id === null && (
+                      <li>
+                        <button
+                          type="button"
+                          className="dropdown-item"
+                          variant="primary"
+                          onClick={() => setManagePic(true)}
+                        >
+                          add slip
+                        </button>
+                        <ManagePic
+                          show={managePic}
+                          onHide={() => setManagePic(false)}
+                          index={index}
+                          item={item}
+                        />
+                      </li>
+                    )}
                     <li>
                       <button
                         type="button"

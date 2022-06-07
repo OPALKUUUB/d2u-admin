@@ -6,26 +6,26 @@ import FormImage from "../../../../../components/FormImage/FormImage";
 export const ManagePic = (props) => {
   const [item, setItem] = useState(props.item);
   const [picFile, setPicFile] = useState(null);
-  //   const { PatchShimizuTracking } = useContext(AllTrackingContext);
-  //   const handleSave = async () => {
-  //     let t = item;
-  //     if (picFile !== "" && picFile !== null) {
-  //       const d = new FormData();
-  //       d.append("file", picFile);
-  //       d.append("upload_preset", "d2u-service");
-  //       d.append("cloud_name", "d2u-service");
-  //       await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-  //         method: "POST",
-  //         body: d,
+  // const { PatchShimizuTracking } = useContext(AllTrackingContext);
+  // const handleSave = async () => {
+  //   let t = item;
+  //   if (picFile !== "" && picFile !== null) {
+  //     const d = new FormData();
+  //     d.append("file", picFile);
+  //     d.append("upload_preset", "d2u-service");
+  //     d.append("cloud_name", "d2u-service");
+  //     await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+  //       method: "POST",
+  //       body: d,
+  //     })
+  //       .then((resp) => resp.json())
+  //       .then((data) => {
+  //         t[props.name] = data.url;
   //       })
-  //         .then((resp) => resp.json())
-  //         .then((data) => {
-  //           t[props.name] = data.url;
-  //         })
-  //         .catch((err) => console.log(err));
-  //     }
-  //     await PatchShimizuTracking(t.id, t);
-  //   };
+  //       .catch((err) => console.log(err));
+  //   }
+  //   await PatchShimizuTracking(t.id, t);
+  // };
   return (
     <Modal
       {...props}

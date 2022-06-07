@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { ShowDateTime } from "../../../../../components/ShowDateTime";
 import { PaymentContext } from "../../../../../context/PaymentProvider";
+import { ManageSlip } from "./ManageSlip";
 
 function ManageModal(props) {
   const { search } = useContext(PaymentContext);
@@ -12,6 +13,8 @@ function ManageModal(props) {
   const [informBill, setInformBill] = useState(item.inform_bill);
   const [status, setStatus] = useState(item.status);
   const [paymentStatus, setPaymentStatus] = useState(item.payment_status);
+  const paymentId = item.payment_id;
+  const [slipModal, setSlipModal] = useState(false);
   const [noted, setNoted] = useState(
     item.noted === null || item.noted === undefined ? "" : item.noted
   );
@@ -163,6 +166,18 @@ function ManageModal(props) {
               </select>
             </div>
           </div>
+          {paymentId !== null && (
+            <div className="col-12 col-md-4 mb-2">
+              <button type="button" onClick={() => setSlipModal(true)}>
+                slip
+              </button>
+              <ManageSlip
+                show={slipModal}
+                onHide={() => setSlipModal(false)}
+                id={paymentId}
+              />
+            </div>
+          )}
           <div className="col">
             <div className="form-group">
               <label className="form-label">Admin Noted</label>
