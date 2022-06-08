@@ -1,31 +1,56 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import FormImage from "../../../../../components/FormImage/FormImage";
-// import { AllTrackingContext } from "../../../../../context/AllTrackingProvider";
 
 export const ManagePic = (props) => {
-  const [item, setItem] = useState(props.item);
+  const item = props.item;
   const [picFile, setPicFile] = useState(null);
-  // const { PatchShimizuTracking } = useContext(AllTrackingContext);
-  // const handleSave = async () => {
-  //   let t = item;
-  //   if (picFile !== "" && picFile !== null) {
-  //     const d = new FormData();
-  //     d.append("file", picFile);
-  //     d.append("upload_preset", "d2u-service");
-  //     d.append("cloud_name", "d2u-service");
-  //     await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-  //       method: "POST",
-  //       body: d,
-  //     })
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         t[props.name] = data.url;
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  //   await PatchShimizuTracking(t.id, t);
-  // };
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState(0);
+  const handleSave = async () => {
+    let obj = {
+      order_id: item.id,
+      price: price,
+      slip: "",
+    };
+    if (picFile !== null && image !== "") {
+      const d = new FormData();
+      d.append("file", picFile);
+      d.append("upload_preset", "d2u-service");
+      d.append("cloud_name", "d2u-service");
+      await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+        method: "POST",
+        body: d,
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          obj.slip = data.url;
+        })
+        .catch((err) => console.log(err));
+    }
+    await fetch("/api/yahoo/slip", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("token")).token
+        }`,
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.status) {
+          alert(json.message);
+          window.location.reload(false);
+        } else {
+          alert(json.message);
+        }
+      });
+  };
+  const onClose = () => {
+    setImage("");
+    setPicFile(null);
+  };
   return (
     <Modal
       {...props}
@@ -40,24 +65,46 @@ export const ManagePic = (props) => {
       </Modal.Header>
       <Modal.Body scrollable="true">
         <div className="row">
-          <div className="col-sm-12 col-md-6 mb-3">
-            <img src={item[props.name]} alt={item[props.name]} width={300} />
-          </div>
           <div className="col-sm-12 col-md-6">
+            <div className="form-group mb-3">
+              <label className="form-label">Price</label>
+              <input
+                type="number"
+                className="form-control"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
             <FormImage
               name={props.name}
               picFile={picFile}
               setPicFile={setPicFile}
+              setImage={setImage}
             />
           </div>
+          {image !== "" && (
+            <div className="col-sm-12 col-md-6">
+              <div style={{ position: "relative" }}>
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    fontSize: "2rem",
+                    cursor: "pointer",
+                  }}
+                  onClick={onClose}
+                >
+                  x
+                </span>
+                <img src={image} alt={image} width={300} />
+              </div>
+            </div>
+          )}
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <button
-          type="button"
-          className="btn btn-primary"
-          //   onClick={handleSave}
-        >
+        <button type="button" className="btn btn-primary" onClick={handleSave}>
           Save
         </button>
         <button
@@ -71,3 +118,51 @@ export const ManagePic = (props) => {
     </Modal>
   );
 };
+
+const FormImage = ({ name, picFile, setPicFile, setImage }) => {
+  const handleSelectPicFile = (e) => {
+    setPicFile(e.target.files[0]);
+    const objectUrl = URL.createObjectURL(e.target.files[0]);
+    setImage(objectUrl);
+  };
+
+  const handlePaste = (e) => {
+    if (e.clipboardData.files.length) {
+      setPicFile(e.clipboardData.files[0]);
+      const objectUrl = URL.createObjectURL(e.clipboardData.files[0]);
+      setImage(objectUrl);
+    }
+  };
+  return (
+    <>
+      <input
+        className="form-control"
+        type="file"
+        name="pic_filename"
+        onChange={handleSelectPicFile}
+      />
+      <div
+        style={{
+          cursor: "pointer",
+        }}
+      >
+        <div
+          style={{
+            background: "gray",
+            width: "100%",
+            height: "150px",
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onPaste={handlePaste}
+        >
+          paste image here
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default FormImage;

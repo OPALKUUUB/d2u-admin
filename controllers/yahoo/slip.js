@@ -41,6 +41,39 @@ exports.getSlip = async (req, res) => {
   }
 };
 
+exports.postSlip = async (req, res) => {
+  let data = [req.body.price, req.body.slip];
+  const sql = `
+    insert into
+    payments (price, slip_image_filename)
+    values (?, ?);
+    `;
+  let result;
+  try {
+    result = await query(sql, data).then((res) => res);
+    const sql_orders = `
+        update orders set payment_id = ? where id = ?;
+        `;
+    result2 = await query(sql_orders, [
+      result.insertId,
+      req.body.order_id,
+    ]).then((res) => res);
+    res.status(200).json({
+      status: true,
+      message: "POST /api/yahoo/slip success👍",
+    });
+    console.log(result);
+    console.log(result2);
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "POST /api/yahoo/slip fail👎",
+    });
+    console.log(error);
+  }
+};
+
 exports.patchSlip = async (req, res) => {
   let data = [req.body, req.params.id];
   const sql = `

@@ -45,7 +45,7 @@ export const ManageSlip = (props) => {
       .then((res) => res.json())
       .then((json) => {
         if (json.status) {
-          alert(json.message);
+          window.location.reload(false);
         } else {
           alert(json.message);
         }
@@ -100,6 +100,7 @@ export const ManageSlip = (props) => {
                   name="price"
                   className="form-control"
                   value={data.price}
+                  onChange={(e) => setData({ ...data, price: e.target.value })}
                 />
               </div>
               <div className="col-12">

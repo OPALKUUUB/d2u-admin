@@ -25,6 +25,7 @@ router.post("/api/yahoo/image", addController.getAuctionImage);
 router.post("/api/yahoo/add", addController.postOrder);
 
 router.get("/api/yahoo/slip/:id", slipController.getSlip);
+router.post("/api/yahoo/slip", slipController.postSlip);
 router.patch("/api/yahoo/slip/:id", slipController.patchSlip);
 
 module.exports = router;
