@@ -11,7 +11,7 @@ export function Tr({ item, index }) {
   const [manageModalShow, setManageModalShow] = useState(false);
   const [managePic, setManagePic] = useState(false);
   const handleDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     if (window.confirm("คุณแน่ใจที่จะลบ?")) {
       fetch("/api/yahoo/orders?id=" + id, {
         method: "DELETE",
@@ -68,11 +68,12 @@ export function Tr({ item, index }) {
               );
             } else if (thead.type === "checkbox") {
               return (
-                <TdBid
-                  bid={item[thead.name]}
-                  bidBy={item[thead.by]}
+                <TdCheckBox
+                  key={key}
+                  name={thead.name}
+                  value={item[thead.name]}
                   index={item.id}
-                  option={thead.option}
+                  item={item}
                 />
               );
             } else if (thead.type === "option") {
@@ -161,46 +162,23 @@ export function Tr({ item, index }) {
   );
 }
 
-function isNotEmpty(value) {
-  return value !== "" && value !== null && value !== undefined;
-}
-const TdBid = ({ bid, bidBy, index, option }) => {
-  const { search } = useContext(PaymentContext);
-  let id = index;
-  if (bid === "" || bid === null || bid === undefined) {
-    return <td>-</td>;
-  }
-
-  const handleChange = (ck) => {
-    fetch(`/api/yahoo/orders?id=${id}&ck=${ck}&option=${option}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${
-          JSON.parse(localStorage.getItem("token")).token
-        }`,
-      },
-      body: JSON.stringify({}),
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((error) => console.log(error))
-      .finally(() => search());
+const TdCheckBox = ({ value, index, option, name, item }) => {
+  const { PatchPayment } = useContext(PaymentContext);
+  const handleCheck = (ck) => {
+    let t = item;
+    t[name] = ck ? 1 : 0;
+    PatchPayment(index, t);
   };
   return (
     <td>
-      <p className="mb-0 text-center">{bid} (¥)</p>
       <div className="form-check">
         <input
           className="form-check-input"
           type="checkbox"
-          defaultChecked={isNotEmpty(bidBy) ? true : false}
-          id={`TdBid-${index}`}
-          onChange={(e) => handleChange(e.target.checked)}
+          defaultChecked={value === null || value === 0 ? false : true}
+          id={`TdCheckbox-${index}`}
+          onChange={(e) => handleCheck(e.target.checked)}
         />
-        <label className="form-check-label" htmlFor={`TdBid-${index}`}>
-          {isNotEmpty(bidBy) ? bidBy : "-"}
-        </label>
       </div>
     </td>
   );

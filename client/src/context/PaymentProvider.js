@@ -44,6 +44,25 @@ export const PaymentProvider = ({ children }) => {
     //eslint-disable-next-line
   }, []);
 
+  const PatchPayment = async (id, obj) => {
+    await fetch("/api/yahoo/payments?id=" + id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("token")).token
+        }`,
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (!json.status) {
+          alert(json.message);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
   const handleSearch = (e) => {
     e.preventDefault();
     FetchPayment();
@@ -79,6 +98,7 @@ export const PaymentProvider = ({ children }) => {
         andleChangeFilter: handleChangeFilter,
         handlePrevious: handlePrevious,
         handleNext: handleNext,
+        PatchPayment: PatchPayment,
       }}
     >
       {loading && <Load />}

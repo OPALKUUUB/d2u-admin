@@ -48,10 +48,15 @@ function ManageModal(props) {
       body: JSON.stringify(obj),
     })
       .then((res) => res.json())
-      .then((json) => console.log(json))
+      .then((json) => {
+        if (json.status) {
+          props.onHide();
+        } else {
+          alert(json.message);
+        }
+      })
       .catch((error) => console.log(error))
       .finally(() => {
-        props.onHide();
         search();
       });
   };
