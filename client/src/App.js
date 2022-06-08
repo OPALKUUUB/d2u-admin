@@ -21,6 +21,8 @@ import { Fril } from "./pages/tracking/Fril/Fril";
 import { Web123 } from "./pages/tracking/Web123/Web123";
 import { All } from "./pages/tracking/All/All";
 import { Add as AddTracking } from "./pages/tracking/Add/Add";
+import { Dashboard } from "./pages/dashboard/Dashboard";
+import { AllMart } from "./pages/mart/AllMart/AllMart";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -64,19 +66,14 @@ function App() {
               <Route path="all" element={<All />} />
               <Route path="add" element={<AddTracking />} />
             </Route>
+            <Route path="/mart">
+              <Route path="" element={<AllMart />} />
+            </Route>
           </Routes>
         </ContentLayout>
       </Router>
     </>
   );
 }
-
-const Dashboard = () => {
-  return (
-    <div className="test">
-      <h1>Dashboard</h1>
-    </div>
-  );
-};
 
 export default App;

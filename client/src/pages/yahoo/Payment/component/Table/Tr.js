@@ -174,6 +174,7 @@ const TdCheckBox = ({ value, index, option, name, item }) => {
       <div className="form-check">
         <input
           className="form-check-input"
+          style={{ cursor: "pointer" }}
           type="checkbox"
           defaultChecked={value === null || value === 0 ? false : true}
           id={`TdCheckbox-${index}`}

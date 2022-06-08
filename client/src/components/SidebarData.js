@@ -4,6 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
 import * as BiIcons from "react-icons/bi";
+import * as BsIcons from "react-icons/bs";
 
 export const SidebarData = [
   {
@@ -106,6 +107,22 @@ export const SidebarData = [
         title: "Add",
         path: "/tracking/add",
         icon: <IoIcons.IoIosAdd />,
+      },
+    ],
+  },
+  {
+    title: "Mart",
+    path: "/mart",
+    icon: <BsIcons.BsFillBasket2Fill />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "All Mart",
+        path: "/mart",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
       },
     ],
   },
