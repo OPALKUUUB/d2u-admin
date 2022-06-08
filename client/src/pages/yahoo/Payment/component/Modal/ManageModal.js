@@ -167,9 +167,13 @@ function ManageModal(props) {
             </div>
           </div>
           {paymentId !== null && (
-            <div className="col-12 col-md-4 mb-2">
-              <button type="button" onClick={() => setSlipModal(true)}>
-                slip
+            <div className="col-12 col-md-2 mb-2">
+              <button
+                className="btn btn-success"
+                type="button"
+                onClick={() => setSlipModal(true)}
+              >
+                manage slip
               </button>
               <ManageSlip
                 show={slipModal}
