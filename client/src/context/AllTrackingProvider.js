@@ -30,6 +30,7 @@ export const AllTrackingProvider = ({ children }) => {
   };
   const PatchShimizuTracking = async (id, item) => {
     setLoading(true);
+    console.log(item);
     await fetch(genApiPatchShimizu(id), initPatch(item))
       .then((res) => res.json())
       .then((json) => {

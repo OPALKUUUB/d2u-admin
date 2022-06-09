@@ -57,7 +57,7 @@ const Manage_Data = [
   {
     id: 7,
     label: "Note",
-    name: "noted",
+    name: "remark",
     type: "text",
     col: "col-12 mb-3",
     placeholder: "Enter Note",
