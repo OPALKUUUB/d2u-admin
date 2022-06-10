@@ -1,52 +1,61 @@
-import context from "bluebird/js/release/context";
-import React, { useMemo } from "react";
-import { useTable } from "react-table";
+import React, { useContext, useMemo } from "react";
 import { AllMartContext } from "../../context/AllMartProvider";
+import { TableStyles } from "../../styles/MartStyles";
 
 export const Table = () => {
-  const data = useMemo(() => [{ id: 1, name: "seven", image: "image" }], []);
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Id",
-        accessor: "id", // accessor is the "key" in the data
-      },
-      {
-        Header: "name",
-        accessor: "name",
-      },
-      {
-        Header: "image",
-        accessor: "image",
-      },
-    ],
-    []
-  );
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const { datas } = useContext(AllMartContext);
+  const columns = useMemo(() => genColumn(), []);
+
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
+    <>
+      <TableStyles>
+        <table>
+          <thead>
+            <tr>
+              {columns.map((col) => (
+                <th key={col.accessor}>{col.Header}</th>
+              ))}
+              <th>Manage</th>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            {datas.map((data, index) => (
+              <tr key={index}>
+                {columns.map((col) => (
+                  <td key={[col.accessor, data.id].join("-")}>
+                    {data[col.accessor]}
+                  </td>
+                ))}
+                <td>
+                  <button className="btn-sm btn-primary me-3">Table</button>
+                  <button className="btn-sm btn-success me-3">Edit</button>
+                  <button className="btn-sm btn-danger">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </TableStyles>
+    </>
   );
 };
+
+function genColumn() {
+  return [
+    {
+      Header: "Id",
+      accessor: "id", // accessor is the "key" in the data
+    },
+    {
+      Header: "Name",
+      accessor: "name",
+    },
+    {
+      Header: "Image",
+      accessor: "image",
+    },
+    { Header: "Description", accessor: "description" },
+    { Header: "Category", accessor: "category" },
+    { Header: "Tag", accessor: "tag" },
+  ];
+}
