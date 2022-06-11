@@ -1,13 +1,15 @@
 import React, { createContext, useState } from "react";
+import { useParams } from "react-router-dom";
 
-export const AllMartContext = createContext();
-export const AllMartProvider = ({ children }) => {
+export const MartContext = createContext();
+export const MartProvider = ({ children }) => {
+  const { id } = useParams();
   const [datas, setData] = useState(genData(20));
 
   return (
-    <AllMartContext.Provider value={{ datas: datas }}>
+    <MartContext.Provider value={{ datas: datas }}>
       {children}
-    </AllMartContext.Provider>
+    </MartContext.Provider>
   );
 };
 

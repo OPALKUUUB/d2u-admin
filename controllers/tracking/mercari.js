@@ -1,12 +1,12 @@
-// const conn = require("../connection");
-const connectionRequest = require("../connectionRequest");
+const conn = require("../connection");
+// const connectionRequest = require("../connectionRequest");
 
 function isEmpty(value) {
   return value === "" || value === undefined || value === null;
 }
 
 function query(sql, data) {
-  let conn = connectionRequest();
+  // let conn = connectionRequest();
   return new Promise((resolve, reject) => {
     conn.query(sql, data, (err, rows) => {
       if (err) return reject(err);

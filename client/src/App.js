@@ -24,6 +24,8 @@ import { Add as AddTracking } from "./pages/tracking/Add/Add";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 import { AllMart } from "./pages/mart/AllMart/AllMart";
 import { AddMart } from "./pages/mart/AddMart/AddMart";
+import Mart from "./pages/mart/Mart/Mart";
+import EditMart from "./pages/mart/EditMart/EditMart";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -59,6 +61,7 @@ function App() {
               <Route path="historys/:id" element={<ShowHistoryItem />} />
               <Route path="add" element={<Add />} />
             </Route>
+
             <Route path="/tracking">
               <Route path="shimizu" element={<Shimizu />} />
               <Route path="mercari" element={<Mercari />} />
@@ -67,9 +70,12 @@ function App() {
               <Route path="all" element={<All />} />
               <Route path="add" element={<AddTracking />} />
             </Route>
+
             <Route path="/mart">
               <Route path="" element={<AllMart />} />
               <Route path="add" element={<AddMart />} />
+              <Route path=":id" element={<Mart />} />
+              <Route path="edit/:id" element={<EditMart />} />
             </Route>
           </Routes>
         </ContentLayout>

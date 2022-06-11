@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "../component/Table/Table";
+import { Table } from "./component/Table/Table";
 import { AllMartProvider } from "../context/AllMartProvider";
 import { Card, Layout } from "../styles/MartStyles";
 import { useNavigate } from "react-router-dom";

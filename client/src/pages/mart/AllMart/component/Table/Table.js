@@ -1,8 +1,10 @@
 import React, { useContext, useMemo } from "react";
-import { AllMartContext } from "../../context/AllMartProvider";
-import { TableStyles } from "../../styles/MartStyles";
+import { AllMartContext } from "../../../context/AllMartProvider";
+import { FrameImage, TableStyles } from "../../../styles/MartStyles";
+import { useNavigate } from "react-router-dom";
 
 export const Table = () => {
+  const navigate = useNavigate();
   const { datas } = useContext(AllMartContext);
   const columns = useMemo(() => genColumn(), []);
 
@@ -23,13 +25,34 @@ export const Table = () => {
               <tr key={index}>
                 {columns.map((col) => (
                   <td key={[col.accessor, data.id].join("-")}>
-                    {data[col.accessor]}
+                    {col.accessor === "image" ? (
+                      <FrameImage>
+                        <img
+                          src={data[col.accessor]}
+                          alt={data[col.accessor]}
+                        />
+                      </FrameImage>
+                    ) : (
+                      data[col.accessor]
+                    )}
                   </td>
                 ))}
                 <td>
-                  <button className="btn-sm btn-primary me-3">Table</button>
-                  <button className="btn-sm btn-success me-3">Edit</button>
-                  <button className="btn-sm btn-danger">Delete</button>
+                  <div className="d-flex flex-column me-3">
+                    <button
+                      className="btn-sm btn-secondary mb-1"
+                      onClick={() => navigate("/mart/" + data.id)}
+                    >
+                      Table
+                    </button>
+                    <button
+                      className="btn-sm btn-success mb-1"
+                      onClick={() => navigate("/mart/edit/" + data.id)}
+                    >
+                      Edit
+                    </button>
+                    <button className="btn-sm btn-danger">Delete</button>
+                  </div>
                 </td>
               </tr>
             ))}

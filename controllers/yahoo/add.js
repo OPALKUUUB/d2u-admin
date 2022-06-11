@@ -1,5 +1,4 @@
 const request = require("request");
-// const conn = require("../connection");
 const connectionRequest = require("../connectionRequest");
 const htmlparser2 = require("htmlparser2");
 const render = require("dom-serializer").default;

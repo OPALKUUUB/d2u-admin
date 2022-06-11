@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const allmartController = require("../controllers/mart/allmart");
+const daisoController = require("../controllers/mart/daiso");
 
-// router.post("/api/mart", allmartController);
+router.get("/daiso/category/:catId", daisoController.getDaiso);
 
 module.exports = router;
