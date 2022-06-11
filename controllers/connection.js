@@ -10,6 +10,7 @@ const conn = mysql.createConnection({
   database: process.env.DB_NAME,
   keepAliveInitialDelay: 10000,
   enableKeepAlive: true,
+  multipleStatements: true,
 });
 
 conn.connect(function (err) {
