@@ -1,4 +1,5 @@
-const conn = require("../connection");
+// const conn = require("../connection");
+const connectionRequest = require("../connectionRequest");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -10,40 +11,50 @@ function genToken(username, id) {
   });
 }
 
-exports.login = (req, res) => {
+function query(sql, data) {
+  let conn = connectionRequest();
+  return new Promise((resolve, reject) => {
+    conn.query(sql, data, (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(rows);
+    });
+  });
+}
+
+exports.login = async (req, res) => {
   const body = req.body;
   const login = [body.username];
-  console.log(login);
   const sql = `
     SELECT password, id
     FROM user_admins
     WHERE username = ?;
     `;
 
-  conn.query(sql, login, (err, result) => {
-    if (err) {
-      console.log("Login Failure (Cann't Query) 💥");
-      console.log(err);
-      res.status(400).json({
-        status: "fail",
-        message: "Error: " + err.sqlMessage,
+  let rows;
+  try {
+    rows = await query(sql, login).then((res) => res);
+    if (rows.length) {
+      let token = genToken(body.username, rows[0].id);
+      res.status(200).json({
+        status: true,
+        message: "GET /api/yahoo/historys success👍",
+        token: token,
       });
     } else {
-      if (!result.length) {
-        console.log("Login Failure (No Data) 💥");
-        res.status(400).json({
-          status: "fail",
-          message: "Password doesn't match with username!",
-        });
-      } else if (result[0].password === body.password) {
-        console.log("Login successfully 👍");
-        let token = genToken(body.username, result[0].id);
-        res.status(200).json({
-          status: "success",
-          message: "Customer Login successfully 👍",
-          token: token,
-        });
-      }
+      res.status(403).json({
+        status: false,
+        error: "no data",
+        message: "GET /auth/login fail👎",
+      });
     }
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: false,
+      error: error,
+      message: "GET /api/yahoo/historys fail👎",
+    });
+  }
 };

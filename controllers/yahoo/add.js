@@ -1,5 +1,6 @@
 const request = require("request");
-const conn = require("../connection");
+// const conn = require("../connection");
+const connectionRequest = require("../connectionRequest");
 const htmlparser2 = require("htmlparser2");
 const render = require("dom-serializer").default;
 const CSSselect = require("css-select");
@@ -113,7 +114,19 @@ exports.getAuctionImage = (req, res, next) => {
   });
 };
 
-exports.postOrder = (req, res) => {
+function query(sql, data) {
+  let conn = connectionRequest();
+  return new Promise((resolve, reject) => {
+    conn.query(sql, data, (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve(rows);
+    });
+  });
+}
+
+exports.postOrder = async (req, res) => {
   let date = genDate();
   let offer = [
     req.body.username,
@@ -127,19 +140,18 @@ exports.postOrder = (req, res) => {
   ];
   const sql =
     "INSERT INTO orders (username, link, imgsrc, maxbid, status, remark, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?);";
-  conn.query(sql, offer, (err, result) => {
-    if (err) {
-      console.log(err.sqlMessage);
-      res.status(400).json({
-        status: false,
-        message: "Error: " + err.sqlMessage,
-      });
-    } else {
-      console.log(result);
-      res.status(200).json({
-        status: true,
-        message: "Offer " + req.body.link + "is successfully",
-      });
-    }
-  });
+  let result;
+  try {
+    result = await query(sql, offer).then((res) => res);
+    console.log(result);
+    res.status(200).json({
+      status: true,
+      message: "Offer " + req.body.link + "is successfully",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: false,
+      message: "Error: " + err.sqlMessage,
+    });
+  }
 };
