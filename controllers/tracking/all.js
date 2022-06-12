@@ -1,27 +1,6 @@
-const conn = require("../connection");
-
-function isEmpty(value) {
-  return value === "" || value === undefined || value === null;
-}
-
-function query(sql, data) {
-  return new Promise((resolve, reject) => {
-    conn.query(sql, data, (err, rows) => {
-      if (err) return reject(err);
-      return resolve(rows);
-    });
-  });
-}
-function genDate() {
-  let today = new Date();
-  let date = today.getDate() >= 10 ? today.getDate() : `0${today.getDate()}`;
-  let month =
-    today.getMonth() >= 10 ? today.getMonth() + 1 : `0${today.getMonth() + 1}`;
-  let hour = today.getHours() >= 10 ? today.getHours() : `0${today.getHours()}`;
-  let minute =
-    today.getMinutes() >= 10 ? today.getMinutes() : `0${today.getMinutes()}`;
-  return `${today.getFullYear()}-${month}-${date}T${hour}:${minute}`;
-}
+const query = require("../other/query");
+const genDate = require("../other/genDate");
+const isEmpty = require("../other/isEmpty");
 
 exports.getTracking = async (req, res) => {
   let data;
@@ -200,6 +179,7 @@ exports.postTracking = async (req, res) => {
 
 exports.patchMer123Fril = async (req, res) => {
   let data = [req.body, req.query.id];
+  let date = genDate();
   const sql = `
     update trackings
     set ?
@@ -234,8 +214,8 @@ exports.patchMer123Fril = async (req, res) => {
     }
     console.log("Point Weight: " + point_weight);
     newPoint = point_price + point_weight;
-    let sql_update_point = `update trackings set point = ?, addPoint = 1 where id = ?;`;
-    result = await query(sql_update_point, [newPoint, req.body.id]).then(
+    let sql_update_point = `update trackings set point = ?, addPoint = 1, updated_at = ? where id = ?;`;
+    result = await query(sql_update_point, [newPoint, date, req.body.id]).then(
       (res) => res
     );
     let sql_user = `select point_new, id, username from user_customers where username like ?;`;
@@ -248,8 +228,8 @@ exports.patchMer123Fril = async (req, res) => {
       point = user.point_new + newPoint;
     }
     console.log(`${user.username} have point: ${point}`);
-    let sql_update_user_point = `update user_customers set point_new = ? where id = ?`;
-    await query(sql_update_user_point, [point, user.id]);
+    let sql_update_user_point = `update user_customers set point_new = ?, updated_at = ? where id = ?`;
+    await query(sql_update_user_point, [point, date, user.id]);
     res.status(200).json({
       status: true,
       message: "PATCH /api/tracking/shimizu success👍",
