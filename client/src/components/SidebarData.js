@@ -8,6 +8,11 @@ import * as BsIcons from "react-icons/bs";
 
 export const SidebarData = [
   {
+    title: "Dashboard",
+    path: "/dashboard",
+    icon: <AiIcons.AiFillDashboard />,
+  },
+  {
     title: "Overview",
     path: "/overview",
     icon: <AiIcons.AiFillHome />,

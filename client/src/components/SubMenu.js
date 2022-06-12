@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Sidebar = styled.div`
@@ -41,6 +41,7 @@ const DropdownLink = styled(Link)`
 `;
 
 const SubMenu = ({ item }) => {
+  const navigate = useNavigate();
   const [subnav, setSubnav] = useState(false);
   const showSubnav = () => setSubnav(!subnav);
   if (item.path === "/logout") {
@@ -51,6 +52,16 @@ const SubMenu = ({ item }) => {
           window.location.reload(false);
         }}
       >
+        <div>
+          {item.icon}
+          <SidebarLabel>{item.title}</SidebarLabel>
+        </div>
+      </Sidebar>
+    );
+  }
+  if (item.path === "/dashboard") {
+    return (
+      <Sidebar onClick={() => navigate("/dashboard")}>
         <div>
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
