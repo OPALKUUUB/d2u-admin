@@ -1,13 +1,13 @@
 import React, { createContext, useState } from "react";
 
-export const AllMartContext = createContext();
-export const AllMartProvider = ({ children }) => {
+export const DaisoContext = createContext();
+export const DaisoProvider = ({ children }) => {
   const [datas, setData] = useState(genData(20));
 
   return (
-    <AllMartContext.Provider value={{ datas: datas }}>
+    <DaisoContext.Provider value={{ datas: datas }}>
       {children}
-    </AllMartContext.Provider>
+    </DaisoContext.Provider>
   );
 };
 

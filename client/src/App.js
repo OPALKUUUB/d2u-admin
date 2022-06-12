@@ -22,10 +22,7 @@ import { Web123 } from "./pages/tracking/Web123/Web123";
 import { All } from "./pages/tracking/All/All";
 import { Add as AddTracking } from "./pages/tracking/Add/Add";
 import { Dashboard } from "./pages/dashboard/Dashboard";
-import { AllMart } from "./pages/mart/AllMart/AllMart";
-import { AddMart } from "./pages/mart/AddMart/AddMart";
-import Mart from "./pages/mart/Mart/Mart";
-import EditMart from "./pages/mart/EditMart/EditMart";
+import { Daiso } from "./pages/mart/Daiso/Daiso";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -72,10 +69,8 @@ function App() {
             </Route>
 
             <Route path="/mart">
-              <Route path="" element={<AllMart />} />
-              <Route path="add" element={<AddMart />} />
-              <Route path=":id" element={<Mart />} />
-              <Route path="edit/:id" element={<EditMart />} />
+              <Route path="" element={<Daiso />} />
+              <Route path="daiso" element={<Daiso />} />
             </Route>
           </Routes>
         </ContentLayout>

@@ -1,11 +1,11 @@
 import React, { useContext, useMemo } from "react";
+import { DaisoContext } from "../../../context/DaisoProvider";
 import { FrameImage, TableStyles } from "../../../styles/MartStyles";
 import { useNavigate } from "react-router-dom";
-import { MartContext } from "../../../context/MartProvider";
 
-export const Table = ({ id }) => {
+export const Table = () => {
   const navigate = useNavigate();
-  const { datas } = useContext(MartContext);
+  const { datas } = useContext(DaisoContext);
   const columns = useMemo(() => genColumn(), []);
 
   return (
