@@ -5,7 +5,7 @@ import Manage_Data from "./Manage_Data";
 
 export const ManageModal = (props) => {
   const [item, setItem] = useState(props.item);
-  const { PatchShimizuTracking } = useContext(AllTrackingContext);
+  const { PatchTracking } = useContext(AllTrackingContext);
 
   const handleChange = (e) => {
     setItem((prev) => {
@@ -14,7 +14,7 @@ export const ManageModal = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    PatchShimizuTracking(item.id, item);
+    PatchTracking(item.id, item);
   };
   return (
     <Modal
@@ -26,7 +26,7 @@ export const ManageModal = (props) => {
       <form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Manage Shimizu
+            Manage Fril
           </Modal.Title>
         </Modal.Header>
         <Modal.Body scrollable="true">
