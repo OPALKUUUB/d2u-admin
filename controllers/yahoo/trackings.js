@@ -1,21 +1,6 @@
-const conn = require("../connection");
-// const connectionRequest = require("../connectionRequest");
-
-function isEmpty(value) {
-  return value === "";
-}
-
-function query(sql, data) {
-  // let conn = connectionRequest();
-  return new Promise((resolve, reject) => {
-    conn.query(sql, data, (err, rows) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(rows);
-    });
-  });
-}
+const query = require("../other/query");
+const genDate = require("../other/genDate");
+const isEmpty = require("../other/isEmpty");
 
 exports.getTracking = async (req, res) => {
   console.log(res.locals);

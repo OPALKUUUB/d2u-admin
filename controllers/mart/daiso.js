@@ -1,4 +1,3 @@
-// const request = require("request");
 const axios = require("axios");
 const connectionRequest = require("../connectionRequest");
 const htmlparser2 = require("htmlparser2");

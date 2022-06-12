@@ -1,32 +1,9 @@
-const conn = require("../connection");
-// const connectionRequest = require("../connectionRequest");
 const fs = require("fs");
 const csv = require("fast-csv");
 const multer = require("multer");
-function isEmpty(value) {
-  return value === "" || value === undefined || value === null;
-}
-
-function query(sql, data) {
-  // let conn = connectionRequest();
-  return new Promise((resolve, reject) => {
-    conn.query(sql, data, (err, rows) => {
-      if (err) return reject(err);
-      return resolve(rows);
-    });
-  });
-}
-
-function genDate() {
-  let today = new Date();
-  let date = today.getDate() >= 10 ? today.getDate() : `0${today.getDate()}`;
-  let month =
-    today.getMonth() >= 10 ? today.getMonth() + 1 : `0${today.getMonth() + 1}`;
-  let hour = today.getHours() >= 10 ? today.getHours() : `0${today.getHours()}`;
-  let minute =
-    today.getMinutes() >= 10 ? today.getMinutes() : `0${today.getMinutes()}`;
-  return `${today.getFullYear()}-${month}-${date}T${hour}:${minute}`;
-}
+const query = require("../other/query");
+const genDate = require("../other/genDate");
+const isEmpty = require("../other/isEmpty");
 
 exports.patchShimizu = async (req, res) => {
   let data = [req.body, req.query.id];
