@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ShowDateTime } from "../../../../../components/ShowDateTime";
 
 export function Tr({ item, index }) {
+  console.log(item);
   const { filter } = useContext(UserContext);
   const [manageModal, setManageModal] = useState(false);
   return (

@@ -1,5 +1,4 @@
 const axios = require("axios");
-const connectionRequest = require("../connectionRequest");
 const htmlparser2 = require("htmlparser2");
 const render = require("dom-serializer").default;
 const CSSselect = require("css-select");

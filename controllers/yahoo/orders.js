@@ -2,7 +2,7 @@ const query = require("../other/query");
 const genDate = require("../other/genDate");
 const isEmpty = require("../other/isEmpty");
 exports.getOrders = async (req, res) => {
-  console.log(res.locals);
+  // console.log(res.locals);
   const data = [
     "%" + req.query.username.trim() + "%", // username
     isEmpty(req.query.offset) ? 0 : parseInt(req.query.offset), // offset
@@ -36,7 +36,6 @@ exports.getOrders = async (req, res) => {
 };
 
 exports.patchOrder = async (req, res) => {
-  console.log(req.body);
   if (
     req.body.payment_status === "pending1" ||
     req.body.payment_status === "pending2"
@@ -101,12 +100,33 @@ exports.deleteOrder = async (req, res) => {
   `;
   let result;
   try {
+    let sql_order = "select * from orders where id = ?;";
+    let orders = await query(sql_order, data).then((res) => res);
+    let order = orders[0];
+    let point = order.point;
+    if (point !== null && point !== undefined && point > 0) {
+      let sql_user = "select * from user_customers where username like ?;";
+      let users = await query(sql_user, [order.username]).then((res) => res);
+      let user = users[0];
+      let user_point_update = user.point_new - point;
+      let sql_remove_user_point =
+        "update user_customers set point_new = ? where id = ?;";
+      await query(sql_remove_user_point, [user_point_update, user.id]);
+      console.log(
+        "Update Point " +
+          user.username +
+          " from " +
+          user.point_new +
+          " to " +
+          user_point_update
+      );
+    }
     result = await query(sql, data).then((res) => res);
     res.status(200).json({
       status: true,
       message: "DELETE /api/yahoo/orders success👍",
     });
-    console.log(result);
+    // console.log(result);
   } catch (error) {
     res.status(400).json({
       status: false,
