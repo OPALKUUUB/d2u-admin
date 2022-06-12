@@ -1,12 +1,10 @@
 const conn = require("../connection");
-// const connectionRequest = require("../connectionRequest");
 
 function isEmpty(value) {
   return value === "" || value === undefined || value === null;
 }
 
 function query(sql, data) {
-  // let conn = connectionRequest();
   return new Promise((resolve, reject) => {
     conn.query(sql, data, (err, rows) => {
       if (err) return reject(err);
@@ -139,6 +137,28 @@ exports.getTrackingId = async (req, res) => {
 exports.postTracking = async (req, res) => {
   console.log(res.locals);
   let date = genDate();
+  let point = 0;
+  if (req.body.weight > 0 || req.body.price > 0) {
+    let base = 1000.0;
+    if (req.body.channel === "123") {
+      base = 2000.0;
+    }
+    let point_price = parseFloat(req.body.price) / base_point;
+    let point_weight = 0;
+    if (req.body.q === 0) {
+      let weight = parseFloat(req.body.weight);
+      if (weight > 1) {
+        if (req.body.channel === "123") {
+          point_weight = weight;
+        } else {
+          point_weight = weight - 1;
+        }
+      }
+    } else {
+      point_weight = parseFloat(req.body.q * 100);
+    }
+    point = point_price + point_weight;
+  }
   const data = [
     req.body.channel,
     req.body.username,
@@ -153,11 +173,13 @@ exports.postTracking = async (req, res) => {
     req.body.remark,
     date,
     date,
+    req.body.price,
+    point,
   ];
   const sql = `
   insert into trackings 
-  (channel, username, date, box_id, url, track_id, weight, round_boat, pic1_filename, pic2_filename, remark, created_at, updated_at)
-  values (?,?,?,?,?,?,?,?,?,?,?,?,?);
+  (channel, username, date, box_id, url, track_id, weight, round_boat, pic1_filename, pic2_filename, remark, created_at, updated_at, price, point)
+  values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
   `;
   let result;
   try {
@@ -201,7 +223,11 @@ exports.patchMer123Fril = async (req, res) => {
     if (req.body.q === 0) {
       let weight = parseFloat(req.body.weight);
       if (weight > 1) {
-        point_weight = weight - 1;
+        if (req.body.channel === "123") {
+          point_weight = weight;
+        } else {
+          point_weight = weight - 1;
+        }
       }
     } else {
       point_weight = parseFloat(req.body.q * 100);

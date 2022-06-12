@@ -38,7 +38,7 @@ exports.patchShimizu = async (req, res) => {
     id = ?;
     `;
   let result;
-  req.body.weight = req.body.weight === "" ? 0 : req.body.weight;
+  req.body.weight = req.body.weight === "" ? 0 : parseFloat(req.body.weight);
   try {
     result = await query(sql, data).then((res) => res);
     let oldPoint = req.body.point;

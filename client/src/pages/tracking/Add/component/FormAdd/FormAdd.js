@@ -104,7 +104,6 @@ export const FormAdd = () => {
             onChange={handleChange}
           >
             <option>select</option>
-            <option value="shimizu">shimizu</option>
             <option value="mercari">mercari</option>
             <option value="fril">fril</option>
             <option value="123">web123</option>

@@ -10,6 +10,7 @@ const Thead_Data = [
   { id: 9, title: "รับของ", name: "check1", type: "checkbox" },
   { id: 10, title: "Done", name: "check2", type: "checkbox" },
   { id: 11, title: "Note", name: "remark" },
+  { id: 12, title: "point", name: "point" },
   { id: 99, title: "Manage" },
 ];
 

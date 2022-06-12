@@ -9,6 +9,7 @@ const Thead_Data = [
   { id: 7, title: "pic1", name: "pic1_filename", type: "image" },
   { id: 8, title: "pic2", name: "pic2_filename", type: "image" },
   { id: 9, title: "Note", name: "remark" },
+  { id: 12, title: "point", name: "point" },
   { id: 99, title: "Manage" },
 ];
 
