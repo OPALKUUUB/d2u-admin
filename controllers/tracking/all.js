@@ -122,21 +122,33 @@ exports.postTracking = async (req, res) => {
     if (req.body.channel === "123") {
       base = 2000.0;
     }
-    let point_price = parseFloat(req.body.price) / base_point;
+    let point_price = parseFloat(req.body.price) / base;
     let point_weight = 0;
-    if (req.body.q === 0) {
-      let weight = parseFloat(req.body.weight);
-      if (weight > 1) {
-        if (req.body.channel === "123") {
-          point_weight = weight;
-        } else {
-          point_weight = weight - 1;
-        }
+    weight = parseFloat(req.body.weight);
+    console.log("weight: ");
+    if (weight > 1) {
+      if (req.body.channel === "123") {
+        point_weight = weight;
+      } else {
+        point_weight = weight - 1;
       }
-    } else {
-      point_weight = parseFloat(req.body.q * 100);
     }
+    // if (req.body.q === 0) {
+    //   let weight = parseFloat(req.body.weight);
+    //   console.log("weight: ");
+    //   if (weight > 1) {
+    //     if (req.body.channel === "123") {
+    //       point_weight = weight;
+    //     } else {
+    //       point_weight = weight - 1;
+    //     }
+    //   }
+    // } else {
+    //   point_weight = parseFloat(req.body.q * 100);
+    // }
+    console.log(point_price, point_weight);
     point = point_price + point_weight;
+    console.log(point);
   }
   const data = [
     req.body.channel,
