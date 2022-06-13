@@ -116,7 +116,7 @@ exports.getTrackingId = async (req, res) => {
 exports.postTracking = async (req, res) => {
   console.log(res.locals);
   let date = genDate();
-  let point = 0;
+  let newPoint = 0;
   if (req.body.weight > 0 || req.body.price > 0) {
     let base = 1000.0;
     if (req.body.channel === "123") {
@@ -124,31 +124,15 @@ exports.postTracking = async (req, res) => {
     }
     let point_price = parseFloat(req.body.price) / base;
     let point_weight = 0;
-    weight = parseFloat(req.body.weight);
-    console.log("weight: ");
-    if (weight > 1) {
+    let weight = parseFloat(req.body.weight);
+    if (weight >= 1) {
       if (req.body.channel === "123") {
         point_weight = weight;
       } else {
         point_weight = weight - 1;
       }
     }
-    // if (req.body.q === 0) {
-    //   let weight = parseFloat(req.body.weight);
-    //   console.log("weight: ");
-    //   if (weight > 1) {
-    //     if (req.body.channel === "123") {
-    //       point_weight = weight;
-    //     } else {
-    //       point_weight = weight - 1;
-    //     }
-    //   }
-    // } else {
-    //   point_weight = parseFloat(req.body.q * 100);
-    // }
-    console.log(point_price, point_weight);
-    point = point_price + point_weight;
-    console.log(point);
+    newPoint = point_price + point_weight;
   }
   const data = [
     req.body.channel,
@@ -165,7 +149,7 @@ exports.postTracking = async (req, res) => {
     date,
     date,
     req.body.price,
-    point,
+    newPoint,
   ];
   const sql = `
   insert into trackings 
@@ -175,6 +159,14 @@ exports.postTracking = async (req, res) => {
   let result;
   try {
     result = await query(sql, data).then((res) => res);
+    let sql_user = `select point_new, id, username from user_customers where username like ?;`;
+    let rows = await query(sql_user, [req.body.username]).then((res) => res);
+    let user = rows[0];
+    let point = 0;
+    point = user.point_new + newPoint;
+    console.log(`${user.username} newPoint: ${newPoint}, point: ${point}`);
+    let sql_update_user_point = `update user_customers set point_new = ?, updated_at = ? where id = ?`;
+    await query(sql_update_user_point, [point, date, user.id]);
     res.status(200).json({
       status: true,
       message: "POST /api/tracking/add success👍",
@@ -203,7 +195,7 @@ exports.patchMer123Fril = async (req, res) => {
   req.body.weight = req.body.weight === "" ? 0 : parseFloat(req.body.weight);
   try {
     result = await query(sql, data).then((res) => res);
-    let oldPoint = req.body.point;
+    let oldPoint = isEmpty(req.body.point) ? 0 : parseFloat(req.body.point);
     let newPoint = 0;
     let base_point = 1000.0;
     if (req.body.channel === "123") {
@@ -214,7 +206,7 @@ exports.patchMer123Fril = async (req, res) => {
     let point_weight = 0;
     if (req.body.q === 0) {
       let weight = parseFloat(req.body.weight);
-      if (weight > 1) {
+      if (weight >= 1) {
         if (req.body.channel === "123") {
           point_weight = weight;
         } else {
@@ -234,11 +226,7 @@ exports.patchMer123Fril = async (req, res) => {
     let rows = await query(sql_user, [req.body.username]).then((res) => res);
     let user = rows[0];
     let point = 0;
-    if (req.body.addPoint === 1) {
-      point = user.point_new - oldPoint + newPoint;
-    } else {
-      point = user.point_new + newPoint;
-    }
+    point = user.point_new - oldPoint + newPoint;
     console.log(`${user.username} have point: ${point}`);
     let sql_update_user_point = `update user_customers set point_new = ?, updated_at = ? where id = ?`;
     await query(sql_update_user_point, [point, date, user.id]);

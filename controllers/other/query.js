@@ -6,8 +6,6 @@ module.exports = function (sql, data) {
       if (err) {
         conn = createConn();
         console.log("Reconnected 😎😎😎");
-      } else {
-        console.log("Connected 😎😎😎");
       }
     });
     conn.query(sql, data, (err, rows) => {
