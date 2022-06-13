@@ -16,13 +16,4 @@ function createConn() {
 }
 let conn = createConn();
 
-conn.connect(function (err) {
-  if (err) {
-    conn = createConn();
-    console.log("Reconnected 😎😎😎");
-  } else {
-    console.log("Connected 😎😎😎");
-  }
-});
-
-module.exports = conn;
+module.exports = { conn, createConn };
