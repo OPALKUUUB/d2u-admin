@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { ShowDateTime } from "../../../../../components/ShowDateTime";
 import { TrackingContext } from "../../../../../context/TrackingProvider";
+import { ManageSlip } from "./ManageSlip";
 
 function checkObj(obj) {
   return obj === null || obj === undefined ? "" : obj;
@@ -12,10 +13,12 @@ function ManageModal(props) {
   let item = props.item;
   const [trackId, setTrackId] = useState(checkObj(item.track_id));
   const [boxId, setBoxId] = useState(checkObj(item.box_id));
+  const paymentId = checkObj(item.payment_id);
   const [weight, setWeight] = useState(checkObj(item.weight));
   const [roundBoat, setRoundBoat] = useState(checkObj(item.round_boat));
   const [done, setDone] = useState(item.done);
   const [noted, setNoted] = useState(item.noted);
+  const [slipModal, setSlipModal] = useState(false);
   useEffect(() => {
     setTrackId(checkObj(item.track_id));
     setBoxId(checkObj(item.box_id));
@@ -136,20 +139,7 @@ function ManageModal(props) {
               />
             </div>
           </div>
-          <div className="col-12 col-md-4 mb-2">
-            <div className="form-group">
-              <label className="form-label">Done</label>
-              <select
-                className="form-select"
-                name="done"
-                defaultValue={item.done}
-                onChange={(e) => setDone(e.target.value)}
-              >
-                <option value={0}>undone</option>
-                <option value={1}>done</option>
-              </select>
-            </div>
-          </div>
+
           <div className="col-12 col-md-4 mb-2">
             <div className="form-group">
               <label className="form-label">Note</label>
@@ -161,6 +151,20 @@ function ManageModal(props) {
                 onChange={(e) => setNoted(e.target.value)}
               />
             </div>
+          </div>
+          <div className="col-12 col-md-2 mb-2">
+            <button
+              className="btn btn-success"
+              type="button"
+              onClick={() => setSlipModal(true)}
+            >
+              manage slip
+            </button>
+            <ManageSlip
+              show={slipModal}
+              onHide={() => setSlipModal(false)}
+              id={paymentId}
+            />
           </div>
         </div>
       </Modal.Body>
