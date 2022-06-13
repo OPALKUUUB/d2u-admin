@@ -5,7 +5,7 @@ import { PaymentContext } from "../../../../../context/PaymentProvider";
 import { ManageSlip } from "./ManageSlip";
 
 function ManageModal(props) {
-  const { search } = useContext(PaymentContext);
+  const { search, yen } = useContext(PaymentContext);
   let item = props.item;
   const [bid, setBid] = useState(item.bid);
   const [tranferFee, setTranferFee] = useState(item.tranfer_fee_injapan);
@@ -88,6 +88,12 @@ function ManageModal(props) {
               </a>
               <br />
               User Noted: {item.remark}
+              <br />
+              Calculate:{" "}
+              {Math.round((item.bid + item.delivery_in_thai) * yen) +
+                item.tranfer_fee_injapan}{" "}
+              บาท.
+              <br />( [(bid + deliver_fee) * {yen} ] + tranfer_fee)
             </p>
           </div>
         </div>

@@ -6,6 +6,7 @@ export const PaymentContext = createContext();
 export const PaymentProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
+  const [yen, setYen] = useState(0);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState(getFilter(searchParams));
 
@@ -27,6 +28,8 @@ export const PaymentProvider = ({ children }) => {
       .then((json) => {
         if (json.status) {
           setData(json.data);
+          // console.log(json);
+          setYen(json.yen);
         } else {
           alert(json.message);
           if (json.error === "jwt") {
@@ -99,6 +102,7 @@ export const PaymentProvider = ({ children }) => {
         handlePrevious: handlePrevious,
         handleNext: handleNext,
         PatchPayment: PatchPayment,
+        yen: yen,
       }}
     >
       {loading && <Load />}

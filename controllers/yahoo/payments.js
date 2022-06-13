@@ -28,9 +28,13 @@ exports.getPayment = async (req, res) => {
   let rows;
   try {
     rows = await query(sql, data).then((res) => res);
+    const sql_yen_rate = "select yen from config;";
+    yens = await query(sql_yen_rate).then((res) => res);
+    let yen = yens[0].yen;
     res.status(200).json({
       status: true,
       data: rows,
+      yen: yen,
       message: "GET /api/yahoo/payments success👍",
     });
   } catch (error) {
