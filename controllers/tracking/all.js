@@ -5,7 +5,7 @@ const isEmpty = require("../other/isEmpty");
 exports.getTracking = async (req, res) => {
   let data;
   let sql;
-  if (isEmpty(req.query.channel)) {
+  if (req.query.channel === "all") {
     data = [
       `%${isEmpty(req.query.date) ? "" : req.query.date.trim()}%`,
       `%${isEmpty(req.query.username) ? "" : req.query.username.trim()}%`,
@@ -37,6 +37,7 @@ exports.getTracking = async (req, res) => {
     ];
     let check1 = req.query.check1.trim();
     let check2 = req.query.check2.trim();
+    let sort = req.query.sort.trim();
     sql = `
       select *
       from trackings
@@ -60,7 +61,15 @@ exports.getTracking = async (req, res) => {
           ? " and check2 = 1 "
           : " and (check2 is null or check2 = 0) "
       }
-      order by created_at desc
+      ${
+        sort === "1"
+          ? " order by created_at desc "
+          : sort === "2"
+          ? " order by created_at asc "
+          : sort === "3"
+          ? " order by round_boat desc "
+          : " and (round_boat is not null or round_boat not like '') order by round_boat asc "
+      }
       limit ?,?;
     `;
   }
@@ -263,8 +272,11 @@ exports.deleteTracking = async (req, res) => {
     ) {
       let point = tracking.point;
       let sql_user = "select * from user_customers where username like ?;";
-      let users = await query(sql_user, [tracking.username]).then((res) => res);
+      let users = await query(sql_user, [tracking.username.trim()]).then(
+        (res) => res
+      );
       let user = users[0];
+      console.log(user);
       let user_point_update = user.point_new - point;
       let sql_remove_user_point =
         "update user_customers set point_new = ? where id = ?;";

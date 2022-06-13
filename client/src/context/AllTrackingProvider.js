@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Load } from "../components/Load";
 
 export const AllTrackingContext = createContext();
@@ -17,6 +17,7 @@ export const AllTrackingProvider = ({ children }) => {
       .then((json) => {
         if (json.status) {
           setData(json.data);
+          console.log(json.data);
         } else {
           alert(json.message);
           if (json.error === "jwt") {
@@ -119,6 +120,10 @@ export const AllTrackingProvider = ({ children }) => {
   useEffect(() => {
     FetchTracking();
   }, []);
+  const handleClickSort = (sort) => {
+    setSearchParams({ ...filter, sort: sort });
+    window.location.reload(false);
+  };
   const handleChangeFilter = (e) => {
     setFilter((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -155,6 +160,7 @@ export const AllTrackingProvider = ({ children }) => {
         PostTracking: PostTracking,
         DeleteTracking: DeleteTracking,
         PatchTracking: PatchTracking,
+        handleClickSort: handleClickSort,
       }}
     >
       {loading && <Load />}
@@ -170,9 +176,11 @@ function getFilter(searchParams) {
   let roundBoat = searchParams.get("round_boat");
   let offset = searchParams.get("offset");
   let item = searchParams.get("item");
-  let channel = searchParams.get("channel");
+  let channel = window.location.pathname.split("/")[2];
+  // console.log(window.location.pathname.split("/")[2]);
   let check1 = searchParams.get("check1");
   let check2 = searchParams.get("check2");
+  let sort = searchParams.get("sort");
   date = date === undefined || date === null ? "" : date;
   username = username === undefined || username === null ? "" : username;
   trackId = trackId === undefined || trackId === null ? "" : trackId;
@@ -182,6 +190,7 @@ function getFilter(searchParams) {
   offset = offset === undefined || offset === null ? 0 : offset;
   item = item === undefined || item === null ? 10 : item;
   channel = channel === undefined || channel === null ? "" : channel;
+  sort = sort === undefined || sort === null ? 1 : sort;
   return {
     date: date,
     username: username,
@@ -192,11 +201,12 @@ function getFilter(searchParams) {
     check1: check1,
     check2: check2,
     channel: channel,
+    sort: sort,
   };
 }
 
 function genApi(filter) {
-  return `/api/tracking?check1=${filter.check1}&check2=${filter.check2}&date=${filter.date}&username=${filter.username}&trackId=${filter.track_id}&roundBoat=${filter.round_boat}&offset=${filter.offset}&item=${filter.item}&channel=${filter.channel}`;
+  return `/api/tracking?check1=${filter.check1}&check2=${filter.check2}&date=${filter.date}&username=${filter.username}&trackId=${filter.track_id}&roundBoat=${filter.round_boat}&offset=${filter.offset}&item=${filter.item}&channel=${filter.channel}&sort=${filter.sort}`;
 }
 
 function init() {

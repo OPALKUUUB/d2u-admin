@@ -6,9 +6,9 @@ const Tbody = () => {
   const { data } = useContext(AllTrackingContext);
   return (
     <tbody>
-      {data.map((item, index) => (
-        <Tr key={index} item={item} index={index} />
-      ))}
+      {data.map((item, index) => {
+        return <Tr key={index} item={item} index={index} />;
+      })}
     </tbody>
   );
 };
