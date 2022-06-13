@@ -68,7 +68,7 @@ exports.getTracking = async (req, res) => {
           ? " order by created_at asc "
           : sort === "3"
           ? " order by round_boat desc "
-          : " and (round_boat is not null or round_boat not like '') order by round_boat asc "
+          : " order by round_boat asc "
       }
       limit ?,?;
     `;

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Load } from "../components/Load";
 
 export const AllTrackingContext = createContext();

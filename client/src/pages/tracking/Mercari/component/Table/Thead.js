@@ -18,7 +18,7 @@ function Thead() {
                   handleClickSort(sort);
                 }}
               >
-                {thead.title} ({filter.sort === 1 ? "up" : "down"})
+                {thead.title} ({filter.sort === "1" ? "up" : "down"})
               </th>
             );
           } else if (thead.id === 6) {
@@ -32,7 +32,7 @@ function Thead() {
                   handleClickSort(sort);
                 }}
               >
-                {thead.title} ({filter.sort === 3 ? "up" : "down"})
+                {thead.title} ({filter.sort === "3" ? "up" : "down"})
               </th>
             );
           }
