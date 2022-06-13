@@ -7,7 +7,7 @@ import ManageModal from "../Modal/ManageModal";
 import { ManagePic } from "../Modal/ManagePic";
 
 export function Tr({ item, index }) {
-  const { filter, search } = useContext(PaymentContext);
+  const { filter, search, yen } = useContext(PaymentContext);
   const [manageModalShow, setManageModalShow] = useState(false);
   const [managePic, setManagePic] = useState(false);
   const handleDelete = (id) => {
@@ -91,6 +91,13 @@ export function Tr({ item, index }) {
             );
           } else if (thead.id === 1) {
             return <th key={key}>{parseInt(filter.offset) + index + 1}</th>;
+          }
+          if (thead.type === "sum") {
+            let s =
+              Math.round((item.bid + item.delivery_in_thai) * yen) +
+              item.tranfer_fee_injapan;
+            console.log(s);
+            return <td key={key}>{s} (฿)</td>;
           } else {
             return (
               <td key={key}>

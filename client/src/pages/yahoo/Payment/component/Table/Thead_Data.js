@@ -7,6 +7,7 @@ const Thead_Data = [
   { id: 6, title: "Bid", name: "bid", unit: "(¥)" },
   { id: 7, title: "ค่าโอน", name: "tranfer_fee_injapan", unit: "(฿)" },
   { id: 8, title: "ค่าขนส่ง", name: "delivery_in_thai", unit: "(¥)" },
+  { id: 10, title: "รวม", type: "sum" },
   { id: 8, title: "แจ้งชำระ", name: "inform_bill", type: "checkbox" },
   { id: 9, title: "สถานะ", name: "payment_status", type: "option" },
   { id: 11, title: "Admin Noted", name: "noted" },
