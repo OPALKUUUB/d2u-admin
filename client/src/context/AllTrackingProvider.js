@@ -176,7 +176,10 @@ function getFilter(searchParams) {
   let roundBoat = searchParams.get("round_boat");
   let offset = searchParams.get("offset");
   let item = searchParams.get("item");
-  let channel = window.location.pathname.split("/")[2];
+  let channel =
+    window.location.pathname.split("/")[2] === "web123"
+      ? "123"
+      : window.location.pathname.split("/")[2];
   // console.log(window.location.pathname.split("/")[2]);
   let check1 = searchParams.get("check1");
   let check2 = searchParams.get("check2");
