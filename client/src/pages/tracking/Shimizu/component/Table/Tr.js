@@ -21,6 +21,7 @@ export function Tr({ item, index }) {
             if (thead.type === "date") {
               return (
                 <td key={key} width={110}>
+                  {item[thead.name]}
                   <ShowDateTime date={item[thead.name]} option="d" />
                 </td>
               );

@@ -272,6 +272,7 @@ exports.deleteTracking = async (req, res) => {
     let sql_tracking = "select * from trackings where id = ?;";
     let trackings = await query(sql_tracking, data).then((res) => res);
     let tracking = trackings[0];
+    // console.log(tracking);
     if (
       tracking.point !== null &&
       tracking.point !== undefined &&
@@ -279,11 +280,9 @@ exports.deleteTracking = async (req, res) => {
     ) {
       let point = tracking.point;
       let sql_user = "select * from user_customers where username like ?;";
-      let users = await query(sql_user, [tracking.username.trim()]).then(
-        (res) => res
-      );
+      let username = tracking.username.trim();
+      let users = await query(sql_user, [username]).then((res) => res);
       let user = users[0];
-      console.log(user);
       let user_point_update = user.point_new - point;
       let sql_remove_user_point =
         "update user_customers set point_new = ? where id = ?;";

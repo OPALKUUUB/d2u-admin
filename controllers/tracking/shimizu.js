@@ -116,27 +116,34 @@ exports.uploadCsv = (req, res) => {
       values ?;
       `;
       try {
-        console.log(rows);
-        result = await query(sql, [rows]).then((res) => res);
+        // console.log(update_username);
+        let result = await query(sql, [rows]).then((res) => res);
         const update_username_keys = Object.keys(update_username);
         const sql_user = `select id, point_new, username from user_customers where username like ?;`;
+        let user_reject = [];
         for (let i = 0; i < update_username_keys.length; i++) {
           let user_row = await query(sql_user, [update_username_keys[i]]).then(
             (res) => res
           );
-          update_username[update_username_keys[i]] += user_row[0].point_new;
+          if (user_row.length === 0) {
+            user_reject.push(update_username_keys[i]);
+            await query("delete from trackings where username like ?;", [
+              update_username_keys[i],
+            ]);
+          } else {
+            update_username[update_username_keys[i]] += user_row[0].point_new;
+          }
         }
-        console.log(update_username);
         let sql_update_user_point = "";
         for (let i = 0; i < update_username_keys.length; i++) {
           sql_update_user_point += `update user_customers set point_new = ${
             update_username[update_username_keys[i]]
           } where username like '${update_username_keys[i]}';`;
         }
-        // console.log(sql_update_user_point);
         await query(sql_update_user_point, []).then((res) => res);
         res.status(200).json({
           status: true,
+          reject: user_reject,
           message: "POST /api/tracking/shimizu/upload-csv success👍",
         });
       } catch (error) {

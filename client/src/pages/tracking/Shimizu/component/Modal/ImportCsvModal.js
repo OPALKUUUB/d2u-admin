@@ -22,7 +22,9 @@ export const ImportCsvModal = (props) => {
         .then((res) => res.json())
         .then((json) => {
           if (json.status) {
-            alert(json.message);
+            alert(
+              `message: ${json.message}\nuser row that reject: ${json.reject}`
+            );
           } else {
             alert(json.message);
           }
