@@ -192,6 +192,7 @@ exports.postTracking = async (req, res) => {
 
 exports.patchMer123Fril = async (req, res) => {
   let data = [req.body, req.query.id];
+  console.log(req.body);
   let date = genDate();
   const sql = `
     update trackings
@@ -200,8 +201,14 @@ exports.patchMer123Fril = async (req, res) => {
     id = ?;
     `;
   let result;
-  req.body.price = req.body.price === "" ? 0 : parseFloat(req.body.price);
-  req.body.weight = req.body.weight === "" ? 0 : parseFloat(req.body.weight);
+  req.body.price =
+    req.body.price === "" || req.body.price === null
+      ? 0
+      : parseFloat(req.body.price);
+  req.body.weight =
+    req.body.weight === "" || req.body.weight === null
+      ? 0
+      : parseFloat(req.body.weight);
   try {
     result = await query(sql, data).then((res) => res);
     let oldPoint = isEmpty(req.body.point) ? 0 : parseFloat(req.body.point);
