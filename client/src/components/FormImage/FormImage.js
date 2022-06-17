@@ -48,24 +48,20 @@ const FormImage = ({ name, picFile, setPicFile }) => {
             paste image here
           </div>
         ) : (
-          <div style={{ position: "relative" }} onClick={onClose}>
-            <span
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                fontSize: "2rem",
-              }}
-            >
-              x
-            </span>
-            <img
-              src={image}
-              alt={image}
-              height={200}
-              onPaste={handlePaste}
-              style={{ position: "absolute", top: 0, left: 0 }}
-            />
+          <div>
+            <div style={{ position: "relative" }} onClick={onClose}>
+              <span
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  fontSize: "2rem",
+                }}
+              >
+                x
+              </span>
+              <img src={image} alt={image} height={200} onPaste={handlePaste} />
+            </div>
           </div>
         )}
       </div>
