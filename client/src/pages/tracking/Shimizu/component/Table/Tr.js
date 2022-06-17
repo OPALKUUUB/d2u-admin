@@ -21,7 +21,6 @@ export function Tr({ item, index }) {
             if (thead.type === "date") {
               return (
                 <td key={key} width={110}>
-                  {item[thead.name]}
                   <ShowDateTime date={item[thead.name]} option="d" />
                 </td>
               );
@@ -29,11 +28,6 @@ export function Tr({ item, index }) {
               return (
                 <td key={key}>
                   <ShowImage src={item[thead.name]} />
-                  {/* <img
-                    src={item[thead.name]}
-                    width={70}
-                    alt={item[thead.name]}
-                  /> */}
                 </td>
               );
             } else if (thead.type === "link") {
