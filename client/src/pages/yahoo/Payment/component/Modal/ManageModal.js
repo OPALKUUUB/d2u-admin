@@ -15,10 +15,33 @@ function ManageModal(props) {
   const [paymentStatus, setPaymentStatus] = useState(item.payment_status);
   const paymentId = item.payment_id;
   const [slipModal, setSlipModal] = useState(false);
+  const [slipImage, setSlipImage] = useState("");
   const [noted, setNoted] = useState(
     item.noted === null || item.noted === undefined ? "" : item.noted
   );
   useEffect(() => {
+    const FetchSlip = async () => {
+      await fetch("/api/yahoo/slip/" + paymentId, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("token")).token
+          }`,
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.status) {
+            // alert(json.message);
+            setSlipImage(json.data.slip_image_filename);
+          } else {
+            alert(json.message);
+          }
+        });
+    };
+    if (paymentId !== null) {
+      FetchSlip();
+    }
     setBid(item.bid);
     setTranferFee(item.tranfer_fee_injapan);
     setDeliveryFee(item.delivery_in_thai);
@@ -27,6 +50,7 @@ function ManageModal(props) {
     setPaymentStatus(item.payment_status);
     setNoted(item.noted === null || item.noted === undefined ? "" : item.noted);
   }, [props.item]);
+
   const handleSave = (id) => {
     let obj = {
       bid: bid,
@@ -178,20 +202,18 @@ function ManageModal(props) {
             </div>
           </div>
           {paymentId !== null && (
-            <div className="col-12 col-md-2 mb-2">
-              <button
-                className="btn btn-success"
-                type="button"
-                onClick={() => setSlipModal(true)}
-              >
-                manage slip
-              </button>
-              <ManageSlip
-                show={slipModal}
-                onHide={() => setSlipModal(false)}
-                id={paymentId}
-              />
-            </div>
+            <>
+              <div className="col-6 col-md-2 mb-2">
+                <button type="button" onClick={() => setSlipModal(true)}>
+                  <img src={slipImage} alt={slipImage} width={100} />
+                </button>
+                <ManageSlip
+                  show={slipModal}
+                  onHide={() => setSlipModal(false)}
+                  id={paymentId}
+                />
+              </div>
+            </>
           )}
           <div className="col">
             <div className="form-group">
