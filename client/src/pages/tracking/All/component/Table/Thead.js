@@ -4,7 +4,16 @@ function Thead() {
     <thead>
       <tr>
         {Thead_Data.map((thead) => (
-          <th key={thead.id} scope="col">
+          <th
+            key={thead.id}
+            scope="col"
+            style={{
+              position: "sticky",
+              top: 0,
+              background: "white",
+              zIndex: 10,
+            }}
+          >
             {thead.title}
           </th>
         ))}

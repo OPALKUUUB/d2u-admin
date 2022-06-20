@@ -26,16 +26,36 @@ function App() {
     <Styles>
       <div id="section-yen">
         <div className="input-group mb-3">
-          <span className="input-group-text">¥</span>
+          <span className="input-group-text">¥ (exchange)</span>
           <input
             type="text"
             className="form-control"
             aria-label="Amount (to the nearest dollar)"
           />
-          <span className="input-group-text"></span>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            id="button-addon2"
+          >
+            Save
+          </button>
         </div>
       </div>
-      <div id="seciton-atm">atm config section</div>
+      <div id="seciton-atm">
+        <div className="col mb-3">
+          <label className="me-3">atm no.</label>
+          <input />
+        </div>
+        <div className="col mb-3">
+          <label className="me-3">atm name</label>
+          <input />
+        </div>
+        <div className="col mb-3">
+          <label className="me-3">atm Qr.</label>
+          <input type="file" />
+        </div>
+        <button>Save</button>
+      </div>
     </Styles>
   );
 }

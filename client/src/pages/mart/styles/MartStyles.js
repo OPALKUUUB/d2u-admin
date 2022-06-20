@@ -13,6 +13,7 @@ export const Card = styled.div`
 export const TableStyles = styled.div`
   max-height: 70vh;
   overflow: scroll;
+
   table {
     border-spacing: 0;
     width: 100%;

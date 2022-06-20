@@ -4,7 +4,7 @@ import Thead from "./Thead";
 
 export const Table = () => {
   return (
-    <div className="table-responsive">
+    <div style={{ maxHeight: "52vh", overflow: "scroll" }}>
       <table className="table table-striped table-hover">
         <Thead />
         <Tbody />

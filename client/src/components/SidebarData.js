@@ -5,6 +5,7 @@ import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
 import * as BiIcons from "react-icons/bi";
 import * as BsIcons from "react-icons/bs";
+import * as GrIcons from "react-icons/gr";
 
 export const SidebarData = [
   {
@@ -68,6 +69,11 @@ export const SidebarData = [
         path: "/yahoo/add",
         icon: <IoIcons.IoIosAdd />,
       },
+      {
+        title: "Summary",
+        path: "/yahoo/summary",
+        icon: <GrIcons.GrAnalytics />,
+      },
     ],
   },
   {
@@ -130,6 +136,11 @@ export const SidebarData = [
         cName: "sub-nav",
       },
     ],
+  },
+  {
+    title: "Ship Billing",
+    path: "/ship/billing",
+    icon: <AiIcons.AiFillDashboard />,
   },
   {
     title: "Logout",
