@@ -1,6 +1,7 @@
 const query = require("../other/query");
 const excel = require("exceljs");
-
+// ref form :
+// https://ozenero.com/node-js-extract-mysql-data-to-excel-xlsx-file-using-exceljs?ref=morioh.com&utm_source=morioh.com
 exports.exportTracking = async (req, res) => {
   let from = req.body.from;
   let to = req.body.to;
@@ -53,25 +54,11 @@ exports.exportTracking = async (req, res) => {
       .then(() => {
         console.log("file saved!");
       });
-    res.json(trackings);
+    res.json({
+      status: true,
+      message: "export successful 👍",
+    });
   } catch (error) {
     console.log(error);
   }
 };
-
-// exports.exportTracking = async (req, res) => {
-//   const sql = "select * from user_admins;";
-//   try {
-//     let user_admins = await query(sql, []).then((res) => res);
-//     const jsonUserAdmins = JSON.parse(JSON.stringify(user_admins));
-//     let workbook = new excel.Workbook();
-//     let worksheet = workbook.addWorksheet("User Admins");
-//     worksheet.addRows(jsonUserAdmins);
-//     workbook.xlsx.writeFile("user_admins.xlsx").then(() => {
-//       console.log("file saved!");
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   res.send("test");
-// };

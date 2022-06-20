@@ -27,11 +27,9 @@ export const ExportModal = (props) => {
         voyage: selectFilter.voyage ? voyage : null,
         channel: selectFilter.channel ? channel : null,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        saveAs("/export/trackings.xlsx", "trackings.xlsx");
-      });
+    }).finally(() => {
+      saveAs("/export/trackings.xlsx", "trackings.xlsx");
+    });
   };
   return (
     <Modal

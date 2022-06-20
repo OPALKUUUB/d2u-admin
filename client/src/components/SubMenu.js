@@ -69,6 +69,16 @@ const SubMenu = ({ item }) => {
       </Sidebar>
     );
   }
+  if (item.path === "/ship/billing") {
+    return (
+      <Sidebar onClick={() => navigate("/ship/billing")}>
+        <div>
+          {item.icon}
+          <SidebarLabel>{item.title}</SidebarLabel>
+        </div>
+      </Sidebar>
+    );
+  }
   return (
     <>
       <Sidebar onClick={item.subNav && showSubnav}>
