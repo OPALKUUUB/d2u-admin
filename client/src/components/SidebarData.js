@@ -6,6 +6,7 @@ import * as RiIcons from "react-icons/ri";
 import * as BiIcons from "react-icons/bi";
 import * as BsIcons from "react-icons/bs";
 import * as GrIcons from "react-icons/gr";
+import * as FcIcons from "react-icons/fc";
 
 export const SidebarData = [
   {
@@ -140,7 +141,7 @@ export const SidebarData = [
   {
     title: "Ship Billing",
     path: "/ship/billing",
-    icon: <AiIcons.AiFillDashboard />,
+    icon: <FcIcons.FcDataConfiguration />,
   },
   {
     title: "Logout",

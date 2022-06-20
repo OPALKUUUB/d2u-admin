@@ -28,25 +28,24 @@ exports.exportTracking = async (req, res) => {
     let worksheet = workbook.addWorksheet("Trackings");
     worksheet.columns = [
       { header: "id", key: "id" },
+      { header: "date", key: "date" },
       { header: "username", key: "username" },
       { header: "track_id", key: "track_id" },
       { header: "weight", key: "weight" },
       { header: "round_boat", key: "round_boat" },
       { header: "remark", key: "remark" },
-      { header: "pic1_filename", key: "pic1_filename" },
-      { header: "pic2_filename", key: "pic2_filename" },
-      { header: "created_at", key: "created_at" },
-      { header: "updated_at", key: "updated_at" },
-      { header: "date", key: "date" },
+      { header: "pic1", key: "pic1_filename" },
+      { header: "pic2", key: "pic2_filename" },
       { header: "channel", key: "channel" },
       { header: "box_id", key: "box_id" },
       { header: "url", key: "url" },
-      { header: "check1", key: "check1" },
-      { header: "check2", key: "check2" },
-      { header: "check2", key: "check2" },
+      { header: "รับของ", key: "check1" },
+      { header: "done", key: "check2" },
       { header: "price", key: "price" },
       { header: "point", key: "point" },
       { header: "q", key: "q" },
+      { header: "created_at", key: "created_at" },
+      { header: "updated_at", key: "updated_at" },
     ];
     worksheet.addRows(jsonTrackings);
     workbook.xlsx
