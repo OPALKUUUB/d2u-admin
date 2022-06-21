@@ -99,3 +99,22 @@ exports.patchTracking = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.patchCheck = async (req, res) => {
+  const data = [req.body, req.params.id];
+  const sql = `
+  update orders
+  set ?
+  where id = ?;
+  `;
+  try {
+    await query(sql, data);
+    res.status(200).json({
+      status: true,
+      message: "update successful",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ status: false, message: "update fail" });
+  }
+};

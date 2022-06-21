@@ -25,6 +25,16 @@ export const TableData = ({ index, item }) => {
         });
     }
   };
+  const handleCheck = (id, obj) => {
+    fetch("/yahoo/check/" + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <tr key={index}>
@@ -40,6 +50,24 @@ export const TableData = ({ index, item }) => {
         <TdWeight weight={item.weight} />
         <td>
           <ShowDateTime date={item.round_boat} option="d" />
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            defaultChecked={item.paid}
+            onClick={() =>
+              handleCheck(item.id, { paid: item.paid === 0 ? 1 : 0 })
+            }
+          />
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            defaultChecked={item.comment}
+            onClick={() =>
+              handleCheck(item.id, { comment: item.comment === 0 ? 1 : 0 })
+            }
+          />
         </td>
         <td>{item.noted}</td>
         <td>{item.point}</td>

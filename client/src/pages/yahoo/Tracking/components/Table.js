@@ -43,6 +43,8 @@ const THEAD = [
   "Box No.",
   "Weight",
   "Round Boat",
+  "Paid",
+  "Comment",
   "Noted",
   "Point",
   "Manage",

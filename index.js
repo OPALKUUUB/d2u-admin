@@ -12,6 +12,7 @@ const yahooRoutes = require("./routes/yahoo");
 const trackingRoutes = require("./routes/tracking");
 const martRoutes = require("./routes/mart");
 const dashboardRoutes = require("./routes/dashboard");
+const shipBillingRoutes = require("./routes/shipbilling");
 
 app.use(cors());
 app.use(express.json());
@@ -51,6 +52,7 @@ app.use(yahooRoutes);
 app.use(trackingRoutes);
 app.use(martRoutes);
 app.use(dashboardRoutes);
+app.use(shipBillingRoutes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));

@@ -28,4 +28,6 @@ router.get("/api/yahoo/slip/:id", slipController.getSlip);
 router.post("/api/yahoo/slip", slipController.postSlip);
 router.patch("/api/yahoo/slip/:id", slipController.patchSlip);
 
+router.patch("/yahoo/check/:id", trackingsController.patchCheck);
+
 module.exports = router;

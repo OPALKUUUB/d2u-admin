@@ -23,7 +23,6 @@ exports.exportTracking = async (req, res) => {
   try {
     let trackings = await query(sql, data).then((res) => res);
     const jsonTrackings = JSON.parse(JSON.stringify(trackings));
-    // console.log(jsonTrackings);
     let workbook = new excel.Workbook();
     let worksheet = workbook.addWorksheet("Trackings");
     worksheet.columns = [
