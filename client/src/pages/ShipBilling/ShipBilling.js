@@ -29,7 +29,6 @@ export const ShipBilling = () => {
   }, []);
 
   const handleSelect = async (select) => {
-    console.log(select);
     let data = await FetchUsername(select);
     setUsernames(data);
   };
@@ -52,7 +51,7 @@ export const ShipBilling = () => {
           )}
         </select>
         <>
-          {/* {usernames !== undefined && usernames.length > 0 && (
+          {usernames.length > 0 && (
             <>
               <label>username</label>
               <input list="usernameOptions" placeholder="Type to search..." />
@@ -62,7 +61,7 @@ export const ShipBilling = () => {
                 ))}
               </datalist>
             </>
-          )} */}
+          )}
         </>
       </div>
     </Styles>

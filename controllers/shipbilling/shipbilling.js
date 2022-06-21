@@ -10,8 +10,15 @@ exports.getRoundboat = async (req, res) => {
     const sql_orders =
       "select count(id) as count, round_boat from orders group by round_boat order by round_boat desc;";
     let orders = await query(sql_orders).then((res) => res);
-    let roundBoats = [];
-
+    for (let i = 0; i < trackings.length; i++) {
+      for (let j = 0; j < orders.length; j++) {
+        if (trackings[i].round_boat === orders[j].round_boat) {
+          trackings[i].count += orders[j].count;
+          orders.splice(j, 1);
+        }
+      }
+    }
+    let roundBoats = [...trackings, ...orders];
     res.status(200).json({
       status: true,
       data: roundBoats,
@@ -40,23 +47,18 @@ exports.getUsernames = async (req, res) => {
     let orders = await query(sql_orders, [req.query.round_boat.trim()]).then(
       (res) => res
     );
-    let rows = [];
     for (let i = 0; i < trackings.length; i++) {
-      let tracking = trackings[i];
       for (let j = 0; j < orders.length; j++) {
-        if (orders[j].username === tracking.username) {
-          rows.push({
-            count_order: orders[j].count_order + tracking.count_order,
-            username: tracking.username,
-          });
-          break;
+        if (trackings[i].username === orders[j].username) {
+          trackings[i].count += orders[j].count;
+          orders.splice(j, 1);
         }
       }
     }
-    console.log(rows);
+    let usernames = [...trackings, ...orders];
     res.status(200).json({
       status: true,
-      data: rows,
+      data: usernames,
       message: "GET /api/overview/users success👍",
     });
   } catch (error) {
