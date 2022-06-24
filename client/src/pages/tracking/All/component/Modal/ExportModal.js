@@ -26,14 +26,9 @@ export const ExportModal = (props) => {
         channel: selectFilter.channel ? channel : null,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => res.blob())
       .then((data) => {
-        console.log(data);
-        saveAs(
-          "/export/" + data.filename + ".xlsx",
-          "trackings_" + data.filename + ".xlsx"
-        );
-        alert(__dirname);
+        saveAs(data, "trackings.xlsx");
       })
       .catch((error) => console.log(error));
   };

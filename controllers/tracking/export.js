@@ -1,5 +1,6 @@
 const query = require("../other/query");
 const excel = require("exceljs");
+var FileSaver = require("file-saver");
 // ref form :
 // https://ozenero.com/node-js-extract-mysql-data-to-excel-xlsx-file-using-exceljs?ref=morioh.com&utm_source=morioh.com
 exports.exportTracking = async (req, res) => {
@@ -49,16 +50,8 @@ exports.exportTracking = async (req, res) => {
     worksheet.addRows(jsonTrackings);
     let date = new Date();
     let filename = date.getTime();
-    workbook.xlsx
-      .writeFile("./client/public/export/" + filename + ".xlsx")
-      .then(() => {
-        console.log("file saved!");
-        res.json({
-          status: true,
-          filename: filename,
-          message: "export successful 👍",
-        });
-      });
+    const buffer = await workbook.xlsx.writeBuffer();
+    res.send(buffer);
   } catch (error) {
     console.log(error);
   }
