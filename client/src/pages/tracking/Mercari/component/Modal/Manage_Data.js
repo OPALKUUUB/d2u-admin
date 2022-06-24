@@ -1,11 +1,11 @@
 const Manage_Data = [
   {
-    id: 1,
-    label: "Box No.",
-    name: "box_id",
+    id: 3,
+    label: "Track Id",
+    name: "track_id",
     type: "text",
     col: "col-sm-12 col-md-4 mb-3",
-    placeholder: "Enter Box No.",
+    placeholder: "Enter Track Id",
   },
   {
     id: 2,
@@ -16,13 +16,14 @@ const Manage_Data = [
     placeholder: "Enter Url",
   },
   {
-    id: 3,
-    label: "Track Id",
-    name: "track_id",
+    id: 1,
+    label: "Box No.",
+    name: "box_id",
     type: "text",
     col: "col-sm-12 col-md-4 mb-3",
-    placeholder: "Enter Track Id",
+    placeholder: "Enter Box No.",
   },
+
   {
     id: 4,
     label: "Weight (Kg.)",
