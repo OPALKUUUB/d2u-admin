@@ -25,7 +25,6 @@ export const ShipBilling = () => {
   const handleSelect = async (e) => {
     setVoyage(e.target.value);
     const data = await FetchBillingVoyage(e.target.value);
-    console.log(data);
     setBillings(data);
   };
   return (
@@ -50,7 +49,6 @@ export const ShipBilling = () => {
           <thead>
             <tr>
               <th>username</th>
-              <th>weight_sum</th>
               <th>inform_billing</th>
               <th>manage</th>
             </tr>
@@ -79,16 +77,32 @@ export const ShipBilling = () => {
 
 const RowShipBilling = ({ row }) => {
   const [check, setCheck] = useState(row.billing_check);
-  const weight = Math.round(row.weight_sum * 100) / 100;
+  const PatchInformBilling = async (id, patch) => {
+    console.log(row);
+    await fetch("/ship/billing/update/" + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+  const handleCheck = async () => {
+    let patch = {
+      inform_billing: !check,
+    };
+    console.log(patch);
+    await PatchInformBilling(row.id, patch);
+    setCheck(!check);
+  };
   return (
     <>
       <td>{row.username}</td>
-      <td>{weight}</td>
       <td>
         <input
           type="checkbox"
           defaultChecked={check}
-          onClick={() => setCheck(!check)}
+          onClick={() => handleCheck()}
         />
       </td>
     </>

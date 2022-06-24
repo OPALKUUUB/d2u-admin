@@ -23,7 +23,7 @@ export const TopTable = () => {
           data.price = 0;
         } else {
           data.weight_cal = Math.round((weight - 1) * 100) / 100;
-          data.price = weight * 200;
+          data.price = data.weight_cal * 200;
         }
         sum_price += data.price;
         sum_cod += data.cod;

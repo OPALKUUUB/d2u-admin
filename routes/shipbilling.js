@@ -10,4 +10,9 @@ router.get("/shipbilling", shipBillingController.getShipBilling);
 router.post("/update/cod", shipBillingController.updateCod);
 router.post("/update/cost/voyage", shipBillingController.updateCostVoyage);
 
+router.patch(
+  "/ship/billing/update/:id",
+  shipBillingController.UpdateShipBilling
+);
+
 module.exports = router;

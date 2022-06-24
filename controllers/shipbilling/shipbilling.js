@@ -78,9 +78,12 @@ exports.getVoyageBilling = async (req, res) => {
         "INSERT INTO ship_billings (username, round_boat) VALUES ?;";
       await query(sql_insert_ship_billing, [data_ship_billing]);
     }
+    ship_billings = await query(sql_ship_billings, [round_boat]).then(
+      (res) => res
+    );
     res.status(200).json({
       status: true,
-      data: usernames,
+      data: ship_billings,
       message: "GET /api/overview/users success👍",
     });
   } catch (error) {
@@ -167,4 +170,9 @@ exports.updateCostVoyage = async (req, res) => {
       message: "get fail",
     });
   }
+};
+
+exports.UpdateShipBilling = (req, res) => {
+  console.log(req.body, req.params.id);
+  res.status(200).json({ status: true });
 };
