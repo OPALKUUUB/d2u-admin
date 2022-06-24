@@ -28,6 +28,7 @@ export const ExportModal = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(__dirname);
         saveAs(
           "/export/" + data.filename + ".xlsx",
           "trackings_" + data.filename + ".xlsx"
