@@ -13,36 +13,29 @@ export const ExportModal = (props) => {
     voyage: false,
     channel: false,
   });
-  const FetchExport = async () => {
-    let obj = {
-      from: from,
-      to: to,
-      username: selectFilter.username ? username : null,
-      voyage: selectFilter.voyage ? voyage : null,
-      channel: selectFilter.channel ? channel : null,
-    };
+  const handleClick = async (e) => {
+    e.preventDefault();
     await fetch("/export/tracking", {
-      method: "POST",
+      method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(obj),
+      body: JSON.stringify({
+        from: from,
+        to: to,
+        username: selectFilter.username ? username : null,
+        voyage: selectFilter.voyage ? voyage : null,
+        channel: selectFilter.channel ? channel : null,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(__dirname);
+        console.log(data);
         saveAs(
           "/export/" + data.filename + ".xlsx",
           "trackings_" + data.filename + ".xlsx"
         );
+        alert(__dirname);
       })
       .catch((error) => console.log(error));
-  };
-  const handleExport = async (e) => {
-    e.preventDefault();
-    if (from === "" || to === "") {
-      alert("Please fill from and to!");
-    } else {
-      await FetchExport();
-    }
   };
   return (
     <Modal
@@ -57,112 +50,104 @@ export const ExportModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body scrollable="true">
-        <label className="me-3">From:</label>
-        <input
-          type="date"
-          className="me-3"
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
-        />
-        <label className="me-3">To:</label>
-        <input
-          type="date"
-          className="mb-3"
-          value={to}
-          onChange={(e) => setTo(e.target.value)}
-        />
-        <br />
-        <label className="me-3">
+        <form onSubmit={handleClick}>
+          <label className="me-3">From:</label>
           <input
-            type="checkbox"
-            defaultChecked={selectFilter.username}
-            onClick={() =>
-              setSelectFilter({
-                ...selectFilter,
-                username: !selectFilter.username,
-              })
-            }
-          />{" "}
-          username
-        </label>
-        <label className="me-3">
+            type="date"
+            className="me-3"
+            value={from}
+            onChange={(e) => setFrom(e.target.value)}
+          />
+          <label className="me-3">To:</label>
           <input
-            type="checkbox"
-            defaultChecked={selectFilter.voyage}
-            onClick={() =>
-              setSelectFilter({
-                ...selectFilter,
-                voyage: !selectFilter.voyage,
-              })
-            }
-          />{" "}
-          voyage
-        </label>
-        <label className="me-3 mb-3">
-          <input
-            type="checkbox"
-            defaultChecked={selectFilter.channel}
-            onClick={() =>
-              setSelectFilter({
-                ...selectFilter,
-                channel: !selectFilter.channel,
-              })
-            }
-          />{" "}
-          channel
-        </label>
-        <br />
-        {selectFilter.username && (
-          <>
-            <label className="me-3">username</label>
+            type="date"
+            className="mb-3"
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
+          />
+          <br />
+          <label className="me-3">
             <input
-              className="mb-3"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <br />
-          </>
-        )}
-        {selectFilter.voyage && (
-          <>
-            <label className="me-3">voyage</label>
+              type="checkbox"
+              defaultChecked={selectFilter.username}
+              onClick={() =>
+                setSelectFilter({
+                  ...selectFilter,
+                  username: !selectFilter.username,
+                })
+              }
+            />{" "}
+            username
+          </label>
+          <label className="me-3">
             <input
-              className="mb-3"
-              type="date"
-              value={voyage}
-              onChange={(e) => setVoyage(e.target.value)}
-            />
-            <br />
-          </>
-        )}
-        {selectFilter.channel && (
-          <>
-            <label className="me-3">channel</label>
-            <select
-              className="mb-3"
-              value={channel}
-              onChange={(e) => setChannel(e.target.value)}
-            >
-              <option value={null}>select</option>
-              <option value="shimizu">shimizu</option>
-              <option value="mercari">mercari</option>
-              <option value="fril">fril</option>
-              <option value="123">web123</option>
-            </select>
-          </>
-        )}
-      </Modal.Body>
-      <Modal.Footer>
-        <form onSubmit={handleExport}>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={handleExport}
-          >
-            Export
-          </button>
+              type="checkbox"
+              defaultChecked={selectFilter.voyage}
+              onClick={() =>
+                setSelectFilter({
+                  ...selectFilter,
+                  voyage: !selectFilter.voyage,
+                })
+              }
+            />{" "}
+            voyage
+          </label>
+          <label className="me-3 mb-3">
+            <input
+              type="checkbox"
+              defaultChecked={selectFilter.channel}
+              onClick={() =>
+                setSelectFilter({
+                  ...selectFilter,
+                  channel: !selectFilter.channel,
+                })
+              }
+            />{" "}
+            channel
+          </label>
+          <br />
+          {selectFilter.username && (
+            <>
+              <label className="me-3">username</label>
+              <input
+                className="mb-3"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <br />
+            </>
+          )}
+          {selectFilter.voyage && (
+            <>
+              <label className="me-3">voyage</label>
+              <input
+                className="mb-3"
+                type="date"
+                value={voyage}
+                onChange={(e) => setVoyage(e.target.value)}
+              />
+              <br />
+            </>
+          )}
+          {selectFilter.channel && (
+            <>
+              <label className="me-3">channel</label>
+              <select
+                className="mb-3"
+                value={channel}
+                onChange={(e) => setChannel(e.target.value)}
+              >
+                <option value={null}>select</option>
+                <option value="shimizu">shimizu</option>
+                <option value="mercari">mercari</option>
+                <option value="fril">fril</option>
+                <option value="123">web123</option>
+              </select>
+            </>
+          )}
+          <button type="submit">export</button>
         </form>
-      </Modal.Footer>
+      </Modal.Body>
     </Modal>
   );
 };

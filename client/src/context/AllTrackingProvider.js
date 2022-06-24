@@ -118,7 +118,10 @@ export const AllTrackingProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-    FetchTracking();
+    async function getInitial() {
+      await FetchTracking();
+    }
+    getInitial();
   }, []);
   const handleClickSort = (sort) => {
     setSearchParams({ ...filter, sort: sort });
