@@ -13,23 +13,35 @@ export const ExportModal = (props) => {
     voyage: false,
     channel: false,
   });
-  const handleExport = async () => {
-    if (from === "" || to === "") {
-      return alert("Please fill from and to!");
-    }
+  const FetchExport = async () => {
+    let obj = {
+      from: from,
+      to: to,
+      username: selectFilter.username ? username : null,
+      voyage: selectFilter.voyage ? voyage : null,
+      channel: selectFilter.channel ? channel : null,
+    };
     await fetch("/export/tracking", {
-      method: "post",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: from,
-        to: to,
-        username: selectFilter.username ? username : null,
-        voyage: selectFilter.voyage ? voyage : null,
-        channel: selectFilter.channel ? channel : null,
-      }),
-    }).finally(() => {
-      saveAs("/export/trackings.xlsx", "trackings.xlsx");
-    });
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        saveAs(
+          "/export/" + data.filename + ".xlsx",
+          "trackings_" + data.filename + ".xlsx"
+        );
+      })
+      .catch((error) => console.log(error));
+  };
+  const handleExport = async (e) => {
+    e.preventDefault();
+    if (from === "" || to === "") {
+      alert("Please fill from and to!");
+    } else {
+      await FetchExport();
+    }
   };
   return (
     <Modal
@@ -140,13 +152,15 @@ export const ExportModal = (props) => {
         )}
       </Modal.Body>
       <Modal.Footer>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleExport}
-        >
-          Export
-        </button>
+        <form onSubmit={handleExport}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleExport}
+          >
+            Export
+          </button>
+        </form>
       </Modal.Footer>
     </Modal>
   );

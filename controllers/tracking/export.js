@@ -47,12 +47,15 @@ exports.exportTracking = async (req, res) => {
       { header: "updated_at", key: "updated_at" },
     ];
     worksheet.addRows(jsonTrackings);
+    let date = new Date();
+    let filename = date.getTime();
     workbook.xlsx
-      .writeFile("./client/public/export/trackings.xlsx")
+      .writeFile("./client/public/export/" + filename + ".xlsx")
       .then(() => {
         console.log("file saved!");
         res.json({
           status: true,
+          filename: filename,
           message: "export successful 👍",
         });
       });
