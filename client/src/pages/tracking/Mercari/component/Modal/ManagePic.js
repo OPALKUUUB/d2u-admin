@@ -6,9 +6,13 @@ import { AllTrackingContext } from "../../../../../context/AllTrackingProvider";
 export const ManagePic = (props) => {
   const [item, setItem] = useState(props.item);
   const [picFile, setPicFile] = useState(null);
+  const [del, setDel] = useState(false);
   const { PatchShimizuTracking } = useContext(AllTrackingContext);
   const handleSave = async () => {
     let t = item;
+    if (del) {
+      t[props.name] = "";
+    }
     if (picFile !== "" && picFile !== null) {
       const d = new FormData();
       d.append("file", picFile);
@@ -24,6 +28,7 @@ export const ManagePic = (props) => {
         })
         .catch((err) => console.log(err));
     }
+
     await PatchShimizuTracking(t.id, t);
   };
   return (
@@ -41,7 +46,16 @@ export const ManagePic = (props) => {
       <Modal.Body scrollable="true">
         <div className="row">
           <div className="col-sm-12 col-md-6 mb-3">
-            <img src={item[props.name]} alt={item[props.name]} width={300} />
+            {!del && (
+              <>
+                <img
+                  src={item[props.name]}
+                  alt={item[props.name]}
+                  width={300}
+                />
+                <button onClick={() => setDel(true)}>delete</button>
+              </>
+            )}
           </div>
           <div className="col-sm-12 col-md-6">
             <FormImage
