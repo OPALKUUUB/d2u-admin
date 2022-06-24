@@ -1,69 +1,96 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-
-const Styles = styled.div`
-  margin: 20px 20px 20px 20px;
-`;
+import { Link } from "react-router-dom";
 
 export const ShipBilling = () => {
-  const [roundBoats, setRoundBoats] = useState([]);
-  const [usernames, setUsernames] = useState([]);
-  const FetchRoundBoat = async () => {
+  const [voyages, setVoyages] = useState([]);
+  const [voyage, setVoyage] = useState("");
+  const [billings, setBillings] = useState([]);
+  const FetchVoyage = async () => {
     const res = await fetch("/group/round_boat").then((res) => res.json());
-    const data = res.data;
-    return data;
-  };
-  const FetchUsername = async (round_boat) => {
-    const res = await fetch("/username?round_boat=" + round_boat).then((res) =>
-      res.json()
-    );
-    const data = res.data;
-    return data;
+    return res.data;
   };
   useEffect(() => {
     async function getInitial() {
-      let round_boats = await FetchRoundBoat();
-      setRoundBoats(round_boats);
+      const data = await FetchVoyage();
+      setVoyages(data);
     }
     getInitial();
   }, []);
-
-  const handleSelect = async (select) => {
-    let data = await FetchUsername(select);
-    setUsernames(data);
+  const FetchBillingVoyage = async (v) => {
+    const res = await fetch("/billing/voyage?round_boat=" + v).then((res) =>
+      res.json()
+    );
+    return res.data;
+  };
+  const handleSelect = async (e) => {
+    setVoyage(e.target.value);
+    const data = await FetchBillingVoyage(e.target.value);
+    console.log(data);
+    setBillings(data);
   };
   return (
-    <Styles>
-      <div>
-        <label>Voyage:</label>
-        <select onChange={(e) => handleSelect(e.target.value)}>
-          {roundBoats.length > 0 ? (
-            <>
-              <option>select</option>
-              {roundBoats.map((item, index) => (
-                <option key={index} value={item.round_boat}>
-                  {item.round_boat} ({item.count})
-                </option>
-              ))}
-            </>
-          ) : (
-            <option>loading...</option>
-          )}
+    <div>
+      เลือกรอบเรือ:{" "}
+      {voyages.length > 0 ? (
+        <select name="voyage" value={voyage} onChange={handleSelect}>
+          <option value="">select</option>
+          {voyages.map((v, i) => {
+            return (
+              <option key={["voyage", i].join("_")} value={v.round_boat}>
+                {v.round_boat}
+              </option>
+            );
+          })}
         </select>
-        <>
-          {usernames.length > 0 && (
-            <>
-              <label>username</label>
-              <input list="usernameOptions" placeholder="Type to search..." />
-              <datalist id="usernameOptions">
-                {usernames.map((item) => (
-                  <option key={item.username} value={item.username} />
-                ))}
-              </datalist>
-            </>
-          )}
-        </>
-      </div>
-    </Styles>
+      ) : (
+        "loading..."
+      )}
+      {billings.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>username</th>
+              <th>weight_sum</th>
+              <th>inform_billing</th>
+              <th>manage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {billings.map((b, i) => {
+              return (
+                <tr key={["row_billing", i].join("_")}>
+                  <RowShipBilling row={b} />
+                  <td>
+                    <Link
+                      to={`/ship/billing/manage?username=${b.username}&round_boat=${voyage}`}
+                    >
+                      link
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};
+
+const RowShipBilling = ({ row }) => {
+  const [check, setCheck] = useState(row.billing_check);
+  const weight = Math.round(row.weight_sum * 100) / 100;
+  return (
+    <>
+      <td>{row.username}</td>
+      <td>{weight}</td>
+      <td>
+        <input
+          type="checkbox"
+          defaultChecked={check}
+          onClick={() => setCheck(!check)}
+        />
+      </td>
+    </>
   );
 };

@@ -51,11 +51,11 @@ exports.exportTracking = async (req, res) => {
       .writeFile("./client/public/export/trackings.xlsx")
       .then(() => {
         console.log("file saved!");
+        res.json({
+          status: true,
+          message: "export successful 👍",
+        });
       });
-    res.json({
-      status: true,
-      message: "export successful 👍",
-    });
   } catch (error) {
     console.log(error);
   }

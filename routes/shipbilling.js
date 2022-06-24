@@ -4,6 +4,10 @@ const router = express.Router();
 const shipBillingController = require("../controllers/shipbilling/shipbilling");
 
 router.get("/group/round_boat", shipBillingController.getRoundboat);
-router.get("/username", shipBillingController.getUsernames);
+router.get("/billing/voyage", shipBillingController.getVoyageBilling);
+
+router.get("/shipbilling", shipBillingController.getShipBilling);
+router.post("/update/cod", shipBillingController.updateCod);
+router.post("/update/cost/voyage", shipBillingController.updateCostVoyage);
 
 module.exports = router;

@@ -23,7 +23,7 @@ import { All } from "./pages/tracking/All/All";
 import { Add as AddTracking } from "./pages/tracking/Add/Add";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 import { Daiso } from "./pages/mart/Daiso/Daiso";
-import { ShipBilling } from "./pages/ShipBilling/ShipBilling";
+import { App as ShipBillingApp } from "./pages/ShipBilling/App";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -69,7 +69,7 @@ function App() {
               <Route path="add" element={<AddTracking />} />
             </Route>
 
-            <Route path="/ship/billing" element={<ShipBilling />} />
+            <Route path="/ship/billing/*" element={<ShipBillingApp />} />
 
             <Route path="/mart">
               <Route path="" element={<Daiso />} />
