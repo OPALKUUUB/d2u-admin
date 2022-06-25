@@ -172,7 +172,18 @@ exports.updateCostVoyage = async (req, res) => {
   }
 };
 
-exports.UpdateShipBilling = (req, res) => {
+exports.UpdateShipBilling = async (req, res) => {
   console.log(req.body, req.params.id);
-  res.status(200).json({ status: true });
+  try {
+    const sql_update_ship_billing = "UPDATE ship_billings SET ? WHERE id = ?;";
+    let result = await query(sql_update_ship_billing, [
+      req.body,
+      req.params.id,
+    ]).then((res) => res);
+    console.log(result);
+    res.status(200).json({ status: true });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ status: false });
+  }
 };
