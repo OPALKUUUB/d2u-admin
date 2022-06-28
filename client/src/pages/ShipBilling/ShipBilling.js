@@ -21,6 +21,7 @@ export const ShipBilling = () => {
     async function getInitial() {
       const data = await FetchBillingVoyage(date);
       setBillings(data);
+      console.log(data);
     }
     let date = searchParams.get("round_boat");
     if (date !== null) {
@@ -74,6 +75,8 @@ export const ShipBilling = () => {
               <tr>
                 <th>username</th>
                 <th>inform_billing</th>
+                <th>check</th>
+                <th>remark</th>
                 <th>manage</th>
               </tr>
             </thead>
@@ -102,8 +105,13 @@ export const ShipBilling = () => {
 
 const RowShipBilling = ({ row }) => {
   const [ck, setCk] = useState(row.billing_check);
+  const [ck2, setCk2] = useState(row.check);
+  const [remark, setRemark] = useState(row.remark);
+  const [edit, setEdit] = useState(false);
   useEffect(() => {
     setCk(row.billing_check);
+    setCk2(row.check);
+    setRemark(row.remark);
   }, [row]);
   const PatchInformBilling = async (id, patch) => {
     await fetch("/ship/billing/update/" + id, {
@@ -121,11 +129,46 @@ const RowShipBilling = ({ row }) => {
     };
     await PatchInformBilling(row.id, patch);
   };
+  const handleCheck2 = async (check) => {
+    setCk2(check);
+    let patch = {
+      check: check,
+    };
+    await PatchInformBilling(row.id, patch);
+  };
+  const handleSaveRemark = async () => {
+    let patch = {
+      remark: remark,
+    };
+    await PatchInformBilling(row.id, patch);
+    setEdit(false);
+  };
   return (
     <>
       <td>{row.username}</td>
       <td>
         <input type="checkbox" checked={ck} onChange={() => handleCheck(!ck)} />
+      </td>
+      <td>
+        <input
+          type="checkbox"
+          checked={ck2}
+          onChange={() => handleCheck2(!ck2)}
+        />
+      </td>
+      <td>
+        {edit ? (
+          <div>
+            <textarea onChange={(e) => setRemark(e.target.value)}>
+              {remark}
+            </textarea>
+            <button onClick={handleSaveRemark}>save</button>
+          </div>
+        ) : (
+          <p style={{ cursor: "pointer" }} onClick={() => setEdit(!edit)}>
+            {remark === null || remark === "" ? "-" : remark}
+          </p>
+        )}
       </td>
     </>
   );
