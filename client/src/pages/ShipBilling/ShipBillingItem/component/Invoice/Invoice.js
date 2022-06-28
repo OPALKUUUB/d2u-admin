@@ -34,9 +34,9 @@ export const Invoice = () => {
     discount_price = sumPrice * 0.05;
     sumPrice -= discount_price;
   }
-  sumPrice -= sumCod;
-  sumPrice -= shipBilling.cost_voyage1;
-  sumPrice -= shipBilling.cost_voyage2;
+  sumPrice += sumCod;
+  sumPrice += shipBilling.cost_voyage1;
+  sumPrice += shipBilling.cost_voyage2;
   let total = Math.round(sumPrice);
   return (
     <Styles>
