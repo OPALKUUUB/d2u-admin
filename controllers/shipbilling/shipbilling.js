@@ -151,7 +151,7 @@ exports.updateCod = async (req, res) => {
 };
 exports.updateCostVoyage = async (req, res) => {
   let sql =
-    "update ship_billings set cost_voyage1 = ?, cost_voyage2 = ?  where id = ?;";
+    "update ship_billings set cost_voyage1 = ?, cost_voyage2 = ?   where id = ?;";
   try {
     let result = await query(sql, [
       req.body.cost_voyage1,

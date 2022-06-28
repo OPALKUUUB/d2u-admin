@@ -4,12 +4,42 @@ import { useSearchParams } from "react-router-dom";
 export const ShipBillingItemContext = createContext();
 export const ShipBillingItemProvider = ({ children }) => {
   const [searchParams] = useSearchParams();
-  const [trackings, setTrackings] = useState([]);
-  const [orders, setOrders] = useState([]);
+
+  const [shimizuOrders, setShimizuOrders] = useState([]);
+  const [web123Orders, setWeb123Orders] = useState([]);
+  const [yahooOrders, setYahooOrders] = useState([]);
+  const [mercariOrders, setMercariOrders] = useState([]);
+  const [frilOrders, setFrilOrders] = useState([]);
+
+  const [sumWeb123, setSumWeb123] = useState({
+    cod: 0,
+    weight: 0,
+    price: 0,
+  });
+  const [sumShimizu, setSumShimizu] = useState({
+    cod: 0,
+    weight: 0,
+    price: 0,
+  });
+  const [sumYahoo, setSumYahoo] = useState({
+    cod: 0,
+    weight: 0,
+    price: 0,
+  });
+  const [sumMercari, setSumMercari] = useState({
+    cod: 0,
+    weight: 0,
+    price: 0,
+  });
+  const [sumFril, setSumFril] = useState({
+    cod: 0,
+    weight: 0,
+    price: 0,
+  });
+
   const [userInfo, setUserInfo] = useState({});
   const [shipBilling, setShipBilling] = useState({
     cost_voyage1: 0,
-    cost_voyage2: 0,
   });
   const [baseRate, setBaseRate] = useState({ rate: 0, min: false });
   const [discount, setDiscount] = useState(false);
@@ -35,8 +65,27 @@ export const ShipBillingItemProvider = ({ children }) => {
         point_new > point_old ? point_new : point_old
       );
       setBaseRate(base_rate);
-      setTrackings(res.trackings);
-      setOrders(res.orders);
+
+      let shimizu = res.trackings.filter(
+        (filtered) => filtered.channel === "shimizu"
+      );
+      let web123 = res.trackings.filter(
+        (filtered) => filtered.channel === "123"
+      );
+      let mercari = res.trackings.filter(
+        (filtered) => filtered.channel === "mercari"
+      );
+      let fril = res.trackings.filter(
+        (filtered) => filtered.channel === "fril"
+      );
+      let yahoo = res.orders;
+      // console.log(res.trackings);
+      setShimizuOrders(shimizu);
+      setWeb123Orders(web123);
+      setYahooOrders(yahoo);
+      setMercariOrders(mercari);
+      setFrilOrders(fril);
+
       setUserInfo(res.userInfo);
       setShipBilling(res.ship_billing);
     }
@@ -57,8 +106,6 @@ export const ShipBillingItemProvider = ({ children }) => {
     <ShipBillingItemContext.Provider
       value={{
         userInfo: userInfo,
-        orders: orders,
-        trackings: trackings,
         baseRate: baseRate,
         setBaseRate: setBaseRate,
         discount: discount,
@@ -67,6 +114,28 @@ export const ShipBillingItemProvider = ({ children }) => {
         shipBilling: shipBilling,
         setShipBilling: setShipBilling,
         handleUpdateCostVoyage: handleUpdateCostVoyage,
+
+        shimizuOrders: shimizuOrders,
+        setShimizuOrders: setShimizuOrders,
+        web123Orders: web123Orders,
+        setWeb123Orders: setWeb123Orders,
+        yahooOrders: yahooOrders,
+        setYahooOrders: setYahooOrders,
+        mercariOrders: mercariOrders,
+        setMercariOrders: setMercariOrders,
+        frilOrders: frilOrders,
+        setFrilOrders: setFrilOrders,
+
+        sumWeb123: sumWeb123,
+        setSumWeb123: setSumWeb123,
+        sumShimizu: sumShimizu,
+        setSumShimizu: setSumShimizu,
+        sumYahoo: sumYahoo,
+        setSumYahoo: setSumYahoo,
+        sumMercari: sumMercari,
+        setSumMercari: setSumMercari,
+        sumFril: sumFril,
+        setSumFril: setSumFril,
       }}
     >
       {children}
