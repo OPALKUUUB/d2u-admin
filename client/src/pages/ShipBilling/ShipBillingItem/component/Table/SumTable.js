@@ -34,6 +34,7 @@ export const SumTable = () => {
   }
   let total =
     price + cod * rateYen - discount_price + cost_voyage1 + cost_voyage2;
+  
   return (
     <div>
       <table className="table table-bordered mb-3">
@@ -99,7 +100,7 @@ export const SumTable = () => {
           <tr>
             <th>total</th>
             <td>
-              {total}=>({Math.round(total)})
+              {total}=>({Math.ceil(total)})
             </td>
             <td></td>
           </tr>

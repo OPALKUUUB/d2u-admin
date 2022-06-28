@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 
 export const Shimizu = () => {
-  const { shimizuOrders, baseRate, sumShimizu, setSumShimizu } = useContext(
+  const { shimizuOrders, baseRate, sumShimizu, setSumShimizu, rateYen } = useContext(
     ShipBillingItemContext
   );
   useEffect(() => {
@@ -39,7 +39,7 @@ export const Shimizu = () => {
               <td></td>
               <td></td>
               <td>total</td>
-              <td>{sumShimizu.cod + sumShimizu.price}</td>
+              <td>{sumShimizu.cod*rateYen + sumShimizu.price}</td>
               <td></td>
             </tr>
           </tbody>

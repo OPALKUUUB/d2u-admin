@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 
 export const Fril = () => {
-  const { frilOrders, sumFril, setSumFril } = useContext(
+  const { frilOrders, sumFril, setSumFril, rateYen } = useContext(
     ShipBillingItemContext
   );
   useEffect(() => {
@@ -41,7 +41,7 @@ export const Fril = () => {
               <td>total</td>
               <td>{sumFril.weight}</td>
               <td></td>
-              <td>{sumFril.cod + sumFril.price}</td>
+              <td>{sumFril.cod * rateYen + sumFril.price}</td>
               <td></td>
             </tr>
           </tbody>

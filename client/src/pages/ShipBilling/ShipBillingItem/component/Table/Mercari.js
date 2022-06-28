@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 
 export const Mercari = () => {
-  const { mercariOrders, sumMercari, setSumMercari } = useContext(
+  const { mercariOrders, sumMercari, setSumMercari, rateYen } = useContext(
     ShipBillingItemContext
   );
   useEffect(() => {
@@ -40,7 +40,7 @@ export const Mercari = () => {
               <td>total</td>
               <td>{sumMercari.weight}</td>
               <td></td>
-              <td>{sumMercari.cod + sumMercari.price}</td>
+              <td>{sumMercari.cod * rateYen + sumMercari.price}</td>
               <td></td>
             </tr>
           </tbody>

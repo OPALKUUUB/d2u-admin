@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 
 export const Yahoo = () => {
-  const { yahooOrders, baseRate, sumYahoo, setSumYahoo } = useContext(
+  const { yahooOrders, baseRate, sumYahoo, setSumYahoo, rateYen } = useContext(
     ShipBillingItemContext
   );
   useEffect(() => {
@@ -37,7 +37,7 @@ export const Yahoo = () => {
               <td></td>
               <td></td>
               <td>total</td>
-              <td>{sumYahoo.cod + sumYahoo.price}</td>
+              <td>{sumYahoo.cod * rateYen + sumYahoo.price}</td>
               <td></td>
             </tr>
           </tbody>

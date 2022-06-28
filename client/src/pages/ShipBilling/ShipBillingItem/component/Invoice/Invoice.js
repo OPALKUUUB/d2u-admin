@@ -16,6 +16,7 @@ export const Invoice = () => {
     frilOrders,
     web123Orders,
     yahooOrders,
+    rateYen,
   } = useContext(ShipBillingItemContext);
   let sumPrice =
     sumShimizu.price +
@@ -34,10 +35,10 @@ export const Invoice = () => {
     discount_price = sumPrice * 0.05;
     sumPrice -= discount_price;
   }
-  sumPrice += sumCod;
+  sumPrice += sumCod * rateYen;
   sumPrice += shipBilling.cost_voyage1;
   sumPrice += shipBilling.cost_voyage2;
-  let total = Math.round(sumPrice);
+  let total = Math.ceil(sumPrice);
   return (
     <Styles>
       <table>
