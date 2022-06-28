@@ -18,6 +18,7 @@ export const Web123 = () => {
         <table className="table table-bordered mb-3">
           <thead>
             <tr>
+              <th>#</th>
               <th>channel</th>
               <th>track_id</th>
               <th>box_no</th>

@@ -17,6 +17,7 @@ export const Yahoo = () => {
         <table className="table table-bordered mb-3">
           <thead>
             <tr>
+              <th>#</th>
               <th>channel</th>
               <th>track_id</th>
               <th>weight(real)</th>
