@@ -12,7 +12,7 @@ export const SumTable = () => {
     shipBilling,
     rateYen,
   } = useContext(ShipBillingItemContext);
-  console.log(rateYen);
+  // console.log(rateYen);
   let cost_voyage1 = shipBilling.cost_voyage1;
   let cost_voyage2 = shipBilling.cost_voyage2;
   let price =
@@ -32,6 +32,8 @@ export const SumTable = () => {
     discount_price = price * 0.05;
     discount_price = Math.round(discount_price * 100) / 100;
   }
+  let total =
+    price + cod * rateYen - discount_price - cost_voyage1 - cost_voyage2;
   return (
     <div>
       <table className="table table-bordered mb-3">
@@ -97,7 +99,7 @@ export const SumTable = () => {
           <tr>
             <th>total</th>
             <td>
-              {price + cod * rateYen - discount - cost_voyage1 - cost_voyage2}
+              {total}=>({Math.round(total)})
             </td>
             <td></td>
           </tr>
