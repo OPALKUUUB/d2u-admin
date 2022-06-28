@@ -20,6 +20,7 @@ export const Mercari = () => {
             <tr>
               <th>channel</th>
               <th>track_id</th>
+              <th>box_id</th>
               <th>weight(real)</th>
               <th>weight(cal)</th>
               <th>price</th>
@@ -33,6 +34,7 @@ export const Mercari = () => {
               return <Row key={key} data={order} index={index} />;
             })}
             <tr>
+              <td></td>
               <td></td>
               <td>total</td>
               <td>{sumMercari.weight}</td>
@@ -76,6 +78,7 @@ function Row({ data, index }) {
     <tr>
       <td>{index === 0 ? "Mercari" : ""}</td>
       <td>{data.track_id}</td>
+      <td>{data.box_id}</td>
       <td>{data.weight}</td>
       <td>{weight_cal}</td>
       <td>{price}</td>
