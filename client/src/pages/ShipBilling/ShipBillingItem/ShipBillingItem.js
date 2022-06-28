@@ -1,4 +1,5 @@
 import React from "react";
+import { Invoice } from "./component/Invoice/Invoice";
 import { Fril } from "./component/Table/Fril";
 import { Mercari } from "./component/Table/Mercari";
 import { Shimizu } from "./component/Table/Shimizu";
@@ -19,6 +20,7 @@ export const ShipBillingItem = () => {
           <Web123 />
           <Yahoo />
           <SumTable />
+          <Invoice />
         </div>
       </div>
     </>

@@ -8,7 +8,7 @@ export const Web123 = () => {
   useEffect(() => {
     let data = {};
     data = Calculate(web123Orders, baseRate);
-    console.log(web123Orders);
+    // console.log(web123Orders);
     setSumWeb123(data);
   }, [web123Orders, baseRate]);
   if (web123Orders.length > 0) {
