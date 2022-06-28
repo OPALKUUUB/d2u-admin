@@ -5,6 +5,7 @@ export const ShipBillingItemContext = createContext();
 export const ShipBillingItemProvider = ({ children }) => {
   const [searchParams] = useSearchParams();
 
+  const [rateYen, setRateYen] = useState(0);
   const [shimizuOrders, setShimizuOrders] = useState([]);
   const [web123Orders, setWeb123Orders] = useState([]);
   const [yahooOrders, setYahooOrders] = useState([]);
@@ -86,6 +87,7 @@ export const ShipBillingItemProvider = ({ children }) => {
       setMercariOrders(mercari);
       setFrilOrders(fril);
 
+      setRateYen(parseFloat(res.config.yen));
       setUserInfo(res.userInfo);
       setShipBilling(res.ship_billing);
     }
@@ -105,6 +107,7 @@ export const ShipBillingItemProvider = ({ children }) => {
   return (
     <ShipBillingItemContext.Provider
       value={{
+        rateYen: rateYen,
         userInfo: userInfo,
         baseRate: baseRate,
         setBaseRate: setBaseRate,

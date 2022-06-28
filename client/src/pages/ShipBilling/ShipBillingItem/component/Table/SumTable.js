@@ -10,8 +10,9 @@ export const SumTable = () => {
     sumFril,
     discount,
     shipBilling,
+    rateYen,
   } = useContext(ShipBillingItemContext);
-
+  console.log(rateYen);
   let cost_voyage1 = shipBilling.cost_voyage1;
   let cost_voyage2 = shipBilling.cost_voyage2;
   let price =
@@ -93,7 +94,9 @@ export const SumTable = () => {
           )}
           <tr>
             <th>total</th>
-            <td>{price + cod - discount - cost_voyage1 - cost_voyage2}</td>
+            <td>
+              {price + cod * rateYen - discount - cost_voyage1 - cost_voyage2}
+            </td>
             <td></td>
           </tr>
         </tfoot>
