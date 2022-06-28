@@ -18,6 +18,7 @@ export const Fril = () => {
         <table className="table table-bordered mb-3">
           <thead>
             <tr>
+              <th>#</th>
               <th>channel</th>
               <th>track_id</th>
               <th>box no</th>
@@ -34,6 +35,7 @@ export const Fril = () => {
               return <Row key={key} data={order} index={index} />;
             })}
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td>total</td>
@@ -76,6 +78,7 @@ function Row({ data, index }) {
   }
   return (
     <tr>
+      <td>{index + 1}</td>
       <td>{index === 0 ? "Mercari" : ""}</td>
       <td>{data.track_id}</td>
       <td>{data.box_id}</td>

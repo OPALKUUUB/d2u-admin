@@ -63,6 +63,7 @@ function Row({ data, index }) {
   };
   return (
     <tr>
+      <td>{index + 1}</td>
       <td>{index === 0 ? "shimizu" : ""}</td>
       <td>{data.track_id}</td>
       <td>{data.box_id}</td>
