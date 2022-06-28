@@ -73,7 +73,9 @@ export const SumTable = () => {
           <tr>
             <td>sum</td>
             <td>{price}</td>
-            <td>{cod}</td>
+            <td>
+              {cod}({cod * rateYen}[rate: {rateYen}])
+            </td>
           </tr>
           <tr>
             <td>ค่าส่ง</td>
