@@ -62,7 +62,7 @@ function Row({ data, index }) {
   };
   return (
     <tr>
-      <td>{index}</td>
+      <td>{index + 1}</td>
       <td>{index === 0 ? "Yahoo" : ""}</td>
       <td>{data.track_id}</td>
       <td>{data.weight}</td>
