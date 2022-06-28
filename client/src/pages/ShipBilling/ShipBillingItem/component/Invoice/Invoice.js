@@ -33,6 +33,7 @@ export const Invoice = () => {
   let discount_price = 0;
   if (discount) {
     discount_price = sumPrice * 0.05;
+    discount_price = Math.floor(discount_price);
     sumPrice -= discount_price;
   }
   sumPrice += sumCod * rateYen;
@@ -126,6 +127,13 @@ export const Invoice = () => {
                   </tr>
                 );
               })}
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center" }}>
+                  sum
+                </td>
+                <td>{sumShimizu.weight}</td>
+                <td>{sumShimizu.price}</td>
+              </tr>
             </>
           )}
           {web123Orders.length > 0 && (
@@ -133,7 +141,7 @@ export const Invoice = () => {
               {web123Orders.map((row, index) => {
                 return (
                   <tr>
-                    <td>{index === 0 && "Web123"}</td>
+                    <td>{index === 0 && "เว็บทั่วไป"}</td>
                     <td>{row.box_id}</td>
                     <td>{row.track_id}</td>
                     <td>{row.weight}</td>
@@ -142,6 +150,13 @@ export const Invoice = () => {
                   </tr>
                 );
               })}
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center" }}>
+                  sum
+                </td>
+                <td>{sumWeb123.weight}</td>
+                <td>{sumWeb123.price}</td>
+              </tr>
             </>
           )}
           {yahooOrders.length > 0 && (
@@ -158,11 +173,25 @@ export const Invoice = () => {
                   </tr>
                 );
               })}
+              <tr>
+                <td colSpan={3} style={{ textAlign: "center" }}>
+                  sum
+                </td>
+                <td>{sumYahoo.weight}</td>
+                <td>{sumYahoo.price}</td>
+              </tr>
             </>
           )}
         </tbody>
         <tfoot>
-          <tr></tr>
+          {discount && (
+            <tr>
+              <td colSpan={3} style={{ textAlign: "center" }}>
+                Discount 5%
+              </td>
+              <td>{discount_price}</td>
+            </tr>
+          )}
           <tr>
             <td colSpan={3} style={{ textAlign: "center" }}>
               total
