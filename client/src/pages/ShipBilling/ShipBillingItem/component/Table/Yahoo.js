@@ -22,7 +22,7 @@ export const Yahoo = () => {
               <th>track_id</th>
               <th>weight(real)</th>
               <th>price</th>
-              <th>cod</th>
+              <th>cod(¥)</th>
               <th></th>
             </tr>
           </thead>

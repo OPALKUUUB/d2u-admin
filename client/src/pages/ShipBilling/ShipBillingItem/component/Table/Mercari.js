@@ -25,7 +25,7 @@ export const Mercari = () => {
               <th>weight(real)</th>
               <th>weight(cal)</th>
               <th>price</th>
-              <th>cod</th>
+              <th>cod(¥)</th>
               <th></th>
             </tr>
           </thead>

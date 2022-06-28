@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 
 export const Web123 = () => {
-  const { web123Orders, baseRate, sumWeb123, setSumWeb123, rateYen } = useContext(
-    ShipBillingItemContext
-  );
+  const { web123Orders, baseRate, sumWeb123, setSumWeb123, rateYen } =
+    useContext(ShipBillingItemContext);
   useEffect(() => {
     let data = {};
     data = Calculate(web123Orders, baseRate);
@@ -24,7 +23,7 @@ export const Web123 = () => {
               <th>box_no</th>
               <th>weight(real)</th>
               <th>price</th>
-              <th>cod</th>
+              <th>cod(¥)</th>
               <th></th>
             </tr>
           </thead>
@@ -40,7 +39,7 @@ export const Web123 = () => {
               <td></td>
               <td></td>
               <td>total</td>
-              <td>{sumWeb123.cod*rateYen + sumWeb123.price}</td>
+              <td>{sumWeb123.cod * rateYen + sumWeb123.price}</td>
               <td></td>
             </tr>
           </tbody>
