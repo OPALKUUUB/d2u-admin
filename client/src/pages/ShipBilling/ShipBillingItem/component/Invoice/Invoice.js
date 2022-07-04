@@ -72,13 +72,21 @@ export const Invoice = () => {
         </tbody>
         <tfoot>
           {discount && (
-            <tr>
-              <td colSpan={3} style={{ textAlign: "center" }}>
+            <tr id="sum">
+              <th id="head" colSpan={4}>
                 Discount 5%
-              </td>
-              <td>{discount_price}</td>
+              </th>
+              <td id="price">{discount_price}</td>
+              <td></td>
             </tr>
           )}
+          <tr id="sum">
+            <th id="head" colSpan={4}>
+              Delivery Cost
+            </th>
+            <td id="price">{shipBilling.cost_voyage1}</td>
+            <td></td>
+          </tr>
           <tr id="sum">
             <th id="head" colSpan={4}>
               Total
