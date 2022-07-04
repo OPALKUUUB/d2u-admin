@@ -66,7 +66,6 @@ export const ShipBillingItemProvider = ({ children }) => {
         point_new > point_old ? point_new : point_old
       );
       setBaseRate(base_rate);
-
       let shimizu = res.trackings.filter(
         (filtered) => filtered.channel === "shimizu"
       );

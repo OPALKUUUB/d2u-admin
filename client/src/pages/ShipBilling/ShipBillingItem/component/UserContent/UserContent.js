@@ -15,6 +15,7 @@ export const UserContent = () => {
   const handleSaveCostVoyage = () => {
     handleUpdateCostVoyage(shipBilling);
   };
+  console.log(shipBilling);
   if (shipBilling.id !== undefined) {
     return (
       <div className="card m-3">

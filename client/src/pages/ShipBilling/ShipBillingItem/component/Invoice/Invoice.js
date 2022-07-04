@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 import styled from "styled-components";
+import { Mercari } from "./Mercari";
+import { Web123 } from "./Web123";
+import { Fril } from "./Fril";
+import { Shimizu } from "./Shimizu";
+import { Yahoo } from "./Yahoo";
 
 export const Invoice = () => {
   const {
@@ -42,146 +47,28 @@ export const Invoice = () => {
   let total = Math.ceil(sumPrice);
   return (
     <Styles>
-      <table>
-        <caption>
-          {shipBilling.username} {shipBilling.round_boat}
-        </caption>
+      <table id="invoice">
         <thead>
+          <tr>
+            <th colSpan={6} style={{ textAlign: "center" }}>
+              {shipBilling.username} {shipBilling.round_boat}
+            </th>
+          </tr>
           <tr>
             <th>Channel</th>
             <th>Box No.</th>
             <th>Track Id</th>
             <th>Weight</th>
             <th>Price</th>
-            <th>Cod</th>
+            <th>Cod(yen)</th>
           </tr>
         </thead>
         <tbody>
-          {mercariOrders.length > 0 && (
-            <>
-              {mercariOrders.map((row, index) => {
-                let price = 0;
-                let weight = parseFloat(row.weight);
-                weight = Math.round(weight * 100) / 100;
-                let weight_cal = weight;
-                if (weight < 1) {
-                  price = 0;
-                  weight_cal = 0;
-                } else {
-                  weight_cal -= 1;
-                  weight_cal = Math.round(weight_cal * 100) / 100;
-                  price = weight_cal * 200;
-                }
-                return (
-                  <tr>
-                    <td>{index === 0 && "Mercari"}</td>
-                    <td>{row.box_id}</td>
-                    <td>{row.track_id}</td>
-                    <td>{row.weight}</td>
-                    <td>{price}</td>
-                    <td>{row.cod}</td>
-                  </tr>
-                );
-              })}
-            </>
-          )}
-          {frilOrders.length > 0 && (
-            <>
-              {frilOrders.map((row, index) => {
-                let price = 0;
-                let weight = parseFloat(row.weight);
-                weight = Math.round(weight * 100) / 100;
-                let weight_cal = weight;
-                if (weight < 1) {
-                  price = 0;
-                  weight_cal = 0;
-                } else {
-                  weight_cal -= 1;
-                  weight_cal = Math.round(weight_cal * 100) / 100;
-                  price = weight_cal * 200;
-                }
-                return (
-                  <tr>
-                    <td>{index === 0 && "Fril"}</td>
-                    <td>{row.box_id}</td>
-                    <td>{row.track_id}</td>
-                    <td>{row.weight}</td>
-                    <td>{price}</td>
-                    <td>{row.cod}</td>
-                  </tr>
-                );
-              })}
-            </>
-          )}
-          {shimizuOrders.length > 0 && (
-            <>
-              {shimizuOrders.map((row, index) => {
-                return (
-                  <tr>
-                    <td>{index === 0 && "Shimizu"}</td>
-                    <td>{row.box_id}</td>
-                    <td>{row.track_id}</td>
-                    <td>{row.weight}</td>
-                    <td>-</td>
-                    <td>{row.cod}</td>
-                  </tr>
-                );
-              })}
-              <tr>
-                <td colSpan={3} style={{ textAlign: "center" }}>
-                  sum
-                </td>
-                <td>{sumShimizu.weight}</td>
-                <td>{sumShimizu.price}</td>
-              </tr>
-            </>
-          )}
-          {web123Orders.length > 0 && (
-            <>
-              {web123Orders.map((row, index) => {
-                return (
-                  <tr>
-                    <td>{index === 0 && "เว็บทั่วไป"}</td>
-                    <td>{row.box_id}</td>
-                    <td>{row.track_id}</td>
-                    <td>{row.weight}</td>
-                    <td>-</td>
-                    <td>{row.cod}</td>
-                  </tr>
-                );
-              })}
-              <tr>
-                <td colSpan={3} style={{ textAlign: "center" }}>
-                  sum
-                </td>
-                <td>{sumWeb123.weight}</td>
-                <td>{sumWeb123.price}</td>
-              </tr>
-            </>
-          )}
-          {yahooOrders.length > 0 && (
-            <>
-              {yahooOrders.map((row, index) => {
-                return (
-                  <tr>
-                    <td>{index === 0 && "Yahoo"}</td>
-                    <td>{row.box_id}</td>
-                    <td>{row.track_id}</td>
-                    <td>{row.weight}</td>
-                    <td>-</td>
-                    <td>{row.cod}</td>
-                  </tr>
-                );
-              })}
-              <tr>
-                <td colSpan={3} style={{ textAlign: "center" }}>
-                  sum
-                </td>
-                <td>{sumYahoo.weight}</td>
-                <td>{sumYahoo.price}</td>
-              </tr>
-            </>
-          )}
+          <Mercari order={mercariOrders} />
+          <Fril order={frilOrders} />
+          <Shimizu order={shimizuOrders} sum={sumShimizu} />
+          <Web123 order={web123Orders} sum={sumWeb123} />
+          <Yahoo order={yahooOrders} sum={sumYahoo} />
         </tbody>
         <tfoot>
           {discount && (
@@ -192,11 +79,12 @@ export const Invoice = () => {
               <td>{discount_price}</td>
             </tr>
           )}
-          <tr>
-            <td colSpan={3} style={{ textAlign: "center" }}>
-              total
-            </td>
-            <td>{total}</td>
+          <tr id="sum">
+            <th id="head" colSpan={4}>
+              Total
+            </th>
+            <td id="total">{total}</td>
+            <th>Bath</th>
           </tr>
         </tfoot>
       </table>
@@ -205,10 +93,47 @@ export const Invoice = () => {
 };
 
 const Styles = styled.div`
-  border: 1px solid red;
-
-  table {
-    width: 500px;
-    border: 1px solid blue;
+  #invoice {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  #invoice text-decoration,
+  #invoice th {
+    padding: 8px 15px;
+  }
+  #invoice th,
+  #invoice td {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  #invoice thead tr {
+    background-color: #ddd;
+  }
+  #invoice tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  #invoice tbody tr:hover {
+    background-color: #ddd;
+  }
+  #invoice tbody td {
+    padding: 5px;
+  }
+  #invoice th {
+    text-align: left;
+  }
+  #invoice #sum td {
+    text-align: right;
+  }
+  #invoice #price {
+    text-align: center;
+    background-color: yellow;
+  }
+  #invoice #sum #total {
+    text-align: center;
+    background-color: yellowgreen;
+    border-bottom: 5px double black;
+  }
+  #invoice #sum #head {
+    text-align: right;
   }
 `;
