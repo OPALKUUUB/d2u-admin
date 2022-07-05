@@ -5,30 +5,30 @@ const CSSselect = require("css-select");
 
 // param catId default cat_id = 1148
 exports.getDaiso = async (req, res, next) => {
-  let datas = [];
-  let cat_id = 1148 || req.params.catId;
-  let p = 1;
-  let category = "category";
-  console.log("Crawling CatId: " + cat_id);
-  while (1) {
-    console.log("Crawling Page " + p + "...");
-    // stk=true mean have in stock
-    let link = `https://www.daisonet.com/category/${cat_id}?p=${p}&stk=true`;
-    let data = await getDaisoData(link);
-    if (data.data.length === 0) {
-      category = data.category;
-      console.log("Finish Page catId: " + cat_id);
-      break;
-    }
-    p++;
-    datas.push(...data.data);
-  }
-  res.status(200).json({
-    category: category,
-    length: datas.length,
-    crawling_date: new Date().toLocaleString("th"),
-    data: datas,
-  });
+  // let datas = [];
+  // let cat_id = 1148 || req.params.catId;
+  // let p = 1;
+  // let category = "category";
+  // console.log("Crawling CatId: " + cat_id);
+  // while (1) {
+  //   console.log("Crawling Page " + p + "...");
+  //   // stk=true mean have in stock
+  //   let link = `https://www.daisonet.com/category/${cat_id}?p=${p}&stk=true`;
+  //   let data = await getDaisoData(link);
+  //   if (data.data.length === 0) {
+  //     category = data.category;
+  //     console.log("Finish Page catId: " + cat_id);
+  //     break;
+  //   }
+  //   p++;
+  //   datas.push(...data.data);
+  // }
+  // res.status(200).json({
+  //   category: category,
+  //   length: datas.length,
+  //   crawling_date: new Date().toLocaleString("th"),
+  //   data: datas,
+  // });
 };
 
 async function getDaisoData(link) {

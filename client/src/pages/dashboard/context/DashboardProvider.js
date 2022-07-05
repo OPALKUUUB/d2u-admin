@@ -3,7 +3,7 @@ import { init } from "../../../other";
 
 export const DashboardContext = createContext();
 export const DashboardProvider = ({ children }) => {
-  const [config, setConfig] = useState({});
+  const [config, setConfig] = useState(Config);
   const FetchConfig = async () => {
     let data = await fetch("/api/config", init())
       .then((res) => res.json())
@@ -30,4 +30,11 @@ export const DashboardProvider = ({ children }) => {
       {children}
     </DashboardContext.Provider>
   );
+};
+
+const Config = {
+  atm_name: "",
+  atm_no: "",
+  atm_qr: "",
+  yen: 0,
 };

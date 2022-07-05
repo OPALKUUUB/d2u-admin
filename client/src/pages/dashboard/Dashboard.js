@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import {
-  DashboardContext,
-  DashboardProvider,
-} from "./context/DashboardProvider";
-import styled from "styled-components";
+import React from "react";
+import App from "./App";
+import { DashboardProvider } from "./context/DashboardProvider";
 
 export const Dashboard = () => {
   return (
@@ -12,8 +9,3 @@ export const Dashboard = () => {
     </DashboardProvider>
   );
 };
-
-function App() {
-  const { config, PatchConfig } = useContext(DashboardContext);
-  return <></>;
-}

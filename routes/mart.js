@@ -3,6 +3,6 @@ const router = express.Router();
 
 const daisoController = require("../controllers/mart/daiso");
 
-router.get("/daiso/category/:catId", daisoController.getDaiso);
+router.get("/daiso", daisoController.getDaiso);
 
 module.exports = router;
