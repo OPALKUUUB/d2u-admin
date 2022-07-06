@@ -1,0 +1,46 @@
+.Yen {
+  /* border: 1px solid black; */
+  width: 250px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 0;
+  background-color: #0275d8;
+  color: white;
+  border-radius: 2px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+}
+
+.Yen .icon {
+  font-size: 2rem;
+}
+
+.Yen .box.right {
+  font-size: 1.5rem;
+}
+
+.Yen .edit-value {
+  font-size: 1.2rem;
+}
+
+.Yen .edit-value input {
+  text-align: center;
+  width: 80px;
+  padding: 3px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.Yen .edit-value input:focus {
+  outline: 5px solid rgba(0, 0, 0, 0.2);
+}
+
+.Yen .edit-value button {
+  border: none;
+  background-color: inherit;
+  color: white;
+  text-transform: lowercase;
+}

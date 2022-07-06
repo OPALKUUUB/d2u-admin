@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
-import { Atm } from "./component/Atm";
-import { Yen } from "./component/Yen";
+import React, { useContext } from "react";
+// import { Atm } from "./component/Atm/Atm";
+import { Layout } from "./component/Layout";
+import { Yen } from "./component/Yen/Yen";
 import { DashboardContext } from "./context/DashboardProvider";
 
 function App() {
@@ -8,10 +9,10 @@ function App() {
   console.log(config);
 
   return (
-    <div>
+    <Layout>
       <Yen rate={config.yen} />
-      <Atm name={config.atm_name} no={config.atm_no} qr={config.atm_qr} />
-    </div>
+      {/* <Atm name={config.atm_name} no={config.atm_no} qr={config.atm_qr} /> */}
+    </Layout>
   );
 }
 
