@@ -24,6 +24,7 @@ import { Add as AddTracking } from "./pages/tracking/Add/Add";
 import { Dashboard } from "./pages/dashboard/Dashboard";
 import { Daiso } from "./pages/mart/Daiso/Daiso";
 import { App as ShipBillingApp } from "./pages/ShipBilling/App";
+import Promotion from "./pages/mart/Promotion/Promotion";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -73,7 +74,8 @@ function App() {
 
             <Route path="/mart">
               <Route path="" element={<Daiso />} />
-              <Route path="daiso" element={<Daiso />} />
+              <Route path="order" element={<Daiso />} />
+              <Route path="promotion" element={<Promotion />} />
             </Route>
           </Routes>
         </ContentLayout>
