@@ -10,7 +10,7 @@ function App() {
 
   return (
     <Layout>
-      <Yen rate={config.yen} />
+      <Yen rate={config.yen} patch={PatchConfig} />
       {/* <Atm name={config.atm_name} no={config.atm_no} qr={config.atm_qr} /> */}
     </Layout>
   );

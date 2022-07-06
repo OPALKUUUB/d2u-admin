@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import "./Yen.css";
 import * as HiIcons from "react-icons/hi";
 
-export const Yen = ({ rate }) => {
+export const Yen = ({ rate, patch }) => {
   const [value, setValue] = useState(rate);
   const [edit, setEdit] = useState(false);
   const handleSave = () => {
+    let yen = value;
+    const obj = {
+      yen: yen,
+    };
+    patch(obj);
     setEdit(false);
   };
   return (

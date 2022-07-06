@@ -4,6 +4,7 @@ import { init } from "../../../other";
 export const DashboardContext = createContext();
 export const DashboardProvider = ({ children }) => {
   const [config, setConfig] = useState(Config);
+  const [trigger, setTrigger] = useState(false);
   const FetchConfig = async () => {
     let data = await fetch("/api/config", init())
       .then((res) => res.json())
@@ -13,7 +14,10 @@ export const DashboardProvider = ({ children }) => {
   const PatchConfig = async (obj) => {
     let data = await fetch("/api/config", init("PATCH", obj))
       .then((res) => res.json())
-      .then((data) => data);
+      .then((data) => data)
+      .finally(() => {
+        setTrigger(!trigger);
+      });
     return data;
   };
   useEffect(() => {
@@ -22,7 +26,7 @@ export const DashboardProvider = ({ children }) => {
       setConfig(data);
     }
     fetchData();
-  }, []);
+  }, [trigger]);
   return (
     <DashboardContext.Provider
       value={{ config: config, PatchConfig: PatchConfig }}
