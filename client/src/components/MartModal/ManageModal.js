@@ -36,19 +36,19 @@ function ManageModal({ show, onHide, order, shop }) {
   };
   const handleSubmit = async () => {
     // POST post
-    // await axios
-    // .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
-    // .catch((err) => console.log(err));
-    // console.log(post);
+    await axios
+      .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
+      .catch((err) => console.log(err));
+    console.log(post);
     // setPost(POST);
-    console.log(shop);
-    await Firebase.database().ref(`/${shop}/${post.code}`).update({
-      name: post.name,
-      price: post.price,
-      category: post.category,
-      image: post.image,
-      description: post.description,
-    });
+    // console.log(shop);
+    // await Firebase.database().ref(`/${shop}/${post.code}`).update({
+    //   name: post.name,
+    //   price: post.price,
+    //   category: post.category,
+    //   image: post.image,
+    //   description: post.description,
+    // });
   };
   if (show) {
     return (
