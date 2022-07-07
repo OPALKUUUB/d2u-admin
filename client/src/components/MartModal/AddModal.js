@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
 import * as IoIcons from "react-icons/io";
 import "./styles.css";
 const POST = {
+  code:"",
   name: "",
   category: "",
   price: "",
   image: "",
   description: "",
 };
-const AddPromotionModal = ({ show, onHide }) => {
+const AddModal = ({ show, onHide , shop }) => {
   const [post, setPost] = useState(POST);
   const [loadingImage, setLoadingImage] = useState(false);
   const handleChange = (e) => {
@@ -36,8 +38,14 @@ const AddPromotionModal = ({ show, onHide }) => {
   const handleDeleteImage = () => {
     setPost({ ...post, image: "" });
   };
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     // POST post
+    let date = new Date();
+    console.log(date.getTime());
+    await axios.post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`,{
+      ...post,
+      code:date.getTime()
+    });
     console.log(post);
     setPost(POST);
   };
@@ -112,17 +120,17 @@ const AddPromotionModal = ({ show, onHide }) => {
   }
 };
 
-export const ButtonModal = () => {
+export const ButtonModal = ({shop}) => {
   const [show, setShow] = useState(false);
   return (
     <>
       <button onClick={() => setShow(true)}>
         <IoIcons.IoIosAdd />
-        <span>Promotion</span>
+        <span>{shop}</span>
       </button>
-      <AddPromotionModal show={show} onHide={() => setShow(false)} />
+      <AddModal show={show} onHide={() => setShow(false)} shop={shop} />
     </>
   );
 };
 
-export default AddPromotionModal;
+export default AddModal;
