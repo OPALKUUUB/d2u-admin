@@ -4,7 +4,7 @@ import { ButtonModal } from "../../../../../components/MartModal/AddModal";
 const Filter = ({ setShow }) => {
   return (
     <div>
-      <ButtonModal shop="promotion" key="promotion_add_modal" />
+      <ButtonModal shop="ewelcia" />
       <div id="filter">
         <select onChange={(e) => setShow(e.target.value)}>
           <option value={10}>10</option>

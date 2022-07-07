@@ -1,17 +1,13 @@
-import axios from "axios";
 import React, { useState } from "react";
 import * as IoIcons from "react-icons/io";
+import * as BsIcons from "react-icons/bs";
+
 import "./styles.css";
-const POST = {
-  code: "1",
-  name: "",
-  category: "",
-  price: "",
-  image: "",
-  description: "",
-};
-const AddPromotionModal = ({ show, onHide }) => {
-  const [post, setPost] = useState(POST);
+import axios from "axios";
+import Firebase from "../../Firebase/firebaseConfig";
+
+function ManageModal({ show, onHide, order, shop }) {
+  const [post, setPost] = useState(order);
   const [loadingImage, setLoadingImage] = useState(false);
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
@@ -40,11 +36,19 @@ const AddPromotionModal = ({ show, onHide }) => {
   };
   const handleSubmit = async () => {
     // POST post
-    console.log(post);
-    await axios
-      .post("https://1a5b-171-96-38-49.ap.ngrok.io/upsert/promotion", post)
-      .then((res) => console.log(res));
-    setPost(POST);
+    // await axios
+    // .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
+    // .catch((err) => console.log(err));
+    // console.log(post);
+    // setPost(POST);
+    console.log(shop);
+    await Firebase.database().ref(`/${shop}/${post.code}`).update({
+      name: post.name,
+      price: post.price,
+      category: post.category,
+      image: post.image,
+      description: post.description,
+    });
   };
   if (show) {
     return (
@@ -53,8 +57,8 @@ const AddPromotionModal = ({ show, onHide }) => {
         <div className="Modal">
           <div className="Modal-header">
             <h2>
-              <IoIcons.IoIosAdd />
-              Add Promotion
+              <BsIcons.BsFillGearFill />
+              Manage Promotion
             </h2>
           </div>
           <div className="Modal-body">
@@ -81,7 +85,7 @@ const AddPromotionModal = ({ show, onHide }) => {
               <input
                 type="number"
                 name="price"
-                value={post.price}
+                value={parseFloat(post.price).toFixed(2)}
                 onChange={handleChange}
               />
             </div>
@@ -115,19 +119,23 @@ const AddPromotionModal = ({ show, onHide }) => {
       </>
     );
   }
-};
+}
 
-export const ButtonModal = () => {
+export const ButtonModal = ({ order, shop }) => {
   const [show, setShow] = useState(false);
   return (
     <>
       <button onClick={() => setShow(true)}>
-        <IoIcons.IoIosAdd />
-        <span>Promotion</span>
+        <span>Manage</span>
       </button>
-      <AddPromotionModal show={show} onHide={() => setShow(false)} />
+      <ManageModal
+        show={show}
+        onHide={() => setShow(false)}
+        order={order}
+        shop={shop}
+      />
     </>
   );
 };
 
-export default AddPromotionModal;
+export default ManageModal;

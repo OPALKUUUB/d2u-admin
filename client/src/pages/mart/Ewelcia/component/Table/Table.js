@@ -1,11 +1,10 @@
 import React from "react";
 import Row from "./Row";
-import Styles from "./Styles";
 
 export const Table = ({ promotions }) => {
   return (
-    <Styles>
-      <table className="Table">
+    <div className="Table-Container">
+      <table>
         <thead>
           <tr>
             <th>Id</th>
@@ -28,6 +27,6 @@ export const Table = ({ promotions }) => {
           )}
         </tbody>
       </table>
-    </Styles>
+    </div>
   );
 };
