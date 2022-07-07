@@ -5,8 +5,7 @@ import Filter from "./component/Filter/Filter";
 import { Table } from "./component/Table/Table";
 
 export const App = () => {
-  const { test, promotions, setShow } = useContext(PromotionContext);
-  console.log(test);
+  const { promotions, setShow } = useContext(PromotionContext);
   return (
     <Layout>
       <Filter setShow={setShow} />
