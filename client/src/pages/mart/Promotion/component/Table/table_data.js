@@ -1,4 +1,4 @@
-import { faker } from "faker";
+import { faker } from "@faker-js/faker";
 
 export function generate_promotion(number = 10) {
   let promotions = [];
