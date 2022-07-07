@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./styles.css";
 import * as IoIcons from "react-icons/io";
+import "./styles.css";
 const POST = {
   name: "",
+  category: "",
   price: "",
   image: "",
   description: "",
@@ -10,6 +11,9 @@ const POST = {
 const AddPromotionModal = ({ show, onHide }) => {
   const [post, setPost] = useState(POST);
   const [loadingImage, setLoadingImage] = useState(false);
+  const handleChange = (e) => {
+    setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
+  };
   const handleSelectImage = async (e) => {
     setLoadingImage(true);
     const formData = new FormData();
@@ -32,6 +36,11 @@ const AddPromotionModal = ({ show, onHide }) => {
   const handleDeleteImage = () => {
     setPost({ ...post, image: "" });
   };
+  const handleSubmit = () => {
+    // POST post
+    console.log(post);
+    setPost(POST);
+  };
   if (show) {
     return (
       <>
@@ -46,15 +55,38 @@ const AddPromotionModal = ({ show, onHide }) => {
           <div className="Modal-body">
             <div>
               <label>Name</label>
-              <input type="text" name="name" />
+              <input
+                type="text"
+                name="name"
+                value={post.name}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Category</label>
+              <input
+                type="text"
+                name="category"
+                value={post.category}
+                onChange={handleChange}
+              />
             </div>
             <div>
               <label>Price</label>
-              <input type="number" name="price" />
+              <input
+                type="number"
+                name="price"
+                value={post.price}
+                onChange={handleChange}
+              />
             </div>
             <div>
               <label>Description</label>
-              <textarea name="description"></textarea>
+              <textarea
+                name="description"
+                onChange={handleChange}
+                value={post.description}
+              ></textarea>
             </div>
             <div>
               <label>image</label>
@@ -69,7 +101,7 @@ const AddPromotionModal = ({ show, onHide }) => {
             </div>
           </div>
           <div className="Modal-footer">
-            <button>
+            <button onClick={handleSubmit}>
               <IoIcons.IoIosAdd />
               Add
             </button>
