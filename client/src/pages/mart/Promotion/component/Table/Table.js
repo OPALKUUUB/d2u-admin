@@ -1,9 +1,10 @@
 import React from "react";
+import Styles from "./Styles";
 
 export const Table = ({ promotions }) => {
   return (
-    <div className="Table-Container">
-      <table>
+    <Styles>
+      <table className="Table">
         <thead>
           <tr>
             <th>Id</th>
@@ -12,6 +13,7 @@ export const Table = ({ promotions }) => {
             <th>Category</th>
             <th>Price</th>
             <th>Description</th>
+            <th>Manage</th>
           </tr>
         </thead>
         <tbody>
@@ -48,6 +50,9 @@ export const Table = ({ promotions }) => {
                     <td>{promotion.category}</td>
                     <td>{promotion.price}</td>
                     <td>{promotion.description}</td>
+                    <td>
+                      <button>manage</button>
+                    </td>
                   </tr>
                 );
               })}
@@ -55,6 +60,6 @@ export const Table = ({ promotions }) => {
           )}
         </tbody>
       </table>
-    </div>
+    </Styles>
   );
 };

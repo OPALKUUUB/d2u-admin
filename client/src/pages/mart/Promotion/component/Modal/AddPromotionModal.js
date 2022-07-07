@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 import * as IoIcons from "react-icons/io";
 import "./styles.css";
 const POST = {
+  code: "1",
   name: "",
   category: "",
   price: "",
@@ -36,9 +38,12 @@ const AddPromotionModal = ({ show, onHide }) => {
   const handleDeleteImage = () => {
     setPost({ ...post, image: "" });
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // POST post
     console.log(post);
+    await axios
+      .post("https://1a5b-171-96-38-49.ap.ngrok.io/upsert/promotion", post)
+      .then((res) => console.log(res));
     setPost(POST);
   };
   if (show) {
