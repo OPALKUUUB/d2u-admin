@@ -42,16 +42,22 @@ const AddModal = ({ show, onHide, shop }) => {
   const handleSubmit = async () => {
     // POST post
     let date = new Date();
-    // console.log(date.getTime());
-    await axios
-      .post(`https://upsert-api-by-class.herokuapp.com/upsert/${shop}`, {
-        ...post,
-        code: date.getTime(),
-      })
-      .finally(() => {
-        alert("add order success👍");
-        onHide();
-      });
+    // await axios
+    //   .post(`https://upsert-api-by-class.herokuapp.com/upsert/${shop}`, {
+    //     ...post,
+    //     code: date.getTime(),
+    //   })
+    //   .finally(() => {
+    //     alert("add order success👍");
+    //     onHide();
+    //   });
+    await Firebase.database().ref(`/${shop}/${date.getTime()}`).set({
+      name: post.name,
+      price: post.price,
+      category: post.category,
+      image: post.image,
+      description: post.description,
+    });
     setPost(POST);
   };
   if (show) {
