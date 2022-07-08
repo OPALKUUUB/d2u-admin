@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as IoIcons from "react-icons/io";
 import * as BsIcons from "react-icons/bs";
 import "./styles.css";
@@ -8,6 +8,7 @@ import Firebase from "../../../Firebase/firebaseConfig";
 function ManageModal({ show, onHide, order, shop }) {
   const [post, setPost] = useState(order);
   const [loadingImage, setLoadingImage] = useState(false);
+
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
   };
@@ -44,14 +45,29 @@ function ManageModal({ show, onHide, order, shop }) {
     // console.log(post);
     // setPost(POST);
     // console.log(shop);
-    await Firebase.database().ref(`/${shop}/${post.code}`).update({
-      name: post.name,
-      price: post.price,
-      category: post.category,
-      image: post.image,
-      description: post.description,
-    });
+    await Firebase.database()
+      .ref(`/${shop}/${post.code}`)
+      .update(
+        {
+          name: post.name,
+          price: post.price,
+          category: post.category,
+          image: post.image,
+          description: post.description,
+        },
+        (err) => {
+          if (err) {
+            // console.log("error");
+            alert("update order fail👎");
+          } else {
+            alert("update order success👍");
+          }
+        }
+      );
   };
+  useEffect(() => {
+    setPost(order);
+  }, [order]);
   if (show) {
     return (
       <>

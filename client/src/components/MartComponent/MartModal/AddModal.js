@@ -51,13 +51,25 @@ const AddModal = ({ show, onHide, shop }) => {
     //     alert("add order success👍");
     //     onHide();
     //   });
-    await Firebase.database().ref(`/${shop}/${date.getTime()}`).set({
-      name: post.name,
-      price: post.price,
-      category: post.category,
-      image: post.image,
-      description: post.description,
-    });
+    await Firebase.database()
+      .ref(`/${shop}/${date.getTime()}`)
+      .set(
+        {
+          name: post.name,
+          price: post.price,
+          category: post.category,
+          image: post.image,
+          description: post.description,
+        },
+        (err) => {
+          if (err) {
+            alert("update order fail👎");
+          } else {
+            alert("add order success👍");
+            onHide();
+          }
+        }
+      );
     setPost(POST);
   };
   if (show) {
