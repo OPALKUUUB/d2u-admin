@@ -37,7 +37,7 @@ function ManageModal({ show, onHide, order, shop }) {
     await axios
       .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
       .catch((err) => console.log(err));
-    console.log(post);
+    // console.log(post);
     // setPost(POST);
     // console.log(shop);
     // await Firebase.database().ref(`/${shop}/${post.code}`).update({
@@ -51,26 +51,47 @@ function ManageModal({ show, onHide, order, shop }) {
   if (show) {
     return (
       <>
-        <div className="backdrop" onClick={onHide} 
-          onScroll={(e)=>{
+        <div
+          className="backdrop"
+          onClick={onHide}
+          onScroll={(e) => {
             e.preventDefault();
             e.stopPropagation();
           }}
         >
-          <div className="Modal"
-            onClick={(e)=>{
+          <div
+            className="Modal"
+            onClick={(e) => {
               e.stopPropagation();
             }}
           >
             <div className="Modal-header">
-              <div style={{display:'flex' , alignItems:'center' , gap:'6px' , fontSize:'24px'}}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontSize: "24px",
+                }}
+              >
                 <BsIcons.BsFillGearFill />
-                {`Manage ${shop==='promotion'?'Promotion' : 'Product' }`}
+                {`Manage ${shop === "promotion" ? "Promotion" : "Product"}`}
               </div>
-              <svg xmlns="http://www.w3.org/2000/svg" style={{width:'28px', cursor:'pointer'}} className="h-2 w-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: "28px", cursor: "pointer" }}
+                className="h-2 w-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
                 onClick={onHide}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </div>
             <div className="Modal-body">
@@ -112,8 +133,17 @@ function ManageModal({ show, onHide, order, shop }) {
               </div>
               <div className="Modal-label-image">
                 <label>Image</label>
-                <label for="image" className="Modal-label-image-upload" >Upload Image</label>
-                <input type="file" accept="image/*" name="image" id="image" onChange={handleSelectImage} style={{display:'none'}} />
+                <label for="image" className="Modal-label-image-upload">
+                  Upload Image
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  id="image"
+                  onChange={handleSelectImage}
+                  style={{ display: "none" }}
+                />
                 <div className="Modal-label-image-container">
                   {loadingImage && <>Loading Image...</>}
                   {post.image !== "" && (
@@ -124,14 +154,13 @@ function ManageModal({ show, onHide, order, shop }) {
                   )}
                 </div>
               </div>
-                <div className="Modal-footer">
+              <div className="Modal-footer">
                 <button onClick={handleSubmit}>
                   <IoIcons.IoIosAdd />
                   Save
                 </button>
               </div>
             </div>
-            
           </div>
         </div>
       </>
@@ -143,9 +172,10 @@ export const ButtonModal = ({ order, shop }) => {
   const [show, setShow] = useState(false);
   return (
     <>
-      <button onClick={() => setShow(true)}
+      <button
+        onClick={() => setShow(true)}
         className="btn-sm btn-success"
-        style={{width:'80px'}}
+        style={{ width: "80px" }}
       >
         <span>Manage</span>
       </button>

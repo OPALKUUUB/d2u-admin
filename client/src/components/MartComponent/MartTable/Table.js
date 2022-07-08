@@ -2,9 +2,9 @@ import React from "react";
 import { TableStyles } from "../../../pages/mart/styles/MartStyles";
 import Row from "./Row";
 
-export const Table = ({ promotions , shop }) => {
+export const Table = ({ promotions, shop }) => {
   return (
-    <div className="Table-Container" style={{padding:'20px'}}>
+    <div className="Table-Container" style={{ padding: "20px" }}>
       <TableStyles>
         <table>
           <thead>
@@ -21,9 +21,16 @@ export const Table = ({ promotions , shop }) => {
           <tbody>
             {promotions.length > 0 && (
               <>
-                {promotions.map((promotion, index) => {
+                {promotions.reverse().map((promotion, index) => {
                   index = index + 1;
-                  return <Row key={index} promotion={promotion} index={index} shop={shop} />;
+                  return (
+                    <Row
+                      key={index}
+                      promotion={promotion}
+                      index={index}
+                      shop={shop}
+                    />
+                  );
                 })}
               </>
             )}
