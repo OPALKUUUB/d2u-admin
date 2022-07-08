@@ -148,6 +148,12 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
+      {
+        title: "Omni7",
+        path: "/mart/omni7",
+        icon: <IoIcons.IoIosPaper />,
+        cName: "sub-nav",
+      },
     ],
   },
   {

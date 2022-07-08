@@ -21,7 +21,7 @@ const Sidebar = styled.div`
 `;
 
 const SidebarLabel = styled.span`
-  margin-left: 16px;
+  margin-left: 20px;
 `;
 
 const DropdownLink = styled(Link)`
@@ -52,7 +52,7 @@ const SubMenu = ({ item }) => {
           window.location.reload(false);
         }}
       >
-        <div>
+        <div className="flex justify-start items-center"> 
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
         </div>
@@ -62,7 +62,7 @@ const SubMenu = ({ item }) => {
   if (item.path === "/dashboard") {
     return (
       <Sidebar onClick={() => navigate("/dashboard")}>
-        <div>
+        <div className="flex justify-start items-center">
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
         </div>
@@ -72,7 +72,7 @@ const SubMenu = ({ item }) => {
   if (item.path === "/ship/billing") {
     return (
       <Sidebar onClick={() => navigate("/ship/billing")}>
-        <div>
+        <div className="flex justify-start items-center">
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
         </div>
@@ -82,7 +82,7 @@ const SubMenu = ({ item }) => {
   return (
     <>
       <Sidebar onClick={item.subNav && showSubnav}>
-        <div>
+        <div className="flex justify-start items-center">
           {item.icon}
           <SidebarLabel>{item.title}</SidebarLabel>
         </div>

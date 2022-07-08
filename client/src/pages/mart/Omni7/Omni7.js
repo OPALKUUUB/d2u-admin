@@ -1,25 +1,26 @@
 import React, { useContext } from "react";
-import { EwelciaContext, EwelciaProvider } from "./EwelciaProvider";
+import { Omni7Context, Omni7Provider } from "./Omni7Provider";
 import { Table } from "../../../components/MartComponent/MartTable/Table";
 import Filter from "../../../components/MartComponent/MartFilter/Filter";
 import Layout from "../../../components/MartComponent/Layout";
 
+
 export const App = () => {
-  const { ewelciaData , setShow } = useContext(EwelciaContext);
+  const { omni7Data , setShow } = useContext(Omni7Context);
   return (
     <Layout>
-      <Filter setShow={setShow} shop="ewelcia" />
-      <Table promotions={ewelciaData} shop="ewelcia" />
+      <Filter setShow={setShow} shop="omni7" />
+      <Table promotions={omni7Data} shop="omni7" />
     </Layout>
   );
 };
 
-function Ewelcia() {
+function Omni7() {
   return (
-    <EwelciaProvider>
+    <Omni7Provider>
         <App/>
-    </EwelciaProvider>
+    </Omni7Provider>
   )
 }
 
-export default Ewelcia
+export default Omni7

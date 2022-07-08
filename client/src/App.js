@@ -26,6 +26,7 @@ import { Daiso } from "./pages/mart/Daiso/Daiso";
 import { App as ShipBillingApp } from "./pages/ShipBilling/App";
 import Promotion from "./pages/mart/Promotion/Promotion";
 import Ewelcia from "./pages/mart/Ewelcia/Ewelcia";
+import Omni7 from "./pages/mart/Omni7/Omni7";
 
 const ContentLayout = styled.div`
   margin-left: ${(props) => (props.sidebar ? 250 : 0)}px;
@@ -78,6 +79,7 @@ function App() {
               <Route path="order" element={<Daiso />} />
               <Route path="promotion" element={<Promotion />} />
               <Route path="ewelcia" element={<Ewelcia />} />
+              <Route path="omni7" element={<Omni7 />} />
             </Route>
           </Routes>
         </ContentLayout>

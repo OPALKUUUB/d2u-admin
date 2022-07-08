@@ -1,0 +1,172 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  min-height: 100vh;
+  max-height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.Modal {
+  background-color: white;
+  width: 350px;
+  position: relative;
+  height: fit-content;
+  overflow-y:auto;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  z-index: 11;
+  border-radius: 7px;
+}
+
+.Modal-header{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid rgba(120, 120, 120, 0.331);
+  display: flex;
+  justify-content: space-between;
+}
+
+.Modal-header h2{
+  font-size: 24px;
+  margin: 0;
+  gap: 5px;
+}
+
+.Modal-body{
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+}
+
+.Modal-label-input{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+}
+
+.Modal-label-input input{
+  border:solid 1px #ccc;
+  border-radius: 5px;
+  outline: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 7px;
+  padding-right: 7px;
+  width: 100%;
+}
+
+.Modal-label-image{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.Modal-label-image-upload{
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #306bf8;
+  border-radius: 4px;
+  padding: 4px;
+  color:white;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+}
+
+.Modal-label-image-upload:active{
+  background-color: #081229;
+}
+/* .Modal-body input[type="text"],
+.Modal-body input[type="number"], */
+.Modal-body textarea {
+  border:solid 1px #ccc;
+  border-radius: 5px;
+  outline: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 7px;
+  padding-right: 7px;
+  width: 100%;
+  resize: none;
+}
+
+.Modal-label-image-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.Modal-label-image-container img{
+  border-radius: 7px;
+}
+
+.Modal-label-image-container button{
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: #5e5e5e;
+  border-radius: 4px;
+  padding: 4px;
+  color:white;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+}
+
+.Modal-label-image-container button:active{
+  background-color: #222121;
+}
+
+.Modal-footer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Modal-footer button{
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: #0f8559;
+  border-radius: 4px;
+  font-size: 20px;
+  padding: 6px;
+  color:white;
+  transition: ease-in-out;
+  transition-duration: 100ms;
+}
+
+.Modal-footer button:active{
+  background-color: #063021;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
