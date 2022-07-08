@@ -13,8 +13,8 @@ function Row({ index, promotion , shop }) {
       <td>
         <div
           style={{
-            width: "100px",
-            height: "80px",
+            width: "150px",
+            height: "150px",
             overflow: "hidden",
             position: "relative",
           }}
@@ -22,7 +22,7 @@ function Row({ index, promotion , shop }) {
           <img
             style={{
               position: "absolute",
-              height: "80px",
+              width: "150px",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",

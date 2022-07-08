@@ -4,6 +4,7 @@ import * as BsIcons from "react-icons/bs";
 import "./styles.css";
 import axios from "axios";
 import Firebase from "../../../Firebase/firebaseConfig";
+import Resizer from "react-image-file-resizer";
 
 function ManageModal({ show, onHide, order, shop }) {
   const [post, setPost] = useState(order);
@@ -12,25 +13,56 @@ function ManageModal({ show, onHide, order, shop }) {
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
   };
-  const handleSelectImage = async (e) => {
+
+  // const handleSelectImage = async (e) => {
+  //   setLoadingImage(true);
+  //   const formData = new FormData();
+    
+    // formData.append("file", e.target.files[0]);
+    // formData.append("upload_preset", "d2u-service");
+    // formData.append("cloud_name", "d2u-service");
+    // await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setPost({ ...post, image: data.url });
+    //   })
+    //   .catch((err) => console.log(err))
+    //   .finally(() => {
+    //     setLoadingImage(false);
+    //   });
+  // };
+
+  function handleSelectImage(event) {
+    var fileInput = false;
     setLoadingImage(true);
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    formData.append("upload_preset", "d2u-service");
-    formData.append("cloud_name", "d2u-service");
-    await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPost({ ...post, image: data.url });
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
+    if (event.target.files[0]) {
+      fileInput = true;
+    }
+    if (fileInput) {
+      try {
+        Resizer.imageFileResizer(
+          event.target.files[0],
+          600,
+          600,
+          "JPEG",
+          150,
+          0,
+          (uri) => {
+            setPost({ ...post, image: uri});
+            setLoadingImage(false);
+          },
+          "Blob"
+        );
+      } catch (err) {
+        console.log(err);
         setLoadingImage(false);
-      });
-  };
+      }
+    }
+  }
+
   const handleDeleteImage = () => {
     setPost({ ...post, image: "" });
   };
@@ -65,9 +97,11 @@ function ManageModal({ show, onHide, order, shop }) {
         }
       );
   };
+
   useEffect(() => {
     setPost(order);
   }, [order]);
+
   if (show) {
     return (
       <>
