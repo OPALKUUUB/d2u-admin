@@ -48,7 +48,10 @@ const AddModal = ({ show, onHide, shop }) => {
         ...post,
         code: date.getTime(),
       })
-      .finally(() => alert("add order success👍"));
+      .finally(() => {
+        alert("add order success👍");
+        onHide();
+      });
     setPost(POST);
   };
   if (show) {

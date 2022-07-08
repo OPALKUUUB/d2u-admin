@@ -36,7 +36,10 @@ function ManageModal({ show, onHide, order, shop }) {
     // POST post
     await axios
       .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        onHide();
+      });
     // console.log(post);
     // setPost(POST);
     // console.log(shop);
