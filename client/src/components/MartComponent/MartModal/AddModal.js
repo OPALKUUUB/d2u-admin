@@ -44,7 +44,7 @@ const AddModal = ({ show, onHide, shop }) => {
     let date = new Date();
     // console.log(date.getTime());
     await axios
-      .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, {
+      .post(`https://upsert-api-by-class.herokuapp.com/upsert/${shop}`, {
         ...post,
         code: date.getTime(),
       })

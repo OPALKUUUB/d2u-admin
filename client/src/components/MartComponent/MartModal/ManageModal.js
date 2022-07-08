@@ -35,7 +35,7 @@ function ManageModal({ show, onHide, order, shop }) {
   const handleSubmit = async () => {
     // POST post
     await axios
-      .post(`http://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
+      .post(`https://upsert-api-by-class.herokuapp.com/upsert/${shop}`, post)
       .catch((err) => console.log(err))
       .finally(() => {
         onHide();
@@ -173,10 +173,14 @@ function ManageModal({ show, onHide, order, shop }) {
 
 export const ButtonModal = ({ order, shop }) => {
   const [show, setShow] = useState(false);
+  const handleClick = () => {
+    setShow(true);
+    console.log(order);
+  };
   return (
-    <>
+    <div>
       <button
-        onClick={() => setShow(true)}
+        onClick={handleClick}
         className="btn-sm btn-success"
         style={{ width: "80px" }}
       >
@@ -188,7 +192,7 @@ export const ButtonModal = ({ order, shop }) => {
         order={order}
         shop={shop}
       />
-    </>
+    </div>
   );
 };
 
