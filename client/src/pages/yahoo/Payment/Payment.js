@@ -20,7 +20,7 @@ function App() {
   const { filter, handleNext, handlePrevious } = useContext(PaymentContext);
   return (
     <div className="container-fluid mt-3">
-      <Card header={true} title="Yahoo / Bidding">
+      <Card header={true} title="Yahoo / Payment">
         <Filter />
       </Card>
       <Card>

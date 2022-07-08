@@ -68,7 +68,8 @@ export const ManageSlip = (props) => {
         })
         .catch((err) => console.log(err));
     }
-    await PatchSlip(temp);
+    console.log(temp);
+    PatchSlip(temp);
   };
   return (
     <Modal

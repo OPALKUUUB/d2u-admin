@@ -31,7 +31,7 @@ const Win_Data = [
     col: "col-6",
     option: [
       { id: 3, value: null, label: "select" },
-      { id: 1, value: "pending1", label: "รอค่าส่ง&ค่าโวอน" },
+      { id: 1, value: "pending1", label: "รอค่าส่ง&ค่าโอน" },
       { id: 2, value: "pending2", label: "รอการชำระ" },
     ],
   },
