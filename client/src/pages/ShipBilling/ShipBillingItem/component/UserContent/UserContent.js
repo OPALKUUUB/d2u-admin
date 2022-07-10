@@ -31,7 +31,7 @@ export const UserContent = () => {
   // console.log(shipBilling);
   useEffect(() => {
     setDiscount(shipBilling.discount);
-  }, [shipBilling]);
+  }, [shipBilling, discount]);
   if (shipBilling.id !== undefined) {
     return (
       <div className="card m-3">

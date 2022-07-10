@@ -20,7 +20,7 @@ export const Fril = ({ order }) => {
             }
             return (
               <tr>
-                <td>{index === 0 && "Fril"}</td>
+                <th>{index === 0 && "Fril"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
                 <td>{row.weight}</td>

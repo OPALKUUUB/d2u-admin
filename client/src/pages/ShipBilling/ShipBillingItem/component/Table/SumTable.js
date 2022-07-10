@@ -34,7 +34,7 @@ export const SumTable = () => {
   }
   let total =
     price + cod * rateYen - discount_price + cost_voyage1 + cost_voyage2;
-  
+
   return (
     <div>
       <table className="table table-bordered mb-3">
@@ -90,12 +90,14 @@ export const SumTable = () => {
             <td>{cost_voyage2}</td>
             <td></td>
           </tr>
-          {discount && (
+          {discount ? (
             <tr>
               <td>discount 5%</td>
               <td>{discount_price}</td>
               <td></td>
             </tr>
+          ) : (
+            <></>
           )}
           <tr>
             <th>total</th>

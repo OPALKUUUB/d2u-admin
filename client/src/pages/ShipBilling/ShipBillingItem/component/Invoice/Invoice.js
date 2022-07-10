@@ -71,7 +71,7 @@ export const Invoice = () => {
           <Yahoo order={yahooOrders} sum={sumYahoo} />
         </tbody>
         <tfoot>
-          {discount && (
+          {discount ? (
             <tr id="sum">
               <th id="head" colSpan={4}>
                 Discount 5%
@@ -79,6 +79,8 @@ export const Invoice = () => {
               <td id="price">{discount_price}</td>
               <td></td>
             </tr>
+          ) : (
+            <></>
           )}
           <tr id="sum">
             <th id="head" colSpan={4}>
