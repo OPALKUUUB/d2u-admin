@@ -81,20 +81,32 @@ export const ShipBilling = () => {
               </tr>
             </thead>
             <tbody>
-              {billings.map((b, i) => {
-                return (
-                  <tr key={["row_billing", i].join("_")}>
-                    <RowShipBilling row={b} />
-                    <td>
-                      <Link
-                        to={`/ship/billing/manage?username=${b.username}&round_boat=${voyage}`}
-                      >
-                        link
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
+              {billings
+                .sort((a, b) => {
+                  let ua = a.username.toLowerCase(),
+                    ub = b.username.toLowerCase();
+                  if (ua < ub) {
+                    return -1;
+                  }
+                  if (ua > ub) {
+                    return 1;
+                  }
+                  return 0;
+                })
+                .map((b, i) => {
+                  return (
+                    <tr key={["row_billing", i].join("_")}>
+                      <RowShipBilling row={b} />
+                      <td>
+                        <Link
+                          to={`/ship/billing/manage?username=${b.username}&round_boat=${voyage}`}
+                        >
+                          link
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         )}

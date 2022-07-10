@@ -19,14 +19,14 @@ export const Fril = ({ order }) => {
               price = weight_cal * 200;
             }
             return (
-              <th>
+              <tr>
                 <td>{index === 0 && "Fril"}</td>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
                 <td>{row.weight}</td>
                 <td>{price}</td>
                 <td>{row.cod}</td>
-              </th>
+              </tr>
             );
           })}
         </>
