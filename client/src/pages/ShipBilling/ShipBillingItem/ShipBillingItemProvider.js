@@ -99,8 +99,8 @@ export const ShipBillingItemProvider = ({ children }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(obj),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
+      // .then((res) => res.json())
+      // .then((data) => console.log(data))
       .finally(() => setTrigger((prev) => !prev));
   };
   return (

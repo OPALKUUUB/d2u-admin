@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ShipBillingItemContext } from "../../ShipBillingItemProvider";
 
 export const UserContent = () => {
@@ -15,7 +15,23 @@ export const UserContent = () => {
   const handleSaveCostVoyage = () => {
     handleUpdateCostVoyage(shipBilling);
   };
-  console.log(shipBilling);
+  const handleCheck = async () => {
+    const patch = { discount: !shipBilling.discount };
+    let id = shipBilling.id;
+    console.log(patch, shipBilling.id);
+    await fetch("/ship/billing/update/" + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    setDiscount(!shipBilling.discount);
+  };
+  // console.log(shipBilling);
+  useEffect(() => {
+    setDiscount(shipBilling.discount);
+  }, [shipBilling]);
   if (shipBilling.id !== undefined) {
     return (
       <div className="card m-3">
@@ -75,7 +91,7 @@ export const UserContent = () => {
                 <input
                   type="checkbox"
                   defaultChecked={discount}
-                  onClick={() => setDiscount(!discount)}
+                  onClick={handleCheck}
                 />{" "}
                 discount 5%
               </p>

@@ -20,6 +20,7 @@ export const Yahoo = () => {
               <th>#</th>
               <th>channel</th>
               <th>track_id</th>
+              <th>box_no</th>
               <th>weight(real)</th>
               <th>price</th>
               <th>cod(¥)</th>
@@ -65,6 +66,7 @@ function Row({ data, index }) {
       <td>{index + 1}</td>
       <td>{index === 0 ? "Yahoo" : ""}</td>
       <td>{data.track_id}</td>
+      <td>{data.box_id}</td>
       <td>{data.weight}</td>
       <td>-</td>
       <td>{data.cod}</td>
