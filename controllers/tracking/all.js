@@ -22,7 +22,7 @@ exports.getTracking = async (req, res) => {
       username like ? and
       track_id like ? and
       round_boat like ?
-      order by created_at desc
+      order by date desc
       limit ?,?;
     `;
   } else {
@@ -63,9 +63,9 @@ exports.getTracking = async (req, res) => {
       }
       ${
         sort === "1"
-          ? " order by created_at desc "
+          ? " order by date desc "
           : sort === "2"
-          ? " order by created_at asc "
+          ? " order by date asc "
           : sort === "3"
           ? " order by round_boat desc "
           : " order by round_boat asc "
