@@ -1,6 +1,6 @@
 const Thead_Data = [
   { id: 1, title: "#" },
-  { id: 2, title: "Date", name: "created_at", type: "date" },
+  { id: 2, title: "Date", name: "date", type: "date" },
   { id: 3, title: "Username", name: "username" },
   { id: 4, title: "Track Id", name: "track_id" },
   { id: 5, title: "Box No.", name: "box_id" },

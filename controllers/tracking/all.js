@@ -18,7 +18,7 @@ exports.getTracking = async (req, res) => {
       select *
       from trackings
       where
-      created_at like ? and
+      date like ? and
       username like ? and
       track_id like ? and
       round_boat like ?
@@ -42,7 +42,7 @@ exports.getTracking = async (req, res) => {
       select *
       from trackings
       where
-      created_at like ? and
+      date like ? and
       username like ? and
       track_id like ? and
       round_boat like ? and

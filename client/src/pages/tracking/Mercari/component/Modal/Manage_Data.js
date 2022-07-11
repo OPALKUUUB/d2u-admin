@@ -1,5 +1,12 @@
 const Manage_Data = [
   {
+    id: 1,
+    label: "Date",
+    name: "date",
+    type: "date",
+    col: "col-sm-12 col-md-12 mb-3",
+  },
+  {
     id: 3,
     label: "Track Id",
     name: "track_id",

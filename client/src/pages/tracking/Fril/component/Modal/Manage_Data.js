@@ -1,5 +1,12 @@
 const Manage_Data = [
   {
+    id: 9,
+    label: "Date",
+    name: "date",
+    type: "date",
+    col: "col-sm-12 col-md-12 mb-3",
+  },
+  {
     id: 1,
     label: "Box No.",
     name: "box_id",
