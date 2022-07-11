@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const ShipBillingItemQ = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [q, setQ] = useState(1);
+  const [costDeliveryQ, setCostDeliveryQ] = useState(0);
   const [order, setOrder] = useState([]);
+  const shipBillingId = useRef("");
   const FetchShipBilling = async () => {
     const username = searchParams.get("username");
     const round_boat = searchParams.get("round_boat");
@@ -13,9 +15,28 @@ const ShipBillingItemQ = () => {
     ).then((res) => res.json());
     return res;
   };
+  const handlePatchShipBilling = async (id, patch) => {
+    console.log(patch, id);
+    const res = await fetch("/ship/billing/update/" + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+    console.log(res);
+    return res;
+  };
+  const handleSaveCostDeliveryQ = async () => {
+    const obj = { cost_delivery_q: costDeliveryQ };
+    const id = shipBillingId.current;
+    await handlePatchShipBilling(id, obj);
+  };
   useEffect(() => {
     async function getInitial() {
       const res = await FetchShipBilling();
+      shipBillingId.current = res.ship_billing.id;
+      setCostDeliveryQ(res.ship_billing.cost_delivery_q);
       setOrder([...res.orders, ...res.trackings]);
     }
     getInitial();
@@ -31,7 +52,7 @@ const ShipBillingItemQ = () => {
   } else {
     total = q * Q + 150 * (sum_weight - 200 * q);
   }
-  console.log(total);
+  total += parseFloat(costDeliveryQ);
   return (
     <div
       style={{
@@ -41,8 +62,26 @@ const ShipBillingItemQ = () => {
       }}
     >
       <div>
-        <input type="number" value={q} onChange={(e) => setQ(e.target.value)} />{" "}
-        Q (200 Kg./Q, ส่วนเกินกิโลกรัมละ 150 บาท, 1Q = 15,000 บาท)
+        <div>
+          <label>กำหนดคิว: </label>
+          <input
+            type="number"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />{" "}
+          Q (200 Kg./Q, ส่วนเกินกิโลกรัมละ 150 บาท, 1Q = 15,000 บาท)
+        </div>
+        <div>
+          <label>เพิ่มค่าส่ง: </label>
+          <input
+            type="number"
+            value={costDeliveryQ}
+            onChange={(e) => setCostDeliveryQ(e.target.value)}
+          />
+          <button type="button" onClick={handleSaveCostDeliveryQ}>
+            save
+          </button>
+        </div>
       </div>
       {order.length > 0 ? (
         <table className="table">
@@ -72,8 +111,12 @@ const ShipBillingItemQ = () => {
               <td>{Math.round(sum_weight * 100) / 100}</td>
             </tr>
             <tr>
+              <td colSpan={3}>ค่าส่ง</td>
+              <td>{Math.round(costDeliveryQ * 100) / 100}</td>
+            </tr>
+            <tr>
               <td colSpan={3}>sum price</td>
-              <td>{total}</td>
+              <td>{Math.round(total * 100) / 100}</td>
             </tr>
           </tfoot>
         </table>
