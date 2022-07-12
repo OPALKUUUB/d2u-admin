@@ -8,29 +8,32 @@ export const PromotionProvider = ({ children }) => {
   const [show, setShow] = useState(10);
 
   useEffect(() => {
-    Firebase.database().ref('/promotion').on('value' , (snapshot)=>{
-      if(snapshot.val()){
+    Firebase.database()
+      .ref("/promotion")
+      .on("value", (snapshot) => {
+        if (snapshot.val()) {
           let result = snapshot.val();
           let data = [];
-          Object.keys(result).forEach((id)=>{
+          Object.keys(result).forEach((id) => {
             let item = {
-              code:id,
-              name:result[id]?.name,
+              code: id,
+              name: result[id]?.name,
               category: result[id]?.category,
               price: result[id]?.price,
+              expire_date: result[id]?.expire_date,
               image: result[id]?.image,
               description: result[id]?.description,
             };
             data.push(item);
-          })
-          setPromotions(data)
-      }else{
-          setPromotions([])
-      }
-    })
+          });
+          setPromotions(data);
+        } else {
+          setPromotions([]);
+        }
+      });
     return () => {
-        Firebase.database().ref('/promotion').off();
-    }
+      Firebase.database().ref("/promotion").off();
+    };
 
     // setPromotions(generate_promotion(show));
   }, []);

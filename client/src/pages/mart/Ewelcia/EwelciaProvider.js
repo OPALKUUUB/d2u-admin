@@ -7,29 +7,32 @@ export const EwelciaProvider = ({ children }) => {
   const [ewilciaData, setEwilciaData] = useState([]);
   const [show, setShow] = useState(10);
   useEffect(() => {
-    Firebase.database().ref('/ewelcia').on('value' , (snapshot)=>{
-        if(snapshot.val()){
-            let result = snapshot.val();
-            let data = [];
-            Object.keys(result).forEach((id)=>{
-              let item = {
-                code:id,
-                name:result[id]?.name,
-                category: result[id]?.category,
-                price: result[id]?.price,
-                image: result[id]?.image,
-                description: result[id]?.description,
-              };
-              data.push(item);
-            })
-            setEwilciaData(data)
-        }else{
-            setEwilciaData([])
+    Firebase.database()
+      .ref("/ewelcia")
+      .on("value", (snapshot) => {
+        if (snapshot.val()) {
+          let result = snapshot.val();
+          let data = [];
+          Object.keys(result).forEach((id) => {
+            let item = {
+              code: id,
+              name: result[id]?.name,
+              category: result[id]?.category,
+              price: result[id]?.price,
+              expire_date: result[id]?.expire_date,
+              image: result[id]?.image,
+              description: result[id]?.description,
+            };
+            data.push(item);
+          });
+          setEwilciaData(data);
+        } else {
+          setEwilciaData([]);
         }
-      })
-      return () => {
-          Firebase.database().ref('/ewelcia').off();
-      }
+      });
+    return () => {
+      Firebase.database().ref("/ewelcia").off();
+    };
   }, []);
 
   return (

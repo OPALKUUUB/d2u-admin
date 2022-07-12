@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import * as IoIcons from "react-icons/io";
 import Firebase from "../../../Firebase/firebaseConfig";
@@ -9,6 +8,7 @@ const POST = {
   name: "",
   category: "",
   price: "",
+  expire_date: "",
   image: "",
   description: "",
 };
@@ -18,25 +18,6 @@ const AddModal = ({ show, onHide, shop }) => {
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
   };
-  // const handleSelectImage = async (e) => {
-  //   setLoadingImage(true);
-  //   const formData = new FormData();
-  //   formData.append("file", e.target.files[0]);
-  //   formData.append("upload_preset", "d2u-service");
-  //   formData.append("cloud_name", "d2u-service");
-  //   await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-  //     method: "POST",
-  //     body: formData,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPost({ ...post, image: data.url });
-  //     })
-  //     .catch((err) => console.log(err))
-  //     .finally(() => {
-  //       setLoadingImage(false);
-  //     });
-  // };
 
   function handleSelectImage(event) {
     var fileInput = false;
@@ -54,7 +35,7 @@ const AddModal = ({ show, onHide, shop }) => {
           150,
           0,
           (uri) => {
-            setPost({ ...post, image: uri});
+            setPost({ ...post, image: uri });
             setLoadingImage(false);
           },
           "Blob"
@@ -81,12 +62,14 @@ const AddModal = ({ show, onHide, shop }) => {
     //     alert("add order success👍");
     //     onHide();
     //   });
+    console.log(post);
     await Firebase.database()
       .ref(`/${shop}/${date.getTime()}`)
       .set(
         {
           name: post.name,
           price: post.price,
+          expire_date: post.expire_date,
           category: post.category,
           image: post.image,
           description: post.description,
@@ -173,6 +156,15 @@ const AddModal = ({ show, onHide, shop }) => {
                   type="number"
                   name="price"
                   value={post.price}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="Modal-label-input">
+                <label>Expire Date</label>
+                <input
+                  type="date"
+                  name="expire_date"
+                  value={post.expire_date}
                   onChange={handleChange}
                 />
               </div>

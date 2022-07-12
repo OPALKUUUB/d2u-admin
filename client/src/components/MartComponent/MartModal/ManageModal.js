@@ -17,22 +17,22 @@ function ManageModal({ show, onHide, order, shop }) {
   // const handleSelectImage = async (e) => {
   //   setLoadingImage(true);
   //   const formData = new FormData();
-    
-    // formData.append("file", e.target.files[0]);
-    // formData.append("upload_preset", "d2u-service");
-    // formData.append("cloud_name", "d2u-service");
-    // await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setPost({ ...post, image: data.url });
-    //   })
-    //   .catch((err) => console.log(err))
-    //   .finally(() => {
-    //     setLoadingImage(false);
-    //   });
+
+  // formData.append("file", e.target.files[0]);
+  // formData.append("upload_preset", "d2u-service");
+  // formData.append("cloud_name", "d2u-service");
+  // await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+  //   method: "POST",
+  //   body: formData,
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     setPost({ ...post, image: data.url });
+  //   })
+  //   .catch((err) => console.log(err))
+  //   .finally(() => {
+  //     setLoadingImage(false);
+  //   });
   // };
 
   function handleSelectImage(event) {
@@ -51,7 +51,7 @@ function ManageModal({ show, onHide, order, shop }) {
           150,
           0,
           (uri) => {
-            setPost({ ...post, image: uri});
+            setPost({ ...post, image: uri });
             setLoadingImage(false);
           },
           "Blob"
@@ -83,6 +83,7 @@ function ManageModal({ show, onHide, order, shop }) {
         {
           name: post.name,
           price: post.price,
+          expire_date: post.expire_date,
           category: post.category,
           image: post.image,
           description: post.description,
@@ -100,6 +101,7 @@ function ManageModal({ show, onHide, order, shop }) {
 
   useEffect(() => {
     setPost(order);
+    console.log(order);
   }, [order]);
 
   if (show) {
@@ -173,6 +175,15 @@ function ManageModal({ show, onHide, order, shop }) {
                   type="number"
                   name="price"
                   value={parseFloat(post.price).toFixed(2)}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="Modal-label-input">
+                <label>Expire Date</label>
+                <input
+                  type="date"
+                  name="expire_date"
+                  value={post.expire_date}
                   onChange={handleChange}
                 />
               </div>
