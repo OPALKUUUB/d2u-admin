@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import DeleteModal from "../MartModal/DeleteModal";
 import { ButtonModal } from "../MartModal/ManageModal";
 
-function Row({ index, promotion , shop }) {
+function Row({ index, promotion, shop }) {
   const [isHoveringRow, setIsHoveringRow] = useState(false);
   return (
-    <tr key={[`${shop}-item`, index].join("_")} style={{backgroundColor:isHoveringRow ?'rgba(0, 0, 0, 0.1)':'white' ,borderBottom:'2px solid #e5e5e5', transition:'ease-in' , transitionDuration:'200ms' }}
-      onMouseEnter={()=>{setIsHoveringRow(true)}}
-      onMouseLeave={()=>{setIsHoveringRow(false)}}
+    <tr
+      key={[`${shop}-item`, index].join("_")}
+      style={{
+        backgroundColor: isHoveringRow ? "rgba(0, 0, 0, 0.1)" : "white",
+        borderBottom: "2px solid #e5e5e5",
+        transition: "ease-in",
+        transitionDuration: "200ms",
+      }}
+      onMouseEnter={() => {
+        setIsHoveringRow(true);
+      }}
+      onMouseLeave={() => {
+        setIsHoveringRow(false);
+      }}
     >
       <td>{index}</td>
       <td>
@@ -35,11 +46,21 @@ function Row({ index, promotion , shop }) {
       <td>{promotion.name}</td>
       <td>{promotion.category}</td>
       <td>{promotion.price}</td>
+      <td>{promotion?.expire_date || "-"}</td>
       <td>{promotion.description}</td>
       <td>
-        <div style={{display:'flex' , flexDirection:'column', alignItems:'center' , width:'80px' , paddingRight:'20px' , gap:'5px'}}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "80px",
+            paddingRight: "20px",
+            gap: "5px",
+          }}
+        >
           <ButtonModal order={promotion} shop={shop} />
-          <DeleteModal order={promotion} shop={shop}/>
+          <DeleteModal order={promotion} shop={shop} />
         </div>
       </td>
     </tr>

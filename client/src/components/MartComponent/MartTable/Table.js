@@ -14,6 +14,7 @@ export const Table = ({ promotions, shop }) => {
               <th>Name</th>
               <th>Category</th>
               <th>Price</th>
+              <th>Expire Date</th>
               <th>Description</th>
               <th>Manage</th>
             </tr>
