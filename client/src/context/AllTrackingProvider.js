@@ -194,7 +194,7 @@ function getFilter(searchParams) {
   check1 = check1 === undefined || check1 === null ? "all" : check1;
   check2 = check2 === undefined || check2 === null ? "all" : check2;
   offset = offset === undefined || offset === null ? 0 : offset;
-  item = item === undefined || item === null ? 10 : item;
+  item = item === undefined || item === null ? 50 : item;
   channel = channel === undefined || channel === null ? "" : channel;
   sort = sort === undefined || sort === null ? 1 : sort;
   return {
