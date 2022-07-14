@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { TrackingContext } from "../../../../context/TrackingProvider";
 import { TableData } from "./TableData";
 
 export const Table = () => {
   const { data } = useContext(TrackingContext);
-  console.log(data);
   return (
     <div className="card">
       <div className="card-body">

@@ -49,7 +49,10 @@ export const UserProvider = ({ children }) => {
       });
   };
   useEffect(() => {
-    FetchUsers();
+    async function initial() {
+      await FetchUsers();
+    }
+    initial();
   }, []);
 
   const handleSearch = (e) => {
@@ -104,7 +107,7 @@ function getFilter(searchParams) {
   username = username === undefined || username === null ? "" : username;
   sort = sort === undefined || sort === null ? "desc" : sort;
   offset = offset === undefined || offset === null ? 0 : offset;
-  item = item === undefined || item === null ? 10 : item;
+  item = item === undefined || item === null ? 50 : item;
   return {
     date: date,
     username: username,

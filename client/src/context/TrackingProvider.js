@@ -11,7 +11,7 @@ export const TrackingProvider = ({ children }) => {
     track_id: "",
     round_boat: "",
     offset: 0,
-    item: 10,
+    item: 50,
     status: "",
   });
 

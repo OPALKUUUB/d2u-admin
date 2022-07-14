@@ -135,7 +135,7 @@ function getFilter(searchParams) {
   let item = searchParams.get("item");
   username = username === undefined || username === null ? "" : username;
   offset = offset === undefined || offset === null ? 0 : offset;
-  item = item === undefined || item === null ? 10 : item;
+  item = item === undefined || item === null ? 50 : item;
   return {
     username: username,
     offset: offset,

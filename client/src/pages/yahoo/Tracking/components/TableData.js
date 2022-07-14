@@ -4,12 +4,12 @@ import { TrackingContext } from "../../../../context/TrackingProvider";
 import ManageModal from "./modal/ManageModal";
 
 export const TableData = ({ index, item }) => {
-  const { search } = useContext(TrackingContext);
+  const { search, setLoading } = useContext(TrackingContext);
   const [manageModalShow, setManageModalShow] = React.useState(false);
-  const handleDelete = (id) => {
-    console.log(id);
+  const handleDelete = async (id) => {
     if (window.confirm("คุณแน่ใจที่จะลบ?")) {
-      fetch("/api/yahoo/orders?id=" + id, {
+      setLoading(true);
+      await fetch("/api/yahoo/orders?id=" + id, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${
@@ -18,22 +18,41 @@ export const TableData = ({ index, item }) => {
         },
       })
         .then((res) => res.json())
-        .then((json) => console.log(json))
+        .then((data) => {
+          if (data.status) {
+            search();
+          } else {
+            alert(data.message);
+          }
+        })
         .catch((error) => console.log(error))
         .finally(() => {
-          search();
+          setLoading(false);
         });
     }
   };
-  const handleCheck = (id, obj) => {
-    fetch("/yahoo/check/" + id, {
+  const handleCheck = async (id, obj) => {
+    setLoading(true);
+    await fetch("/yahoo/check/" + id, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(obj),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        if (data.status) {
+          search();
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Update Check fail👎");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <>
