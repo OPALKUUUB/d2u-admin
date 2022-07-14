@@ -154,6 +154,12 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         cName: "sub-nav",
       },
+      {
+        title: "Setting",
+        path: "/mart/setting",
+        icon: <BsIcons.BsFillGearFill />,
+        cName: "sub-nav",
+      },
     ],
   },
   {

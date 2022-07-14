@@ -42,6 +42,7 @@ export default function Login({ setToken }) {
     const token = await loginUser(login);
     setToken(token);
   };
+
   return (
     <Layout>
       <Container>

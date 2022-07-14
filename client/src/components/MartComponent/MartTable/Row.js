@@ -1,9 +1,28 @@
 import React, { useState } from "react";
 import DeleteModal from "../MartModal/DeleteModal";
 import { ButtonModal } from "../MartModal/ManageModal";
+import PropTypes from "prop-types";
+import "./Row.css";
 
 function Row({ index, promotion, shop }) {
   const [isHoveringRow, setIsHoveringRow] = useState(false);
+
+  function genTextSelect(select) {
+    if (typeof select === "string") {
+      return select;
+    } else if (typeof select === "object") {
+      let temp = "";
+      select.forEach((item, i) => {
+        if (i > 0) {
+          temp += " / ";
+        }
+        temp += item.label;
+      });
+      console.log(typeof temp);
+      return temp;
+    }
+    return "-";
+  }
   return (
     <tr
       key={[`${shop}-item`, index].join("_")}
@@ -44,7 +63,21 @@ function Row({ index, promotion, shop }) {
         </div>
       </td>
       <td>{promotion.name}</td>
-      <td>{promotion.category}</td>
+      <td>
+        <div
+          className="Row_box-genText"
+          //     style={{
+          //       textOverflow: "ellipsis",
+          //       width: "200px",
+          //       height: "10px",
+          //       display: "-webkit-box",
+          //       -webkit-box-orient: "vertical",
+          // -webkit-line-clamp: 2
+          //     }}
+        >
+          {genTextSelect(promotion.category)}
+        </div>
+      </td>
       <td>{promotion.price}</td>
       <td>{promotion?.expire_date || "-"}</td>
       <td>{promotion.description}</td>
@@ -66,5 +99,9 @@ function Row({ index, promotion, shop }) {
     </tr>
   );
 }
+
+Row.propTypes = {
+  promotion: PropTypes.object.isRequired,
+};
 
 export default Row;

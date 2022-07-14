@@ -5,6 +5,8 @@ import "./styles.css";
 import axios from "axios";
 import Firebase from "../../../Firebase/firebaseConfig";
 import Resizer from "react-image-file-resizer";
+import Select from "react-select";
+import Options from "./Options";
 
 function ManageModal({ show, onHide, order, shop }) {
   const [post, setPost] = useState(order);
@@ -98,6 +100,9 @@ function ManageModal({ show, onHide, order, shop }) {
         }
       );
   };
+  const handleSelectCategory = (value) => {
+    setPost((prev) => ({ ...prev, category: value }));
+  };
 
   useEffect(() => {
     setPost(order);
@@ -162,12 +167,21 @@ function ManageModal({ show, onHide, order, shop }) {
               </div>
               <div className="Modal-label-input">
                 <label>Category</label>
-                <input
-                  type="text"
-                  name="category"
-                  value={post.category}
-                  onChange={handleChange}
-                />
+                {typeof post.category === "object" ? (
+                  <Select
+                    options={Options}
+                    isMulti
+                    value={post.category}
+                    onChange={handleSelectCategory}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    name="category"
+                    value={post.category}
+                    onChange={handleChange}
+                  />
+                )}
               </div>
               <div className="Modal-label-input">
                 <label>Price</label>

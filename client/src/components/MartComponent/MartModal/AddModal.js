@@ -3,10 +3,12 @@ import * as IoIcons from "react-icons/io";
 import Firebase from "../../../Firebase/firebaseConfig";
 import Resizer from "react-image-file-resizer";
 import "./styles.css";
+import Select from "react-select";
+import Options from "./Options";
 const POST = {
   code: "",
   name: "",
-  category: "",
+  category: [],
   price: "",
   expire_date: "",
   image: "",
@@ -14,6 +16,7 @@ const POST = {
 };
 const AddModal = ({ show, onHide, shop }) => {
   const [post, setPost] = useState(POST);
+  const [category, setCategory] = useState([]);
   const [loadingImage, setLoadingImage] = useState(false);
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
@@ -85,6 +88,11 @@ const AddModal = ({ show, onHide, shop }) => {
       );
     setPost(POST);
   };
+
+  const handleSelectCategory = (value) => {
+    setPost((prev) => ({ ...prev, category: value }));
+  };
+
   if (show) {
     return (
       <>
@@ -143,11 +151,17 @@ const AddModal = ({ show, onHide, shop }) => {
               </div>
               <div className="Modal-label-input">
                 <label>Category</label>
-                <input
+                {/* <input
                   type="text"
                   name="category"
                   value={post.category}
                   onChange={handleChange}
+                /> */}
+                <Select
+                  options={Options}
+                  isMulti
+                  value={post.category}
+                  onChange={handleSelectCategory}
                 />
               </div>
               <div className="Modal-label-input">
