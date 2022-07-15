@@ -7,6 +7,13 @@ import { Fril } from "./Fril";
 import { Shimizu } from "./Shimizu";
 import { Yahoo } from "./Yahoo";
 
+const warning_username = [
+  "Giotto",
+  "April",
+  "Tiewstaff",
+  "AdminNatsu",
+  "AdminSeririnz",
+];
 export const Invoice = () => {
   const {
     shipBilling,
@@ -22,84 +29,124 @@ export const Invoice = () => {
     web123Orders,
     yahooOrders,
     rateYen,
+    allOrders,
+    baseRate,
   } = useContext(ShipBillingItemContext);
-  let sumPrice =
-    sumShimizu.price +
-    sumWeb123.price +
-    sumYahoo.price +
-    sumMercari.price +
-    sumFril.price;
-  let sumCod =
-    sumShimizu.cod +
-    sumWeb123.cod +
-    sumYahoo.cod +
-    sumMercari.cod +
-    sumFril.cod;
-  let discount_price = 0;
-  if (discount) {
-    discount_price = sumPrice * 0.05;
-    discount_price = Math.floor(discount_price);
-    sumPrice -= discount_price;
+
+  let ck = false;
+  for (let i = 0; i < warning_username.length; i++) {
+    if (shipBilling.username === warning_username[i]) {
+      ck = true;
+    }
   }
-  sumPrice += sumCod * rateYen;
-  sumPrice += shipBilling.cost_voyage1;
-  sumPrice -= shipBilling.cost_voyage2;
-  let total = Math.ceil(sumPrice);
-  return (
-    <Styles>
-      <table id="invoice">
-        <thead>
-          <tr>
-            <th colSpan={6} style={{ textAlign: "center" }}>
-              {shipBilling.username} {shipBilling.round_boat}
-            </th>
-          </tr>
-          <tr>
-            <th>Channel</th>
-            <th>Box No.</th>
-            <th>Track Id</th>
-            <th>Weight</th>
-            <th>Price</th>
-            <th>Cod(yen)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <Mercari order={mercariOrders} />
-          <Fril order={frilOrders} />
-          <Shimizu order={shimizuOrders} sum={sumShimizu} />
-          <Web123 order={web123Orders} sum={sumWeb123} />
-          <Yahoo order={yahooOrders} sum={sumYahoo} />
-        </tbody>
-        <tfoot>
-          {discount ? (
+  if (ck) {
+    console.log(allOrders.length);
+    return (
+      <Styles>
+        <table id="invoice">
+          <thead>
+            <tr>
+              <th colSpan={6} style={{ textAlign: "center" }}>
+                {shipBilling.username} {shipBilling.round_boat}
+              </th>
+            </tr>
+            <tr>
+              <th>Channel</th>
+              <th>Box No.</th>
+              <th>Track Id</th>
+              <th>Weight</th>
+              <th>Cod(yen)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allOrders.length > 0 ? (
+              <Body orders={allOrders} rate={baseRate} />
+            ) : (
+              "Loading..."
+            )}
+          </tbody>
+        </table>
+      </Styles>
+    );
+  } else {
+    let sumPrice =
+      sumShimizu.price +
+      sumWeb123.price +
+      sumYahoo.price +
+      sumMercari.price +
+      sumFril.price;
+    let sumCod =
+      sumShimizu.cod +
+      sumWeb123.cod +
+      sumYahoo.cod +
+      sumMercari.cod +
+      sumFril.cod;
+    let discount_price = 0;
+    if (discount) {
+      discount_price = sumPrice * 0.05;
+      discount_price = Math.floor(discount_price);
+      sumPrice -= discount_price;
+    }
+    sumPrice += sumCod * rateYen;
+    sumPrice += shipBilling.cost_voyage1;
+    sumPrice -= shipBilling.cost_voyage2;
+    let total = Math.ceil(sumPrice);
+    return (
+      <Styles>
+        <table id="invoice">
+          <thead>
+            <tr>
+              <th colSpan={6} style={{ textAlign: "center" }}>
+                {shipBilling.username} {shipBilling.round_boat}
+              </th>
+            </tr>
+            <tr>
+              <th>Channel</th>
+              <th>Box No.</th>
+              <th>Track Id</th>
+              <th>Weight</th>
+              <th>Price</th>
+              <th>Cod(yen)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <Mercari order={mercariOrders} />
+            <Fril order={frilOrders} />
+            <Shimizu order={shimizuOrders} sum={sumShimizu} />
+            <Web123 order={web123Orders} sum={sumWeb123} />
+            <Yahoo order={yahooOrders} sum={sumYahoo} />
+          </tbody>
+          <tfoot>
+            {discount ? (
+              <tr id="sum">
+                <th id="head" colSpan={4}>
+                  Discount 5%
+                </th>
+                <td id="price">{discount_price}</td>
+                <td></td>
+              </tr>
+            ) : (
+              <></>
+            )}
             <tr id="sum">
               <th id="head" colSpan={4}>
-                Discount 5%
+                Delivery Cost
               </th>
-              <td id="price">{discount_price}</td>
+              <td id="price">{shipBilling.cost_voyage1}</td>
               <td></td>
             </tr>
-          ) : (
-            <></>
-          )}
-          <tr id="sum">
-            <th id="head" colSpan={4}>
-              Delivery Cost
-            </th>
-            <td id="price">{shipBilling.cost_voyage1}</td>
-            <td></td>
-          </tr>
-          <tr id="sum">
-            <th id="head" colSpan={4}>
-              Total
-            </th>
-            <td id="total">{total}</td>
-            <th>Bath</th>
-          </tr>
-        </tfoot>
-      </table>
-    </Styles>
-  );
+            <tr id="sum">
+              <th id="head" colSpan={4}>
+                Total
+              </th>
+              <td id="total">{total}</td>
+              <th>Bath</th>
+            </tr>
+          </tfoot>
+        </table>
+      </Styles>
+    );
+  }
 };
 
 const Styles = styled.div`
@@ -147,3 +194,30 @@ const Styles = styled.div`
     text-align: right;
   }
 `;
+
+const Body = ({ orders, rate }) => {
+  console.log(rate.rate);
+  let sum_weight = 0;
+  for (let i = 0; i < orders.length; i++) {
+    sum_weight += parseFloat(orders[i].weight);
+  }
+  sum_weight.toFixed(2);
+  let price_sum_weight = sum_weight * 200;
+  return (
+    <>
+      {orders.map((order) => (
+        <tr key={order.id}>
+          <td>{order.channel}</td>
+          <td>{order.box_id}</td>
+          <td>{order.track_id}</td>
+          <td>{order.weight}</td>
+          <td>{order.cod}</td>
+        </tr>
+      ))}
+      <tr>
+        <td colSpan={3}>sum weight</td>
+        <td>{sum_weight}</td>
+      </tr>
+    </>
+  );
+};

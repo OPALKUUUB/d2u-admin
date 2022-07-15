@@ -5,6 +5,7 @@ export const ShipBillingItemContext = createContext();
 export const ShipBillingItemProvider = ({ children }) => {
   const [searchParams] = useSearchParams();
 
+  const [allOrders, setAllOders] = useState([]);
   const [rateYen, setRateYen] = useState(0);
   const [shimizuOrders, setShimizuOrders] = useState([]);
   const [web123Orders, setWeb123Orders] = useState([]);
@@ -66,6 +67,7 @@ export const ShipBillingItemProvider = ({ children }) => {
         point_new > point_old ? point_new : point_old
       );
       setBaseRate(base_rate);
+      setAllOders([...res.trackings, ...res.orders]);
       let shimizu = res.trackings.filter(
         (filtered) => filtered.channel === "shimizu"
       );
@@ -116,6 +118,8 @@ export const ShipBillingItemProvider = ({ children }) => {
         shipBilling: shipBilling,
         setShipBilling: setShipBilling,
         handleUpdateCostVoyage: handleUpdateCostVoyage,
+
+        allOrders: allOrders,
 
         shimizuOrders: shimizuOrders,
         setShimizuOrders: setShimizuOrders,
