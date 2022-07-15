@@ -11,6 +11,7 @@ export const UserContent = () => {
     shipBilling,
     setShipBilling,
     handleUpdateCostVoyage,
+    setTrigger,
   } = useContext(ShipBillingItemContext);
   const handleSaveCostVoyage = () => {
     handleUpdateCostVoyage(shipBilling);
@@ -27,6 +28,7 @@ export const UserContent = () => {
       .then((res) => res.json())
       .then((data) => console.log(data));
     setDiscount(!shipBilling.discount);
+    setTrigger((prev) => !prev);
   };
   // console.log(shipBilling);
   useEffect(() => {

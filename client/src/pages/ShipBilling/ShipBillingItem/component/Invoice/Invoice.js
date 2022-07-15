@@ -40,11 +40,10 @@ export const Invoice = () => {
     discount_price = sumPrice * 0.05;
     discount_price = Math.floor(discount_price);
     sumPrice -= discount_price;
-    console.log("in");
   }
   sumPrice += sumCod * rateYen;
   sumPrice += shipBilling.cost_voyage1;
-  sumPrice += shipBilling.cost_voyage2;
+  sumPrice -= shipBilling.cost_voyage2;
   let total = Math.ceil(sumPrice);
   return (
     <Styles>

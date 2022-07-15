@@ -33,7 +33,7 @@ export const SumTable = () => {
     discount_price = Math.round(discount_price * 100) / 100;
   }
   let total =
-    price + cod * rateYen - discount_price + cost_voyage1 + cost_voyage2;
+    price + cod * rateYen - discount_price + cost_voyage1 - cost_voyage2;
 
   return (
     <div>
