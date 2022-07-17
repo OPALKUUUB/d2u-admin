@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ShowDateTime } from "../../../../components/ShowDateTime";
 import { TrackingContext } from "../../../../context/TrackingProvider";
 import ManageModal from "./modal/ManageModal";
 
-export const TableData = ({ index, item }) => {
+export const TableData = ({ index, data }) => {
   const { search, setLoading } = useContext(TrackingContext);
-  const [manageModalShow, setManageModalShow] = React.useState(false);
+  const [item, setItem] = useState(data);
+  useEffect(() => {
+    setItem(data);
+  }, [data]);
+  const [manageModalShow, setManageModalShow] = useState(false);
   const handleDelete = async (id) => {
     if (window.confirm("คุณแน่ใจที่จะลบ?")) {
       setLoading(true);
@@ -73,7 +77,7 @@ export const TableData = ({ index, item }) => {
         <td>
           <input
             type="checkbox"
-            defaultChecked={item.paid}
+            checked={item.paid}
             onClick={() =>
               handleCheck(item.id, { paid: item.paid === 0 ? 1 : 0 })
             }
@@ -82,7 +86,7 @@ export const TableData = ({ index, item }) => {
         <td>
           <input
             type="checkbox"
-            defaultChecked={item.comment}
+            checked={item.comment}
             onClick={() =>
               handleCheck(item.id, { comment: item.comment === 0 ? 1 : 0 })
             }

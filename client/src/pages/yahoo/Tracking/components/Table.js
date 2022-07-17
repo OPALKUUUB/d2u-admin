@@ -22,7 +22,7 @@ export const Table = () => {
             </thead>
             <tbody>
               {data.map((item, index) => (
-                <TableData item={item} index={index} key={index} />
+                <TableData data={item} index={index} key={index} />
               ))}
             </tbody>
           </table>
