@@ -6,6 +6,7 @@ import {
   AllTrackingProvider,
 } from "../../../context/AllTrackingProvider";
 import { Filter } from "./component/Filter/Filter";
+import AddShimizuModal from "./component/Modal/AddShimizuModal";
 import { ImportCsvModal } from "./component/Modal/ImportCsvModal";
 import { Table } from "./component/Table/Table";
 
@@ -20,9 +21,18 @@ export const Shimizu = () => {
 function App() {
   const { filter, handleNext, handlePrevious } = useContext(AllTrackingContext);
   const [importCsvModal, setImportCsvModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
   return (
     <div className="container-fluid mt-3">
-      <div className="d-flex justify-content-end mb-3">
+      <div className="d-flex justify-content-end mb-3 gap-2">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => setAddModal(true)}
+        >
+          + Add
+        </button>
+        <AddShimizuModal show={addModal} onHide={() => setAddModal(false)} />
         <button
           type="button"
           className="btn btn-success"

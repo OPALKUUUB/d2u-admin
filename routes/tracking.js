@@ -24,6 +24,7 @@ router.delete("/api/tracking/:id", allsController.deleteTracking);
 router.post("/api/tracking", allsController.postTracking);
 
 router.patch("/api/tracking/mer123fril", allsController.patchMer123Fril);
+router.post("/api/tracking/shimizu", shimizuController.addShimizu);
 router.patch("/api/tracking/shimizu", shimizuController.patchShimizu);
 
 router.post(

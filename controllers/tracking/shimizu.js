@@ -156,3 +156,55 @@ exports.uploadCsv = (req, res) => {
       }
     });
 };
+
+exports.addShimizu = async (req, res) => {
+  let date = genDate();
+  try {
+    const sql_user = `select id, point_new, username from user_customers where username = ?;`;
+    let users = await query(sql_user, [req.body.username]).then((res) => res);
+    if (users.length === 1) {
+      let point = 0;
+      let weight = 0;
+      if (req.body.weight === "") {
+        point = 0;
+        weight = 0;
+      } else {
+        point = parseFloat(req.body.weight);
+        weight = point;
+      }
+      let post = [
+        req.body.date,
+        req.body.username,
+        req.body.track_id,
+        req.body.box_id,
+        weight,
+        req.body.round_boat,
+        req.body.remark,
+        "shimizu",
+        date,
+        date,
+        point,
+      ];
+
+      const sql = `
+      insert into
+      trackings
+      (date, username, track_id, box_id, weight, round_boat, remark, channel, created_at, updated_at, point)
+      values ?;
+      `;
+      let result = await query(sql, [[post]]).then((res) => res);
+      let user = users[0];
+      const sql_update_user_point = `update user_customers set point_new = ? where username = ?;`;
+      result = await query(sql_update_user_point, [
+        user.point_new + point,
+        user.username,
+      ]).then((res) => res);
+    }
+    res
+      .status(200)
+      .json({ status: true, message: "Add Shimizu Successfully👍" });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ status: false, message: "add shimizu fail!" });
+  }
+};
