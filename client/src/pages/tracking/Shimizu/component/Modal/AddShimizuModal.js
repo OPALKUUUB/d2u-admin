@@ -36,7 +36,7 @@ const AddShimizuModal = (props) => {
     let check_username = false;
     let date_regx = /\d{4}-\d{2}-\d{2}/gm;
     let check_date = post.date === "" ? false : date_regx.test(post.date);
-    console.log(check_date);
+    // console.log(check_date);
     for (let i = 0; i < users.length; i++) {
       if (users[i].username === post.username) {
         check_username = true;
@@ -51,9 +51,9 @@ const AddShimizuModal = (props) => {
       } else {
         alert("add shimizu fail!");
       }
-    } else if (check_username) {
+    } else if (!check_username) {
       alert("กรุณาตวจสอบความถูกต้องของ username!");
-    } else if (check_date) {
+    } else if (!check_date) {
       alert("กรุณากรอกวันที่");
     }
   };

@@ -22,6 +22,7 @@ export const FormAdd = () => {
   const [post, setPost] = useState(tracking_model);
   const [pic1File, setPic1File] = useState(null);
   const [pic2File, setPic2File] = useState(null);
+  const [users, setUsers] = useState([]);
   const handleChange = (e) => {
     setPost((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -34,39 +35,67 @@ export const FormAdd = () => {
     } else if (post.username === "") {
       return alert("please enter username");
     }
-    let t = post;
-    if (pic1File !== null) {
-      const d = new FormData();
-      d.append("file", pic1File);
-      d.append("upload_preset", "d2u-service");
-      d.append("cloud_name", "d2u-service");
-      await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-        method: "POST",
-        body: d,
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          t.pic1_filename = data.url;
-        })
-        .catch((err) => console.log(err));
+    let check_username = false;
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].username === post.username) {
+        check_username = true;
+        break;
+      }
     }
-    if (pic2File !== null) {
-      const d = new FormData();
-      d.append("file", pic2File);
-      d.append("upload_preset", "d2u-service");
-      d.append("cloud_name", "d2u-service");
-      await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-        method: "POST",
-        body: d,
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          t.pic2_filename = data.url;
+    if (check_username) {
+      let t = post;
+      if (pic1File !== null) {
+        const d = new FormData();
+        d.append("file", pic1File);
+        d.append("upload_preset", "d2u-service");
+        d.append("cloud_name", "d2u-service");
+        await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+          method: "POST",
+          body: d,
         })
-        .catch((err) => console.log(err));
+          .then((resp) => resp.json())
+          .then((data) => {
+            t.pic1_filename = data.url;
+          })
+          .catch((err) => console.log(err));
+      }
+      if (pic2File !== null) {
+        const d = new FormData();
+        d.append("file", pic2File);
+        d.append("upload_preset", "d2u-service");
+        d.append("cloud_name", "d2u-service");
+        await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
+          method: "POST",
+          body: d,
+        })
+          .then((resp) => resp.json())
+          .then((data) => {
+            t.pic2_filename = data.url;
+          })
+          .catch((err) => console.log(err));
+      }
+      await PostTracking(t);
+    } else if (!check_username) {
+      alert("กรุณาตวจสอบความถูกต้องของ username!");
     }
-    await PostTracking(t);
   };
+  const FetchUser = async () => {
+    const res = await fetch("/api/overview/users/autocomplete", {
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("token")).token
+        }`,
+      },
+    }).then((res) => res.json());
+    return res;
+  };
+  useEffect(() => {
+    async function initial() {
+      const res = await FetchUser();
+      setUsers(res.data);
+    }
+    initial();
+  }, []);
   return (
     <form onSubmit={handleSubmit}>
       <div className="row">
@@ -82,7 +111,7 @@ export const FormAdd = () => {
         </div>
         <div className="col-3 mb-3">
           <label className="form-label">Username</label>
-          <AutoComplete
+          {/* <AutoComplete
             state={post.username}
             setState={(value) => setPost({ ...post, username: value })}
           >
@@ -93,7 +122,24 @@ export const FormAdd = () => {
               value={post.username}
               onChange={handleChange}
             />
-          </AutoComplete>
+          </AutoComplete> */}
+          <label htmlFor="all-username" className="form-label">
+            Username (ถ้า submit fail ให้ตรวจสอบ username ว่าถูกต้องหรือไม่)
+          </label>
+          <input
+            className="form-control"
+            list="datalistOptions"
+            id="all-username"
+            placeholder="Type to search..."
+            name="username"
+            value={post.username}
+            onChange={handleChange}
+          />
+          <datalist id="datalistOptions">
+            {users.map((item) => (
+              <option key={item.id} value={item.username} />
+            ))}
+          </datalist>
         </div>
         <div className="col-2 mb-3">
           <label className="form-label">Channel</label>
