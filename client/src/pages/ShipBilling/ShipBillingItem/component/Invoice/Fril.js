@@ -19,7 +19,7 @@ export const Fril = ({ order }) => {
               price = weight_cal * 200;
             }
             return (
-              <tr style={{ background: "rgba(255, 0,0, 0.5)" }}>
+              <tr style={{ background: "#ee82ee" }}>
                 <th>{index === 0 && "Fril"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>

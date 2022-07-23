@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const Tbody = () => {
   const { data } = useContext(AdminContext);
+  // console.log(data);
   return (
     <tbody>
       {data.map((item, index) => (

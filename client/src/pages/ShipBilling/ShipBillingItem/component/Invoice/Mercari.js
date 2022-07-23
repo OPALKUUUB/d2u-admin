@@ -19,7 +19,7 @@ export const Mercari = ({ order }) => {
               price = weight_cal * 200;
             }
             return (
-              <tr style={{ background: "rgba(124,252,0, .5)" }}>
+              <tr style={{ background: "#ffb6c1" }}>
                 <th>{index === 0 && "Mercari"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>

@@ -7,7 +7,7 @@ export const Yahoo = ({ order, sum }) => {
         <>
           {order.map((row, index) => {
             return (
-              <tr style={{ background: "pink" }}>
+              <tr style={{ background: "#ff7f50" }}>
                 <th>{index === 0 && "Yahoo"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
@@ -17,7 +17,7 @@ export const Yahoo = ({ order, sum }) => {
               </tr>
             );
           })}
-          <tr id="sum" style={{ background: "pink" }}>
+          <tr id="sum" style={{ background: "#ff7f50" }}>
             <th id="head" colSpan={3}>
               Sum
             </th>

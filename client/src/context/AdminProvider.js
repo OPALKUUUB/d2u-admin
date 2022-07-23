@@ -16,6 +16,7 @@ export const AdminProvider = ({ children }) => {
       .then((res) => res.json())
       .then((json) => {
         if (json.status) {
+          console.log(json.data);
           setData(json.data);
           setRole(json.role);
         } else {
@@ -26,7 +27,10 @@ export const AdminProvider = ({ children }) => {
           window.location.reload(false);
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      })
       .finally(() => setLoading(false));
   };
   const PatchAdmins = async (id, item) => {

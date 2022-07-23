@@ -7,7 +7,7 @@ export const Shimizu = ({ order, sum }) => {
         <>
           {order.map((row, index) => {
             return (
-              <tr style={{ background: "rgba(0,0,255,0.5)" }}>
+              <tr style={{ background: "#fffacd" }}>
                 <th>{index === 0 && "Shimizu"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
@@ -17,7 +17,7 @@ export const Shimizu = ({ order, sum }) => {
               </tr>
             );
           })}
-          <tr id="sum" style={{ background: "rgba(0,0,255,0.5)" }}>
+          <tr id="sum" style={{ background: "#fffacd" }}>
             <th id="head" colSpan={3}>
               Sum
             </th>

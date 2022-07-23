@@ -21,6 +21,7 @@ exports.getAdmins = async (req, res) => {
     const sql_role =
       "select username, role from user_admins where username = ?;";
     role = await query(sql_role, [res.locals.username]).then((res) => res);
+    console.log(res.locals.username);
     res.status(200).json({
       status: true,
       data: rows,
