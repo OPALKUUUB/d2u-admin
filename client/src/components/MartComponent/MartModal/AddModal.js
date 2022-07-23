@@ -18,6 +18,7 @@ const AddModal = ({ show, onHide, shop }) => {
   const [post, setPost] = useState(POST);
   const [category, setCategory] = useState([]);
   const [loadingImage, setLoadingImage] = useState(false);
+  const [checkExpireDate, setCheckExpireDate] = useState(false);
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
   };
@@ -73,7 +74,7 @@ const AddModal = ({ show, onHide, shop }) => {
           name: post.name,
           price: post.price,
           expire_date: post.expire_date,
-          category: post.category,
+          category: post.category === undefined ? "" : post.category,
           image: post.image,
           description: post.description,
         },
@@ -173,15 +174,38 @@ const AddModal = ({ show, onHide, shop }) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="Modal-label-input">
-                <label>Expire Date</label>
+              <div className="flex">
                 <input
-                  type="date"
-                  name="expire_date"
-                  value={post.expire_date}
-                  onChange={handleChange}
-                />
+                  type="checkbox"
+                  checked={checkExpireDate}
+                  onChange={(e) => {
+                    setCheckExpireDate(e.target.checked);
+                    if (e.target.checked) {
+                      setPost((prev) => ({
+                        ...prev,
+                        expire_date: "หมดอายุไม่น้อยกว่า 3 เดือน",
+                      }));
+                    } else {
+                      setPost((prev) => ({
+                        ...prev,
+                        expire_date: "หมดอายุไม่น้อยกว่า 3 เดือน",
+                      }));
+                    }
+                  }}
+                />{" "}
+                <label>หมดอายุไม่น้อยกว่า 3 เดือน</label>
               </div>
+              {!checkExpireDate && (
+                <div className="Modal-label-input">
+                  <label>Expire Date</label>
+                  <input
+                    type="date"
+                    name="expire_date"
+                    value={post.expire_date}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
               <div className="Modal-label-input">
                 <label>Description</label>
                 <textarea

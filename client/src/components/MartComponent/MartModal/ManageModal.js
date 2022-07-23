@@ -11,31 +11,10 @@ import Options from "./Options";
 function ManageModal({ show, onHide, order, shop }) {
   const [post, setPost] = useState(order);
   const [loadingImage, setLoadingImage] = useState(false);
-
+  const [checkExpireDate, setCheckExpireDate] = useState(false);
   const handleChange = (e) => {
     setPost((prev) => ({ ...post, [e.target.name]: e.target.value }));
   };
-
-  // const handleSelectImage = async (e) => {
-  //   setLoadingImage(true);
-  //   const formData = new FormData();
-
-  // formData.append("file", e.target.files[0]);
-  // formData.append("upload_preset", "d2u-service");
-  // formData.append("cloud_name", "d2u-service");
-  // await fetch("https://api.cloudinary.com/v1_1/d2u-service/upload", {
-  //   method: "POST",
-  //   body: formData,
-  // })
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     setPost({ ...post, image: data.url });
-  //   })
-  //   .catch((err) => console.log(err))
-  //   .finally(() => {
-  //     setLoadingImage(false);
-  //   });
-  // };
 
   function handleSelectImage(event) {
     var fileInput = false;
@@ -79,6 +58,7 @@ function ManageModal({ show, onHide, order, shop }) {
     // console.log(post);
     // setPost(POST);
     // console.log(shop);
+    // console.log(post);
     await Firebase.database()
       .ref(`/${shop}/${post.code}`)
       .update(
@@ -106,7 +86,15 @@ function ManageModal({ show, onHide, order, shop }) {
 
   useEffect(() => {
     setPost(order);
-    console.log(order);
+    if (
+      /\d{4}-\d{2}-\d{2}/.test(order.expire_date) ||
+      order.expire_date === ""
+    ) {
+      setCheckExpireDate(false);
+    } else {
+      setCheckExpireDate(true);
+    }
+    // console.log(order);
   }, [order]);
 
   if (show) {
@@ -192,15 +180,38 @@ function ManageModal({ show, onHide, order, shop }) {
                   onChange={handleChange}
                 />
               </div>
-              <div className="Modal-label-input">
-                <label>Expire Date</label>
+              <div className="flex">
                 <input
-                  type="date"
-                  name="expire_date"
-                  value={post.expire_date}
-                  onChange={handleChange}
-                />
+                  type="checkbox"
+                  checked={checkExpireDate}
+                  onChange={(e) => {
+                    setCheckExpireDate(e.target.checked);
+                    if (e.target.checked) {
+                      setPost((prev) => ({
+                        ...prev,
+                        expire_date: "หมดอายุไม่น้อยกว่า 3 เดือน",
+                      }));
+                    } else {
+                      setPost((prev) => ({
+                        ...prev,
+                        expire_date: "",
+                      }));
+                    }
+                  }}
+                />{" "}
+                <label>หมดอายุไม่น้อยกว่า 3 เดือน</label>
               </div>
+              {!checkExpireDate && (
+                <div className="Modal-label-input">
+                  <label>Expire Date</label>
+                  <input
+                    type="date"
+                    name="expire_date"
+                    value={post.expire_date}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
               <div className="Modal-label-input">
                 <label>Description</label>
                 <textarea
