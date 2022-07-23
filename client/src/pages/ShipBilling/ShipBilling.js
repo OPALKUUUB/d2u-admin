@@ -177,8 +177,18 @@ const RowShipBilling = ({ row }) => {
             <button onClick={handleSaveRemark}>save</button>
           </div>
         ) : (
-          <p style={{ cursor: "pointer" }} onClick={() => setEdit(!edit)}>
-            {remark === null || remark === "" ? "-" : remark}
+          <p
+            style={{
+              cursor: "pointer",
+              // minWidth: "10px",
+              // minHeight: "10px",
+              // background: "red",
+            }}
+            onClick={() => setEdit(!edit)}
+          >
+            {remark === null || remark === "" || remark === undefined
+              ? "-"
+              : remark}
           </p>
         )}
       </td>
