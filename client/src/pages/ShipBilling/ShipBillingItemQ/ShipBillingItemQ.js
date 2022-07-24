@@ -24,7 +24,7 @@ const ShipBillingItemQ = () => {
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
-    console.log(res);
+    // console.log(res);
     return res;
   };
   const handleSaveCostDeliveryQ = async () => {
@@ -86,6 +86,11 @@ const ShipBillingItemQ = () => {
       {order.length > 0 ? (
         <table className="table">
           <thead>
+            <tr>
+              <th colSpan={6} style={{ textAlign: "center" }}>
+                {shipBilling.username} {shipBilling.round_boat}
+              </th>
+            </tr>
             <tr>
               <th>channel</th>
               <th>track_id</th>

@@ -7,7 +7,7 @@ export const Web123 = ({ order, sum }) => {
         <>
           {order.map((row, index) => {
             return (
-              <tr style={{ background: "e0ffff" }}>
+              <tr style={{ background: "#e0ffff" }}>
                 <th>{index === 0 && "เว็บทั่วไป"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
@@ -17,7 +17,7 @@ export const Web123 = ({ order, sum }) => {
               </tr>
             );
           })}
-          <tr id="sum" style={{ background: "e0ffff" }}>
+          <tr id="sum" style={{ background: "#e0ffff" }}>
             <th id="head" colSpan={3}>
               Sum
             </th>

@@ -17,13 +17,16 @@ export const Mercari = ({ order }) => {
               weight_cal -= 1;
               weight_cal = Math.round(weight_cal * 100) / 100;
               price = weight_cal * 200;
+              price = Math.ceil(price * 100) / 100;
+              price = price.toFixed(2);
+              weight = weight.toFixed(2);
             }
             return (
               <tr style={{ background: "#ffb6c1" }}>
                 <th>{index === 0 && "Mercari"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
-                <td>{row.weight}</td>
+                <td>{weight}</td>
                 <td>{price}</td>
                 <td>{row.cod}</td>
               </tr>

@@ -75,6 +75,8 @@ function Row({ data, index }) {
     weight_cal -= 1;
     weight_cal = Math.round(weight_cal * 100) / 100;
     price = weight_cal * 200;
+    price = Math.ceil(price * 100) / 100;
+    price = price.toFixed(2);
   }
   return (
     <tr>

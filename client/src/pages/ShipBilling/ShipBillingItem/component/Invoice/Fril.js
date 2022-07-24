@@ -17,13 +17,16 @@ export const Fril = ({ order }) => {
               weight_cal -= 1;
               weight_cal = Math.round(weight_cal * 100) / 100;
               price = weight_cal * 200;
+              price = Math.ceil(price * 100) / 100;
+              price = price.toFixed(2);
+              weight = weight.toFixed(2);
             }
             return (
               <tr style={{ background: "#ee82ee" }}>
                 <th>{index === 0 && "Fril"}</th>
                 <td>{row.box_id}</td>
                 <td>{row.track_id}</td>
-                <td>{row.weight}</td>
+                <td>{weight}</td>
                 <td>{price}</td>
                 <td>{row.cod}</td>
               </tr>
