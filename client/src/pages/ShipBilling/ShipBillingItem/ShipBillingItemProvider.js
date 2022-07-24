@@ -59,6 +59,7 @@ export const ShipBillingItemProvider = ({ children }) => {
   useEffect(() => {
     async function getInitial() {
       const res = await FetchBilling();
+      console.log(res);
       let point_new = parseFloat(res.userInfo.point_new);
       let point_old = parseFloat(
         res.userInfo.point_old === null ? 0 : res.userInfo.point_old
@@ -84,6 +85,7 @@ export const ShipBillingItemProvider = ({ children }) => {
       // console.log(res.trackings);
       setShimizuOrders(shimizu);
       setWeb123Orders(web123);
+      console.log(yahoo);
       setYahooOrders(yahoo);
       setMercariOrders(mercari);
       setFrilOrders(fril);

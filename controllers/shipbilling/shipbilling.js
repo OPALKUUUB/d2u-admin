@@ -107,21 +107,29 @@ exports.getShipBilling = async (req, res) => {
       "SELECT * FROM orders WHERE username = ? and round_boat = ? ORDER BY created_at DESC;";
     const sql_cost_voyage =
       "SELECT * FROM ship_billings where username = ? and round_boat = ?;";
-    const sql_user = "SELECT * FROM user_customers where username like ?;";
+    const sql_user = "SELECT * FROM user_customers where username = ?;";
     const sql_config = "SELECT * FROM config;";
     let users = await query(sql_user, [username]).then((res) => res);
+    // console.log(users);
     let trackings = await query(sql_trackings, data).then((res) => res);
     let orders = await query(sql_orders, data).then((res) => res);
     let ship_billings = await query(sql_cost_voyage, data).then((res) => res);
     let config = await query(sql_config).then((res) => res);
-    res.json({
-      status: true,
-      trackings: trackings,
-      orders: orders,
-      userInfo: users[0],
-      ship_billing: ship_billings[0],
-      config: config[0],
-    });
+    if (users.length) {
+      res.json({
+        status: true,
+        trackings: trackings,
+        orders: orders,
+        userInfo: users[0],
+        ship_billing: ship_billings[0],
+        config: config[0],
+      });
+    } else {
+      res.status(101).json({
+        status: false,
+        message: "no data user",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(400).json({

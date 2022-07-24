@@ -12,7 +12,7 @@ import { UserContent } from "./component/UserContent/UserContent";
 export const ShipBillingItem = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get("username"));
+  // console.log(searchParams.get("username"));
   return (
     <div>
       <button
