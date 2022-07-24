@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 
 const ShipBillingItemQ = () => {
   const [searchParams] = useSearchParams();
@@ -84,47 +85,50 @@ const ShipBillingItemQ = () => {
         </div>
       </div>
       {order.length > 0 ? (
-        <table className="table">
-          <thead>
-            <tr>
-              <th colSpan={6} style={{ textAlign: "center" }}>
-                {shipBilling.username} {shipBilling.round_boat}
-              </th>
-            </tr>
-            <tr>
-              <th>channel</th>
-              <th>track_id</th>
-              <th>box_no</th>
-              <th>weight</th>
-            </tr>
-          </thead>
-          <tbody>
-            {order.map((item) => {
-              return (
-                <tr key={[item.channel, item.id].join("_")}>
-                  <td>{item.channel}</td>
-                  <td>{item.track_id}</td>
-                  <td>{item.box_id}</td>
-                  <td>{item.weight}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan={3}>sum weight</td>
-              <td>{Math.round(sum_weight * 100) / 100}</td>
-            </tr>
-            <tr>
-              <td colSpan={3}>ค่าส่ง</td>
-              <td>{Math.round(costDeliveryQ * 100) / 100}</td>
-            </tr>
-            <tr>
-              <td colSpan={3}>sum price</td>
-              <td>{Math.round(total * 100) / 100}</td>
-            </tr>
-          </tfoot>
-        </table>
+        <Styles>
+          <table>
+            <thead>
+              <tr>
+                <th colSpan={6} style={{ textAlign: "center" }}>
+                  {searchParams.get("username")}{" "}
+                  {searchParams.get("round_boat")}
+                </th>
+              </tr>
+              <tr>
+                <th>channel</th>
+                <th>track_id</th>
+                <th>box_no</th>
+                <th>weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              {order.map((item) => {
+                return (
+                  <tr key={[item.channel, item.id].join("_")}>
+                    <td>{item.channel}</td>
+                    <td>{item.track_id}</td>
+                    <td>{item.box_id}</td>
+                    <td>{item.weight}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={3}>sum weight</td>
+                <td id="sum">{Math.round(sum_weight * 100) / 100} Kg.</td>
+              </tr>
+              <tr>
+                <td colSpan={3}>ค่าส่ง</td>
+                <td id="sum">{Math.round(costDeliveryQ * 100) / 100} bath.</td>
+              </tr>
+              <tr>
+                <td colSpan={3}>total</td>
+                <td id="total">{Math.round(total * 100) / 100} bath.</td>
+              </tr>
+            </tfoot>
+          </table>
+        </Styles>
       ) : (
         <>loading...</>
       )}
@@ -133,3 +137,42 @@ const ShipBillingItemQ = () => {
 };
 
 export default ShipBillingItemQ;
+
+const Styles = styled.div`
+  margin-bottom: 50px;
+  margin-top: 30px;
+  table {
+    width: 70%;
+  }
+  th,
+  td {
+    padding: 8px 15px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  thead tr {
+    background-color: #ddd;
+  }
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  tbody tr:hover {
+    background-color: #ddd;
+  }
+  tbody td {
+    padding: 5px;
+  }
+  th {
+    text-align: left;
+  }
+  #sum,
+  #total {
+    font-weight: 600;
+  }
+  #sum {
+    text-align: center;
+  }
+  #total {
+    text-align: center;
+    border-bottom: 5px double black;
+  }
+`;
