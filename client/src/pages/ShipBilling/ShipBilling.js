@@ -180,9 +180,6 @@ const RowShipBilling = ({ row }) => {
           <p
             style={{
               cursor: "pointer",
-              // minWidth: "10px",
-              // minHeight: "10px",
-              // background: "red",
             }}
             onClick={() => setEdit(!edit)}
           >
