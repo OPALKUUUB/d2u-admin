@@ -40,7 +40,7 @@ export const Invoice = () => {
     }
   }
   if (ck) {
-    console.log(allOrders.length);
+    // console.log(allOrders.length);
     return (
       <Styles>
         <table id="invoice">
@@ -60,7 +60,13 @@ export const Invoice = () => {
           </thead>
           <tbody>
             {allOrders.length > 0 ? (
-              <Body orders={allOrders} rate={baseRate} />
+              <Body
+                orders={allOrders}
+                rate={baseRate}
+                discount={discount}
+                shipBilling={shipBilling}
+                rateYen={rateYen}
+              />
             ) : (
               "Loading..."
             )}
@@ -195,14 +201,29 @@ const Styles = styled.div`
   }
 `;
 
-const Body = ({ orders, rate }) => {
-  console.log(rate.rate);
+const Body = ({ orders, rate, shipBilling, discount, rateYen }) => {
+  // console.log(rate.rate);
   let sum_weight = 0;
+  let sum_cod = 0;
   for (let i = 0; i < orders.length; i++) {
     sum_weight += parseFloat(orders[i].weight);
+    sum_cod += parseFloat(orders[i].cod);
   }
-  sum_weight.toFixed(2);
+  sum_cod *= rateYen;
+  sum_cod = Math.ceil(sum_cod * 100) / 100;
+  sum_weight = sum_weight.toFixed(2);
   let price_sum_weight = sum_weight * 200;
+  let discount_price = 0;
+  if (discount) {
+    discount_price = price_sum_weight * 0.05;
+    discount_price = Math.floor(discount_price * 100) / 100;
+    discount_price = discount_price.toFixed(2);
+    price_sum_weight -= discount_price;
+  }
+  price_sum_weight += parseFloat(shipBilling.cost_voyage1);
+  price_sum_weight -= parseFloat(shipBilling.cost_voyage2);
+  price_sum_weight += sum_cod;
+  price_sum_weight = price_sum_weight.toFixed(2);
   return (
     <>
       {orders.map((order) => (
@@ -210,13 +231,48 @@ const Body = ({ orders, rate }) => {
           <td>{order.channel}</td>
           <td>{order.box_id}</td>
           <td>{order.track_id}</td>
-          <td>{order.weight}</td>
-          <td>{order.cod}</td>
+          <td>{parseFloat(order.weight).toFixed(2)}</td>
+          <td>{parseFloat(order.cod).toFixed(2)}</td>
         </tr>
       ))}
       <tr>
         <td colSpan={3}>sum weight</td>
         <td>{sum_weight}</td>
+        <td>Kg.</td>
+      </tr>
+      {sum_cod > 0 && (
+        <tr>
+          <td colSpan={3}>COD</td>
+          <td>{sum_cod}</td>
+          <td>bath.</td>
+        </tr>
+      )}
+      {discount === 1 && (
+        <tr>
+          <td colSpan={3}>discount 5%</td>
+          <td>{discount_price}</td>
+          <td>bath</td>
+        </tr>
+      )}
+      {shipBilling.cost_voyage1 > 0 && (
+        <tr>
+          <td colSpan={3}>ค่าส่ง</td>
+          <td>{shipBilling.cost_voyage1}</td>
+          <td>bath</td>
+        </tr>
+      )}
+      {shipBilling.cost_voyage2 > 0 && (
+        <tr>
+          <td colSpan={3}>ส่วนลด</td>
+          <td>{shipBilling.cost_voyage2}</td>
+          <td>bath</td>
+        </tr>
+      )}
+
+      <tr>
+        <td colSpan={3}>total</td>
+        <td>{price_sum_weight}</td>
+        <td>bath</td>
       </tr>
     </>
   );
