@@ -198,3 +198,24 @@ exports.UpdateShipBilling = async (req, res) => {
     res.status(400).json({ status: false });
   }
 };
+
+exports.getUserAddress = async (req, res) => {
+  console.log(req.query.username);
+  try {
+    const sql =
+      "select username, address from user_customers where username = ?;";
+    let users = await query(sql, [req.query.username]).then((res) => res);
+    if (users.length) {
+      res.status(200).json({ status: true, address: users[0].address });
+    } else {
+      res.status(400).json({
+        status: false,
+        address: "",
+        message: "no data address" + req.query.username,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ status: false, message: "fetch err" });
+  }
+};

@@ -14,5 +14,5 @@ router.patch(
   "/ship/billing/update/:id",
   shipBillingController.UpdateShipBilling
 );
-
+router.get("/user/address", shipBillingController.getUserAddress);
 module.exports = router;
